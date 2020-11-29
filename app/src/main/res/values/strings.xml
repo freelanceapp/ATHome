@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">We Zain</string>
+    <string name="app_name">At Home</string>
     <string name="field_req">Field required</string>
     <string name="failed">Failed</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
@@ -63,5 +63,12 @@
     <string name="user_name">User name</string>
     <string name="register">Register</string>
     <string name="you_have_an_account">You Have an Account</string>
+    <string name="descriptions">الوصف</string>
+    <string name="comments">التعليق</string>
+    <string name="quantity">الكمية</string>
+    <string name="add_to_cart">أضف لسلة المشتريات</string>
+    <string name="product_details">تفاصيل المنتج</string>
+    <string name="reviews">المراجعات</string>
+    <string name="details">التفاصيل</string>
 
 </resources>

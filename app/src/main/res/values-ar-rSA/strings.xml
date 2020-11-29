@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">وي زين</string>
+    <string name="app_name">آت هوم</string>
     <string name="field_req">الحقل مطلوب</string>
     <string name="terms_and_conditions">الشروط والاحكام</string>
     <string name="enter_verification_code">ادخل كود التحقق</string>
@@ -64,4 +64,11 @@
     <string name="user_name">User name</string>
     <string name="register">دخول</string>
     <string name="you_have_an_account">You Have an Account</string>
+    <string name="descriptions">الوصف</string>
+    <string name="comments">التعليق</string>
+    <string name="quantity">الكمية</string>
+    <string name="add_to_cart">أضف لسلة المشتريات</string>
+    <string name="product_details">تفاصيل المنتج</string>
+    <string name="reviews">المراجعات</string>
+    <string name="details">التفاصيل</string>
 </resources>
