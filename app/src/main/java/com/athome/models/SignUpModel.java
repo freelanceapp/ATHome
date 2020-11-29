@@ -12,47 +12,56 @@ import com.athome.R;
 import java.io.Serializable;
 
 public class SignUpModel extends BaseObservable implements Serializable {
-    private String imageUrl;
     private String name;
-    private String gender;
-    private String birth_date;
-    private String blood_type;
-    private boolean have_diseases;
+
     private String phone_code;
     private String phone;
 
+    private String password;
+    public ObservableField<String> error_phone = new ObservableField<>();
+    public ObservableField<String> error_password = new ObservableField<>();
     public ObservableField<String> error_name = new ObservableField<>();
-    public ObservableField<String> error_birth_date = new ObservableField<>();
 
 
-    public SignUpModel(String phone_code, String phone) {
-        this.phone_code = phone_code;
-        this.phone = phone;
-        this.imageUrl="";
+    public SignUpModel() {
+        this.phone_code = "";
+        this.phone = "";
+       this. password = "";
         this.name = "";
 
     }
 
     public boolean isDataValid(Context context){
-        if (!name.isEmpty()
-        )
-            if (name.isEmpty()){
+        if (!name.isEmpty()&&!phone.isEmpty()&&!password.isEmpty()&&password.length()>=6
+        ){
+         return true;
+        }
+            else {
+                if (name.isEmpty()){
                 error_name.set(context.getString(
                         R.string.field_req));
             }else {
                 error_name.set(null);
             }
 
+            if (phone.isEmpty()){
+                error_phone.set(context.getString(R.string.field_req));
+
+            }else {
+                error_phone.set(null);
+
+            }
+
+            if (password.isEmpty()){
+                error_password.set(context.getString(R.string.field_req));
+            }else if (password.length()<6){
+                error_password.set(context.getString(R.string.password_short));
+            }else {
+                error_password.set(null);
+            }
+
             return false;
-        }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
+        }}
 
     @Bindable
     public String getName() {
@@ -83,5 +92,11 @@ public class SignUpModel extends BaseObservable implements Serializable {
         this.phone = phone;
     }
 
+    public String getPassword() {
+        return password;
+    }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

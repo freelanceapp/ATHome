@@ -16,6 +16,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.athome.R;
 import com.athome.adapters.BrandAdapter;
+import com.athome.adapters.CategoriesAdapter;
+import com.athome.adapters.SubCategoriesAdapter;
 import com.athome.databinding.FragmentCategoriesBinding;
 import com.athome.models.BankDataModel;
 import com.athome.ui.activity_home.HomeActivity;
@@ -25,7 +27,8 @@ import java.util.ArrayList;
 public class Fragment_Categories extends Fragment {
     private FragmentCategoriesBinding binding;
     private HomeActivity activity;
-    private BrandAdapter auctionAdapter;
+    private SubCategoriesAdapter auctionAdapter;
+    private CategoriesAdapter categoriesAdapter;
 
     public static Fragment_Categories newInstance(){
         return new Fragment_Categories();
@@ -43,8 +46,12 @@ public class Fragment_Categories extends Fragment {
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recView.setLayoutManager(new LinearLayoutManager(activity));
         binding.progBar.setVisibility(View.GONE);
-        auctionAdapter = new BrandAdapter( new ArrayList<BankDataModel.BankModel>(),activity);
-        binding.recView.setLayoutManager(new GridLayoutManager(activity,3));
+        auctionAdapter = new SubCategoriesAdapter( new ArrayList<BankDataModel.BankModel>(),activity);
         binding.recView.setAdapter(auctionAdapter);
+        binding.progBarcategories.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        binding.recViewcategories.setLayoutManager(new LinearLayoutManager(activity));
+        binding.progBarcategories.setVisibility(View.GONE);
+        categoriesAdapter = new CategoriesAdapter( new ArrayList<BankDataModel.BankModel>(),activity);
+        binding.recViewcategories.setAdapter(categoriesAdapter);
     }
 }

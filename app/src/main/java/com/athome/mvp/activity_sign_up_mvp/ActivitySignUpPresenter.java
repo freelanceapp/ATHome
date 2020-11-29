@@ -28,12 +28,12 @@ public class ActivitySignUpPresenter {
     public void checkData(SignUpModel signUpModel)
     {
         if (signUpModel.isDataValid(context)){
-            if (signUpModel.getImageUrl().isEmpty()){
-                sign_up_without_image(signUpModel);
-            }else {
+//            if (signUpModel.getImageUrl().isEmpty()){
+//                sign_up_without_image(signUpModel);
+//            }else {
                 sign_up_with_image(signUpModel);
 
-            }
+          //  }
         }
     }
     public void showDateDialog(FragmentManager fragmentManager){

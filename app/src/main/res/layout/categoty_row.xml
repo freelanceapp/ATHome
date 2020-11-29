@@ -13,28 +13,26 @@
         <import type="android.view.View" />
     </data>
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
 
+        app:cardBackgroundColor="@color/gray3"
+        app:cardElevation="3dp"
+        app:contentPadding="10dp">
 
         <FrameLayout
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
+
                 android:orientation="vertical">
 
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    android:src="@drawable/brand"
-                 />
 
                 <TextView
                     android:layout_width="match_parent"
@@ -43,7 +41,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="2"
-                    android:text="أيفون"
+                    android:text="ادوات تقديم"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 
@@ -58,4 +56,5 @@
 
 
         </FrameLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
