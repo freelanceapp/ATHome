@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -12,6 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.athome.ui.activity_cart_sell.CartActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.athome.R;
 import com.athome.databinding.ActivityHomeBinding;
@@ -28,12 +30,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     private ActivityHomeBinding binding;
     private FragmentManager fragmentManager;
     private ActivityHomePresenter presenter;
-    private double lat=0.0,lng=0.0;
+    private double lat = 0.0, lng = 0.0;
 
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
-        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang","ar")));
+        super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
 
     @Override
@@ -45,14 +47,14 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     }
 
     private void getDataFromIntent() {
-        Intent intent  = getIntent();
-        lat = intent.getDoubleExtra("lat",0.0);
-        lng = intent.getDoubleExtra("lng",0.0);
+        Intent intent = getIntent();
+        lat = intent.getDoubleExtra("lat", 0.0);
+        lng = intent.getDoubleExtra("lng", 0.0);
     }
 
     private void initView() {
         fragmentManager = getSupportFragmentManager();
-        presenter = new ActivityHomePresenter(this, this, fragmentManager,lat,lng);
+        presenter = new ActivityHomePresenter(this, this, fragmentManager, lat, lng);
         binding.navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -60,8 +62,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
                 return true;
             }
         });
-
-
+        binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                presenter.cart();
+            }
+        });
 
 
     }
@@ -100,6 +106,14 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     @Override
     public void onNavigateToLoginActivity() {
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+
+    }
+
+    @Override
+    public void onNavigateToCartActivity() {
+        Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
         finish();
 

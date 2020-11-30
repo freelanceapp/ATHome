@@ -4,4 +4,5 @@ public interface HomeActivityView {
     void onHomeFragmentSelected();
     void onNavigateToLoginActivity();
     void onFinished();
+    void onNavigateToCartActivity();
 }

@@ -210,4 +210,7 @@ public class ActivityHomePresenter {
             view.onHomeFragmentSelected();
         }
     }
+    public void cart(){
+        view.onNavigateToCartActivity();
+    }
 }

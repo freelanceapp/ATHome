@@ -71,4 +71,7 @@
     <string name="product_details">تفاصيل المنتج</string>
     <string name="reviews">المراجعات</string>
     <string name="details">التفاصيل</string>
+    <string name="pay">Pay</string>
+    <string name="cart">Cart</string>
+    <string name="add_coupon">Add Coupon</string>
 </resources>
