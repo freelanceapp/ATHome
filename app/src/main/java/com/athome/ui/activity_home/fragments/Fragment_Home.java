@@ -80,7 +80,7 @@ singleCategoryModelList=new ArrayList<>();
         binding.recViewFavoriteOffers.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.recViewFavoriteOffers.setAdapter(auctionAdapter);
         binding.progBarcategories.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        binding.recViewcategories.setLayoutManager(new LinearLayoutManager(activity));
+        binding.recViewcategories.setLayoutManager(new LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false));
         categoriesAdapter = new HomeCategoriesAdapter( singleCategoryModelList,activity);
         binding.recViewcategories.setAdapter(categoriesAdapter);
         binding.tab.setupWithViewPager(binding.pager);

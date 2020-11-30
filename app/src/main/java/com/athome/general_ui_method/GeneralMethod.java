@@ -41,12 +41,17 @@ public class GeneralMethod {
 
     @BindingAdapter({"image","type"})
     public static void image(View view, String endPoint,int type) {
+
         Log.e("llll",Tags.IMAGE_Slider_URL +endPoint);
         if (view instanceof CircleImageView) {
             CircleImageView imageView = (CircleImageView) view;
             if (endPoint != null) {
-
-                Picasso.get().load(Uri.parse(Tags.IMAGE_Slider_URL + endPoint)).into(imageView);
+                if (type == 1) {
+                    endPoint = Tags.IMAGE_Slider_URL + endPoint;
+                } else if (type == 2) {
+                    endPoint = Tags.IMAGE_Maincategory_URL + endPoint;
+                }
+                Picasso.get().load(Uri.parse(endPoint)).into(imageView);
             } else {
                 Picasso.get().load(R.drawable.ic_avatar).into(imageView);
 
@@ -55,8 +60,13 @@ public class GeneralMethod {
             RoundedImageView imageView = (RoundedImageView) view;
 
             if (endPoint != null) {
-
-                Picasso.get().load(Uri.parse(Tags.IMAGE_Slider_URL + endPoint)).fit().into(imageView);
+                if(type==1){
+                    endPoint=Tags.IMAGE_Slider_URL+endPoint;
+                }
+                else if (type==2){
+                    endPoint=Tags.IMAGE_Maincategory_URL+endPoint;
+                }
+                Picasso.get().load(Uri.parse( endPoint)).fit().into(imageView);
             } else {
                 Picasso.get().load(R.drawable.ic_avatar).into(imageView);
 
@@ -65,8 +75,13 @@ public class GeneralMethod {
             ImageView imageView = (ImageView) view;
 
             if (endPoint != null) {
-
-                Picasso.get().load(Uri.parse(Tags.IMAGE_Slider_URL + endPoint)).fit().into(imageView);
+                if(type==1){
+                    endPoint=Tags.IMAGE_Slider_URL+endPoint;
+                }
+                else if (type==2){
+                    endPoint=Tags.IMAGE_Maincategory_URL+endPoint;
+                }
+                Picasso.get().load(Uri.parse( endPoint)).fit().into(imageView);
             } else {
                 Picasso.get().load(R.drawable.ic_avatar).into(imageView);
 

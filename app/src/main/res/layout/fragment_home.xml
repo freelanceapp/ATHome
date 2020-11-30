@@ -56,8 +56,10 @@
                         android:layout_margin="8dp"
                         app:tabBackground="@drawable/tab_indicator"
                         app:tabGravity="fill"
+                        app:tabPaddingEnd="2dp"
+                        app:tabPaddingStart="2dp"
                         app:tabIndicatorHeight="0dp"
-                        app:tabMaxWidth="7dp"
+                        app:tabMaxWidth="15dp"
                         app:tabMode="scrollable" />
 
                     <ProgressBar
