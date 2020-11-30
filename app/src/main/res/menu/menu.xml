@@ -11,9 +11,9 @@
         android:icon="@drawable/ic_category"
         />
 
-    <item android:id="@+id/offers"
-        android:title="@string/offers"
-        android:icon="@drawable/ic_offers"
+    <item android:id="@+id/search"
+        android:title="@string/searsh"
+        android:icon="@drawable/ic_search"
         />
 
     <item android:id="@+id/orders"

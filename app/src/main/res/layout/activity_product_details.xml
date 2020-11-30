@@ -81,7 +81,7 @@
                     android:textSize="15sp" />
             </LinearLayout>
             <FrameLayout
-                android:id="@+id/flSearch"
+                android:id="@+id/flCart"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical|end"

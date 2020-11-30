@@ -10,7 +10,7 @@ import com.athome.R;
 import com.athome.models.UserModel;
 import com.athome.preferences.Preferences;
 import com.athome.ui.activity_home.fragments.Fragment_Categories;
-import com.athome.ui.activity_home.fragments.Fragment_Offers;
+import com.athome.ui.activity_home.fragments.Fragment_Search;
 import com.athome.ui.activity_home.fragments.Fragment_Home;
 import com.athome.ui.activity_home.fragments.Fragment_Orders;
 import com.athome.ui.activity_home.fragments.Fragment_Profile;
@@ -22,7 +22,7 @@ public class ActivityHomePresenter {
     private HomeActivityView view;
     private Fragment_Home fragment_home;
     private Fragment_Categories fragment_categories;
-    private Fragment_Offers fragment_offers;
+    private Fragment_Search fragment_search;
     private Fragment_Orders fragment_orders;
     private Fragment_Profile fragment_profile;
     private Preferences preference;
@@ -47,8 +47,8 @@ public class ActivityHomePresenter {
             case R.id.categories :
                 displayFragmentCategories();
                 break;
-            case R.id.offers :
-                displayFragmentOffers();
+            case R.id.search :
+                displayFragmentSearch();
                 break;
 
             case R.id.orders :
@@ -75,8 +75,8 @@ public class ActivityHomePresenter {
             fragmentManager.beginTransaction().hide(fragment_orders).commit();
         }
 
-        if (fragment_offers !=null&& fragment_offers.isAdded()){
-            fragmentManager.beginTransaction().hide(fragment_offers).commit();
+        if (fragment_search !=null&& fragment_search.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_search).commit();
         }
         if (fragment_profile!=null&&fragment_profile.isAdded()){
             fragmentManager.beginTransaction().hide(fragment_profile).commit();
@@ -102,8 +102,8 @@ public class ActivityHomePresenter {
             fragmentManager.beginTransaction().hide(fragment_orders).commit();
         }
 
-        if (fragment_offers !=null&& fragment_offers.isAdded()){
-            fragmentManager.beginTransaction().hide(fragment_offers).commit();
+        if (fragment_search !=null&& fragment_search.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_search).commit();
         }
         if (fragment_profile!=null&&fragment_profile.isAdded()){
             fragmentManager.beginTransaction().hide(fragment_profile).commit();
@@ -116,9 +116,9 @@ public class ActivityHomePresenter {
         }
     }
 
-    private void displayFragmentOffers(){
-        if (fragment_offers ==null){
-            fragment_offers = Fragment_Offers.newInstance();
+    private void displayFragmentSearch(){
+        if (fragment_search ==null){
+            fragment_search = Fragment_Search.newInstance();
         }
 
 
@@ -138,10 +138,10 @@ public class ActivityHomePresenter {
         }
 
 
-        if (fragment_offers.isAdded()){
-            fragmentManager.beginTransaction().show(fragment_offers).commit();
+        if (fragment_search.isAdded()){
+            fragmentManager.beginTransaction().show(fragment_search).commit();
         }else {
-            fragmentManager.beginTransaction().add(R.id.fragment_container, fragment_offers,"fragment_consulting").commit();
+            fragmentManager.beginTransaction().add(R.id.fragment_container, fragment_search,"fragment_consulting").commit();
         }
     }
 
@@ -154,8 +154,8 @@ public class ActivityHomePresenter {
             fragmentManager.beginTransaction().hide(fragment_home).commit();
         }
 
-        if (fragment_offers !=null&& fragment_offers.isAdded()){
-            fragmentManager.beginTransaction().hide(fragment_offers).commit();
+        if (fragment_search !=null&& fragment_search.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_search).commit();
         }
 
         if (fragment_categories !=null&& fragment_categories.isAdded()){
@@ -181,8 +181,8 @@ public class ActivityHomePresenter {
             fragmentManager.beginTransaction().hide(fragment_home).commit();
         }
 
-        if (fragment_offers !=null&& fragment_offers.isAdded()){
-            fragmentManager.beginTransaction().hide(fragment_offers).commit();
+        if (fragment_search !=null&& fragment_search.isAdded()){
+            fragmentManager.beginTransaction().hide(fragment_search).commit();
         }
 
         if (fragment_categories !=null&& fragment_categories.isAdded()){

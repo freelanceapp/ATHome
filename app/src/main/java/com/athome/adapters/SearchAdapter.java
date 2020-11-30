@@ -11,17 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
 import com.athome.databinding.OfferRowBinding;
-import com.athome.databinding.ProductRowBinding;
+import com.athome.databinding.SearchRowBinding;
 import com.athome.models.BankDataModel;
 
 import java.util.List;
 
-public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyHolder> {
+public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> {
 
     private List<BankDataModel.BankModel> bankDataModelList;
     private Context context;
 
-    public OfferAdapter(List<BankDataModel.BankModel> bankDataModelList, Context context) {
+    public SearchAdapter(List<BankDataModel.BankModel> bankDataModelList, Context context) {
         this.bankDataModelList = bankDataModelList;
         this.context = context;
 
@@ -32,15 +32,15 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyHolder> {
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        OfferRowBinding bankRowBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.offer_row, parent, false);
-        return new MyHolder(bankRowBinding);
+        SearchRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.search_row, parent, false);
+        return new MyHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
 
      //   BankDataModel.BankModel bankModel = bankDataModelList.get(position);
-        holder.bankRowBinding.tvOldprice.setPaintFlags(holder.bankRowBinding.tvOldprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+        holder.binding.tvOldprice.setPaintFlags(holder.binding.tvOldprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
     }
 
@@ -50,11 +50,11 @@ public class OfferAdapter extends RecyclerView.Adapter<OfferAdapter.MyHolder> {
     }
 
     public class MyHolder extends RecyclerView.ViewHolder {
-        private OfferRowBinding bankRowBinding;
+        private SearchRowBinding binding;
 
-        public MyHolder(OfferRowBinding bankRowBinding) {
-            super(bankRowBinding.getRoot());
-            this.bankRowBinding = bankRowBinding;
+        public MyHolder(SearchRowBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
 
         }
