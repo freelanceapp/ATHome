@@ -60,6 +60,12 @@ public class LoginActivity extends AppCompatActivity implements ActivityLoginVie
             startActivity(intent);
             finish();
         });
+        binding.tvSignUp.setOnClickListener(view -> {
+            Intent intent = new Intent(this, SignUpActivity.class);
+
+            startActivity(intent);
+            finish();
+        });
     }
 
     @Override

@@ -20,18 +20,18 @@ public class SplashPresenter {
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(context);
         userSettingsModel = preferences.getUserSettings(context);
-        delaySplash();
+      //  delaySplash();
     }
 
-    private void delaySplash(){
+    public void delaySplash(){
         new Handler().postDelayed(()->{
 
-            if (userSettingsModel!=null&&userSettingsModel.isLanguageSelected()){
+//            if (userSettingsModel!=null&&userSettingsModel.isLanguageSelected()){
                 view.onNavigateToLocationActivity();
-            }else {
-                view.onNavigateToLanguageActivity();
-
-            }
+//            }else {
+//                view.onNavigateToLanguageActivity();
+//
+//            }
 
 
 

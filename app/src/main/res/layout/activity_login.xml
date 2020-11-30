@@ -16,7 +16,17 @@
         tools:context=".ui.activity_login.LoginActivity"
         android:background="@color/gray0"
         >
+        <FrameLayout
 
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/back"
+            app:layout_constraintBottom_toBottomOf="@+id/card"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="150dp"
+            />
         <ImageView
             android:id="@+id/logo"
             android:layout_width="250dp"
@@ -132,8 +142,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         app:passwordToggleTint="@color/colorPrimary"
-                        android:layout_marginStart="40dp"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginStart="50dp"
+                        android:layout_marginEnd="12dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/small_rounded_red_strock"
                         app:hintEnabled="false"
