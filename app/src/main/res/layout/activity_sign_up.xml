@@ -94,7 +94,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@color/transparent"
-                        android:inputType="textPassword"
                         android:singleLine="true"
                         android:hint="@string/user_name"
                         android:textSize="14sp"
@@ -103,6 +102,31 @@
                         android:text="@={model.name}"
                         error="@{model.error_name}"
                         />
+                </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    app:passwordToggleTint="@color/colorPrimary"
+                    android:layout_marginStart="50dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/small_rounded_red_strock"
+                    app:hintEnabled="false"
+                    app:startIconTint="@color/colorPrimary"
+                    app:startIconDrawable="@drawable/ic_email"
+                    tools:ignore="RtlCompat">
+                    <EditText
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@color/transparent"
+                        android:inputType="textEmailAddress"
+                        android:singleLine="true"
+                        android:hint="@string/email"
+                        android:textSize="14sp"
+                        android:textColorHint="@color/gray4"
+                        android:textColor="@color/colorPrimary"
+                        android:text="@={model.email}"
+                                               />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout

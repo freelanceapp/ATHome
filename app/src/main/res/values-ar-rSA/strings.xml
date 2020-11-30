@@ -96,5 +96,6 @@
     <string name="something">Check internet connection</string>
     <string name="add_address">Add Address</string>
     <string name="address">العنوان</string>
+    <string name="email">Email</string>
 
 </resources>

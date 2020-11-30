@@ -95,5 +95,6 @@
     <string name="address_details">تفاصيل العنوان</string>
     <string name="determine_address">تحديد العنوان</string>
     <string name="location">الموقع</string>
+    <string name="email">Email</string>
 
 </resources>
