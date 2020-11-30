@@ -16,7 +16,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
 
     private String phone_code;
     private String phone;
-
+private String email;
     private String password;
     public ObservableField<String> error_phone = new ObservableField<>();
     public ObservableField<String> error_password = new ObservableField<>();
@@ -28,7 +28,7 @@ public class SignUpModel extends BaseObservable implements Serializable {
         this.phone = "";
        this. password = "";
         this.name = "";
-
+this.email="";
     }
 
     public boolean isDataValid(Context context){
@@ -98,5 +98,13 @@ public class SignUpModel extends BaseObservable implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

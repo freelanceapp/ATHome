@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,9 @@ import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 
 
+import com.athome.models.UserModel;
+import com.athome.preferences.Preferences;
+import com.athome.ui.activity_home.HomeActivity;
 import com.squareup.picasso.Picasso;
 import com.athome.R;
 import com.athome.databinding.ActivitySignUpBinding;
@@ -47,7 +51,7 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
     private SignUpModel model;
 
     private  AlertDialog dialog;
-
+private Preferences preference;
     @Override
     protected void attachBaseContext(Context newBase)
     {
@@ -65,22 +69,63 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
 
     private void initView()
     {
+        preference= Preferences.getInstance();
         model = new SignUpModel();
         binding.setModel(model);
         presenter = new ActivitySignUpPresenter(this,this);
-
+binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        presenter.checkData(model);
+    }
+});
 
 
     }
-
 
 
 
 
     @Override
-    public void onFailed(String msg) {
-        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    public void onSignupValid(UserModel userModel) {
+        preference.create_update_userdata(SignUpActivity.this, userModel);
+
+
+            Intent intent = new Intent(this, HomeActivity.class);
+
+            startActivity(intent);
+            finish();
+
     }
 
+
+
+    @Override
+    public void onServer() {
+        Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onLoad() {
+        dialog = Common.createProgressDialog(this, getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.show();
+    }
+
+    @Override
+    public void onFinishload() {
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onnotconnect(String msg) {
+        Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
+
+    }
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
+    }
 
 }
