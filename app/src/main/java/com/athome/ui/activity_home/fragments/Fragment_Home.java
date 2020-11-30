@@ -2,6 +2,7 @@ package com.athome.ui.activity_home.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +20,19 @@ import com.athome.adapters.SliderAdapter;
 import com.athome.databinding.FragmentHomeBinding;
 
 import com.athome.models.BankDataModel;
+import com.athome.models.Slider_Model;
+import com.athome.remote.Api;
+import com.athome.tags.Tags;
 import com.athome.ui.activity_home.HomeActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class Fragment_Home extends Fragment {
@@ -61,15 +70,13 @@ public class Fragment_Home extends Fragment {
         binding.recViewAccessories.setAdapter(auctionAdapter);
         binding.recViewFavoriteOffers.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.recViewFavoriteOffers.setAdapter(auctionAdapter);
-        SliderAdapter sliderAdapter = new SliderAdapter(new ArrayList<>(), activity);
         binding.tab.setupWithViewPager(binding.pager);
-        binding.pager.setAdapter(sliderAdapter);
 
         if (bundle != null) {
             lat = bundle.getDouble("lat");
             lng = bundle.getDouble("lng");
         }
-
+get_slider();
     }
 
     private void change_slide_image() {
@@ -90,5 +97,52 @@ public class Fragment_Home extends Fragment {
             }
         }, 3000, 3000);
     }
+    private void get_slider() {
+
+        Api.getService(Tags.base_url).get_slider().enqueue(new Callback<Slider_Model>() {
+            @Override
+            public void onResponse(Call<Slider_Model> call, Response<Slider_Model> response) {
+                binding.progBarSlider.setVisibility(View.GONE);
+
+                if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
+                    if (response.body().getData().size() > 0) {
+                        NUM_PAGES = response.body().getData().size();
+                        sliderAdapter = new SliderAdapter( response.body().getData(),activity);
+                        binding.pager.setAdapter(sliderAdapter);
+
+                    } else {
+
+                        binding.pager.setVisibility(View.GONE);
+                    }
+                } else if (response.code() == 404) {
+                    binding.pager.setVisibility(View.GONE);
+                } else {
+                    binding.pager.setVisibility(View.GONE);
+                    try {
+                        Log.e("Error_code", response.code() + "_" + response.errorBody().string());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Slider_Model> call, Throwable t) {
+                try {
+                    binding.progBarSlider.setVisibility(View.GONE);
+                    binding.pager.setVisibility(View.GONE);
+
+                    Log.e("Error", t.getMessage());
+
+                } catch (Exception e) {
+
+                }
+
+            }
+        });
+
+    }
+
 
 }

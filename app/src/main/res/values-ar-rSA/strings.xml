@@ -30,7 +30,7 @@
     <string name="select_image_to_upload">إختر صورة لرفعها</string>
     <string name="choose_language"><![CDATA[إختر <font color="#F61C00">اللغة</font>]]></string>
     <string name="no_data_to_show">لا توجد اقسام لعرضها</string>
-    <string name="phone">phone</string>
+    <string name="phone">الهاتف</string>
     <string name="or">Or</string>
     <string name="google">جوجل</string>
     <string name="facebook">فيس بوك</string>
@@ -76,4 +76,10 @@
     <string name="pay">Pay</string>
     <string name="cart">Cart</string>
     <string name="add_coupon">Add Coupon</string>
+    <string name="select_the_address">Select the address</string>
+    <string name="confirm_address">Confirm Address</string>
+    <string name="something">Check internet connection</string>
+    <string name="add_address">Add Address</string>
+    <string name="address">العنوان</string>
+
 </resources>

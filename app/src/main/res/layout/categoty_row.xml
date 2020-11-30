@@ -5,7 +5,9 @@
 
     <data>
 
-
+<variable
+    name="model"
+    type="com.athome.models.SingleCategoryModel" />
 
         <variable
             name="lang"
@@ -46,7 +48,7 @@
                     android:ellipsize="end"
                     android:gravity="center"
                     android:maxLines="2"
-                    android:text="ادوات تقديم"
+                    android:text="@{model.name}"
                     android:textColor="@color/black"
                     android:textSize="14sp" />
 

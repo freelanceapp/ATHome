@@ -13,7 +13,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import com.athome.ui.activity_cart_sell.CartActivity;
+import com.athome.ui.activity_cart.CartActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.athome.R;
 import com.athome.databinding.ActivityHomeBinding;

@@ -75,5 +75,10 @@
     <string name="pay">Pay</string>
     <string name="cart">Cart</string>
     <string name="add_coupon">Add Coupon</string>
+    <string name="select_the_address">Select the address</string>
+    <string name="confirm_address">Confirm Address</string>
+    <string name="something">Check internet connection</string>
+    <string name="add_address">Add Address</string>
+    <string name="address">Address</string>
 
 </resources>

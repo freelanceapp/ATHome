@@ -1,8 +1,33 @@
 package com.athome.services;
 
 
+import com.athome.models.AllCategoryModel;
+import com.athome.models.PlaceGeocodeData;
+import com.athome.models.PlaceMapDetailsData;
+import com.athome.models.Slider_Model;
+
+import retrofit2.Call;
+import retrofit2.http.GET;
+import retrofit2.http.Query;
 
 public interface Service {
 
+    @GET("place/findplacefromtext/json")
+    Call<PlaceMapDetailsData> searchOnMap(@Query(value = "inputtype") String inputtype,
+                                          @Query(value = "input") String input,
+                                          @Query(value = "fields") String fields,
+                                          @Query(value = "language") String language,
+                                          @Query(value = "key") String key
+    );
 
+    @GET("geocode/json")
+    Call<PlaceGeocodeData> getGeoData(@Query(value = "latlng") String latlng,
+                                      @Query(value = "language") String language,
+                                      @Query(value = "key") String key);
+    @GET("api/slider")
+    Call<Slider_Model> get_slider();
+
+    @GET("api/main-categories")
+    Call<AllCategoryModel> getCategory(
+    );
 }

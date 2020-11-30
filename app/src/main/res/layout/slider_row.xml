@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="model"
+            type="com.athome.models.Slider_Model.Data" />
+    </data>
     <ImageView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/brand"
+        image="@{model.photo}"
+        type="@{1}"
         android:scaleType="centerCrop"
         />
 </layout>

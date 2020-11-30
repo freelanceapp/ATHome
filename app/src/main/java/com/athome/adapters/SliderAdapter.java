@@ -12,15 +12,16 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.athome.R;
 import com.athome.databinding.SliderRowBinding;
+import com.athome.models.Slider_Model;
 
 import java.util.List;
 
 public class SliderAdapter extends PagerAdapter {
-    private List<Integer> list ;
+    private List<Slider_Model.Data> list ;
     private Context context;
     private LayoutInflater inflater;
 
-    public SliderAdapter(List<Integer> list, Context context) {
+    public SliderAdapter(List<Slider_Model.Data> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -28,7 +29,7 @@ public class SliderAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return 6;
+        return list.size();
     }
 
     @Override
@@ -41,6 +42,7 @@ public class SliderAdapter extends PagerAdapter {
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
         SliderRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.slider_row,container,false);
 //        binding.image.setImageResource(list.get(position));
+        binding.setModel(list.get(position));
         container.addView(binding.getRoot());
         return binding.getRoot();
     }
