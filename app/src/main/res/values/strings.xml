@@ -80,5 +80,20 @@
     <string name="something">Check internet connection</string>
     <string name="add_address">Add Address</string>
     <string name="address">Address</string>
+    <string name="my_wallet">My wallet</string>
+    <string name="order_steps">Order Steps</string>
+    <string name="order_accepted">تم الموافقة على طلبك</string>
+    <string name="order_id">"رقم طلبك "</string>
+    <string name="order_will_be_ready">جارى شحن الطلب</string>
+    <string name="order_in_way">الطلب فى الطريق</string>
+    <string name="order_successfuly">تم التوصيل بنجاح</string>
+    <string name="payment">الدفع</string>
+    <string name="cash_on_delivery">دفع عند الأستلام</string>
+    <string name="electronic">دفع ألكترونى</string>
+    <string name="total_order_price">التكلفة الأجمالية</string>
+    <string name="discountPrice">كوبون</string>
+    <string name="address_details">تفاصيل العنوان</string>
+    <string name="determine_address">تحديد العنوان</string>
+    <string name="location">الموقع</string>
 
 </resources>
