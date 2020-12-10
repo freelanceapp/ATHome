@@ -96,5 +96,8 @@
     <string name="determine_address">تحديد العنوان</string>
     <string name="location">الموقع</string>
     <string name="email">Email</string>
+    <string name="address_name">تسمية العنوان (اختيارى )</string>
+    <string name="homee">المنزل</string>
+    <string name="work">العمل</string>
 
 </resources>

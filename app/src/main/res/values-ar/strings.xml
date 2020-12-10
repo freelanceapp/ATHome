@@ -97,5 +97,8 @@
     <string name="add_address">Add Address</string>
     <string name="address">العنوان</string>
     <string name="email">Email</string>
+    <string name="address_name">تسمية العنوان (اختيارى )</string>
+    <string name="homee">المنزل</string>
+    <string name="work">العمل</string>
 
 </resources>
