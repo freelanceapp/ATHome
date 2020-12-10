@@ -65,7 +65,7 @@ public class ActivitySignUpPresenter {
                         if (response.isSuccessful() && response.body() != null) {
                             //  Log.e("eeeeee", response.body().getUser().getName());
                             if(response.body().status==200){
-                            view.onSignupValid(response.body());}
+                            view.onSignUpValid(response.body());}
                             else {
                                 view.onFailed(response.body().message);
                             }

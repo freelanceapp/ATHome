@@ -3,7 +3,6 @@ package com.athome.ui.activity_home.fragments;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,40 +17,42 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
-import com.athome.adapters.CategoriesAdapter;
 import com.athome.adapters.DataAdapter;
 import com.athome.adapters.HomeCategoriesAdapter;
+import com.athome.adapters.OfferProductAdapter;
+import com.athome.adapters.ProductAdapter;
 import com.athome.adapters.SliderAdapter;
 import com.athome.databinding.FragmentHomeBinding;
 
-import com.athome.models.AllCategoryModel;
 import com.athome.models.BankDataModel;
+import com.athome.models.ProductModel;
 import com.athome.models.SingleCategoryModel;
-import com.athome.models.Slider_Model;
-import com.athome.remote.Api;
-import com.athome.tags.Tags;
+import com.athome.models.SliderDataModel;
+import com.athome.mvp.fragment_home_mvp.FragmentHomePresenter;
+import com.athome.mvp.fragment_home_mvp.FragmentHomeView;
 import com.athome.ui.activity_home.HomeActivity;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
-
-public class Fragment_Home extends Fragment {
+public class Fragment_Home extends Fragment implements FragmentHomeView {
     private FragmentHomeBinding binding;
     private double lat = 0.0, lng = 0.0;
     private HomeActivity activity;
+    private FragmentHomePresenter presenter;
     private SliderAdapter sliderAdapter;
-    private DataAdapter auctionAdapter;
-    private int current_page = 0, NUM_PAGES;
+    private ProductAdapter featuredProductAdapter,mostSellerAdapter;
+    private OfferProductAdapter offerProductAdapter;
+    private List<ProductModel> featuredProductList,mostSellerProductList,offerProductList;
     private HomeCategoriesAdapter categoriesAdapter;
     private List<SingleCategoryModel> singleCategoryModelList;
+    private Timer timer;
+    private TimerTask timerTask;
+
+
     public static Fragment_Home newInstance(double lat, double lng) {
         Bundle bundle = new Bundle();
         bundle.putDouble("lat", lat);
@@ -66,147 +67,218 @@ public class Fragment_Home extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
         initView();
-        change_slide_image();
         return binding.getRoot();
     }
 
     private void initView() {
-singleCategoryModelList=new ArrayList<>();
+        mostSellerProductList = new ArrayList<>();
+        featuredProductList = new ArrayList<>();
+        singleCategoryModelList = new ArrayList<>();
+        offerProductList = new ArrayList<>();
         activity = (HomeActivity) getActivity();
         Bundle bundle = getArguments();
-        auctionAdapter = new DataAdapter(new ArrayList<BankDataModel.BankModel>(), activity);
-        binding.recViewAccessories.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
-        binding.recViewAccessories.setAdapter(auctionAdapter);
-        binding.recViewFavoriteOffers.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
-        binding.recViewFavoriteOffers.setAdapter(auctionAdapter);
-        binding.progBarcategories.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        binding.recViewcategories.setLayoutManager(new LinearLayoutManager(activity,RecyclerView.HORIZONTAL,false));
-        categoriesAdapter = new HomeCategoriesAdapter( singleCategoryModelList,activity);
-        binding.recViewcategories.setAdapter(categoriesAdapter);
-        binding.tab.setupWithViewPager(binding.pager);
-
         if (bundle != null) {
             lat = bundle.getDouble("lat");
             lng = bundle.getDouble("lng");
         }
-get_slider();
-        getCategory();
-    }
-    private void getCategory() {
+        binding.progBarCategories.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        binding.progBarSlider.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        binding.progBarFeaturedProducts.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        binding.progBarMostSeller.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        binding.progBarOffer.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
-        Api.getService(Tags.base_url)
-                .getCategory()
-                .enqueue(new Callback<AllCategoryModel>() {
-                    @Override
-                    public void onResponse(Call<AllCategoryModel> call, Response<AllCategoryModel> response) {
-                        binding.progBarcategories.setVisibility(View.GONE);
-                        if (response.isSuccessful()) {
-                            singleCategoryModelList.addAll(response.body().getData());
-                            categoriesAdapter.notifyDataSetChanged();
+        featuredProductAdapter = new ProductAdapter(featuredProductList, activity);
+        binding.recViewFeaturedProducts.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        binding.recViewFeaturedProducts.setAdapter(featuredProductAdapter);
 
-                        } else {
-                            binding.progBarcategories.setVisibility(View.GONE);
 
-                            try {
-                                Log.e("errorNotCode", response.code() + "__" + response.errorBody().string());
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
+        mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity);
+        binding.recViewMostSeller.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        binding.recViewMostSeller.setAdapter(mostSellerAdapter);
 
-                            if (response.code() == 500) {
-                                Toast.makeText(activity, "Server Error", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }
 
-                    @Override
-                    public void onFailure(Call<AllCategoryModel> call, Throwable t) {
-                        try {
-                            binding.progBarcategories.setVisibility(View.GONE);
+        offerProductAdapter = new OfferProductAdapter(offerProductList, activity);
+        binding.recViewOffer.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        binding.recViewOffer.setAdapter(offerProductAdapter);
 
-                            if (t.getMessage() != null) {
-                                Log.e("error_not_code", t.getMessage() + "__");
 
-                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    Toast.makeText(activity, getString(R.string.something), Toast.LENGTH_SHORT).show();
-                                } else {
-                                    Toast.makeText(activity, getString(R.string.failed), Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        } catch (Exception e) {
-                            Log.e("Error", e.getMessage() + "__");
-                        }
-                    }
-                });
+        binding.recViewCategories.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        categoriesAdapter = new HomeCategoriesAdapter(singleCategoryModelList, activity);
+        binding.recViewCategories.setAdapter(categoriesAdapter);
+        binding.tab.setupWithViewPager(binding.pager);
+
+
+
+        presenter = new FragmentHomePresenter(activity,this,lat,lng);
+        presenter.getSlider();
+        presenter.getCategory();
+        presenter.getFeaturedProducts();
+        presenter.getMostSellerProducts();
+        presenter.getOfferProducts();
+
     }
 
 
-    private void change_slide_image() {
-        final Handler handler = new Handler();
-        final Runnable Update = new Runnable() {
-            public void run() {
-                if (current_page == NUM_PAGES) {
-                    current_page = 0;
+
+    @Override
+    public void onSliderSuccess(List<SliderDataModel.SliderModel> sliderModelList) {
+        if (sliderModelList.size()>0){
+            binding.flSlider.setVisibility(View.VISIBLE);
+            sliderAdapter = new SliderAdapter(sliderModelList,activity);
+            binding.pager.setAdapter(sliderAdapter);
+            if (sliderModelList.size()>1)
+            {
+                timer = new Timer();
+                timerTask = new MyTask();
+                timer.scheduleAtFixedRate(timerTask,6000,6000);
+            }
+
+        }else {
+            binding.flSlider.setVisibility(View.GONE);
+        }
+
+
+    }
+
+    @Override
+    public void onSuccess(List<SingleCategoryModel> data) {
+        if (data.size()>0){
+            singleCategoryModelList.clear();
+            singleCategoryModelList.addAll(data);
+            categoriesAdapter.notifyDataSetChanged();
+            binding.tvNoDataCategories.setVisibility(View.GONE);
+
+        }else {
+            binding.tvNoDataCategories.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onFeaturedProductSuccess(List<ProductModel> data) {
+        if (data.size()>0){
+            featuredProductList.clear();
+            featuredProductList.addAll(data);
+            featuredProductAdapter.notifyDataSetChanged();
+            binding.tvNoDataFeaturedProducts.setVisibility(View.GONE);
+        }else {
+            binding.tvNoDataFeaturedProducts.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    @Override
+    public void onMostSellerSuccess(List<ProductModel> data) {
+        if (data.size()>0){
+            mostSellerProductList.clear();
+            mostSellerProductList.addAll(data);
+            mostSellerAdapter.notifyDataSetChanged();
+            binding.tvNoDataMostSeller.setVisibility(View.GONE);
+        }else {
+            binding.tvNoDataMostSeller.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    @Override
+    public void onOfferSuccess(List<ProductModel> data) {
+        if (data.size()>0){
+            offerProductList.clear();
+            offerProductList.addAll(data);
+            offerProductAdapter.notifyDataSetChanged();
+            binding.tvNoDataOffer.setVisibility(View.GONE);
+
+        }else {
+            binding.tvNoDataOffer.setVisibility(View.VISIBLE);
+        }
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProgressSliderShow() {
+        binding.progBarSlider.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onProgressSliderHide() {
+        binding.progBarSlider.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onProgressCategoryShow() {
+        binding.progBarCategories.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onProgressCategoryHide() {
+        binding.progBarCategories.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onProgressFeaturedProductsShow() {
+        binding.progBarFeaturedProducts.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onProgressFeaturedProductsHide() {
+        binding.progBarFeaturedProducts.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onProgressMostSellerShow() {
+        binding.progBarMostSeller.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void onProgressMostSellerHide() {
+        binding.progBarMostSeller.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onProgressOfferShow() {
+        binding.progBarOffer.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onProgressOfferHide() {
+        binding.progBarOffer.setVisibility(View.GONE);
+
+    }
+
+    public class MyTask extends TimerTask{
+        @Override
+        public void run() {
+            activity.runOnUiThread(() -> {
+                int current_page = binding.pager.getCurrentItem();
+                if (current_page<sliderAdapter.getCount()-1){
+                    binding.pager.setCurrentItem(binding.pager.getCurrentItem()+1);
+                }else {
+                    binding.pager.setCurrentItem(0);
+
                 }
-                binding.pager.setCurrentItem(current_page++, true);
-            }
-        };
-        Timer swipeTimer = new Timer();
-        swipeTimer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(Update);
-            }
-        }, 3000, 3000);
-    }
-    private void get_slider() {
+            });
 
-        Api.getService(Tags.base_url).get_slider().enqueue(new Callback<Slider_Model>() {
-            @Override
-            public void onResponse(Call<Slider_Model> call, Response<Slider_Model> response) {
-                binding.progBarSlider.setVisibility(View.GONE);
-
-                if (response.isSuccessful() && response.body() != null && response.body().getData() != null) {
-                    if (response.body().getData().size() > 0) {
-                        NUM_PAGES = response.body().getData().size();
-                        sliderAdapter = new SliderAdapter( response.body().getData(),activity);
-                        binding.pager.setAdapter(sliderAdapter);
-
-                    } else {
-
-                        binding.pager.setVisibility(View.GONE);
-                    }
-                } else if (response.code() == 404) {
-                    binding.pager.setVisibility(View.GONE);
-                } else {
-                    binding.pager.setVisibility(View.GONE);
-                    try {
-                        Log.e("Error_code", response.code() + "_" + response.errorBody().string());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<Slider_Model> call, Throwable t) {
-                try {
-                    binding.progBarSlider.setVisibility(View.GONE);
-                    binding.pager.setVisibility(View.GONE);
-
-                    Log.e("Error", t.getMessage());
-
-                } catch (Exception e) {
-
-                }
-
-            }
-        });
-
+        }
     }
 
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        if (timer!=null){
+            timer.purge();
+            timer.cancel();
+        }
+        if (timerTask!=null){
+            timerTask.cancel();
+        }
 
+    }
 }

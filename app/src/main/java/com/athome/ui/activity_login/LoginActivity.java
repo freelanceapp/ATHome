@@ -45,7 +45,6 @@ public class LoginActivity extends AppCompatActivity implements ActivityLoginVie
 
     private void initView() {
         model = new LoginModel();
-      //  binding.tv1.setText(Html.fromHtml(getString(R.string.login2)));
         binding.tvSkip.setPaintFlags(binding.tvSkip.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         binding.setModel(model);
         presenter = new ActivityLoginPresenter(this,this);

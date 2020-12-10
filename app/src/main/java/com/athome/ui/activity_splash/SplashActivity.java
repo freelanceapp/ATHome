@@ -22,7 +22,9 @@ import com.athome.mvp.activity_splash_mvp.SplashPresenter;
 import com.athome.mvp.activity_splash_mvp.SplashView;
 import com.athome.preferences.Preferences;
 import com.athome.tags.Tags;
+import com.athome.ui.activity_get_location.GetLocationActivity;
 import com.athome.ui.activity_home.HomeActivity;
+import com.athome.ui.activity_language.LanguageActivity;
 import com.athome.ui.activity_login.LoginActivity;
 
 import io.paperdb.Paper;
@@ -42,15 +44,6 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            Transition transition = new TransitionSet();
-            transition.setInterpolator(new LinearInterpolator());
-            transition.setDuration(500);
-            getWindow().setEnterTransition(transition);
-            getWindow().setExitTransition(transition);
-
-        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_splash);
         initView();
     }
@@ -64,22 +57,40 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Override
     public void onNavigateToLanguageActivity() {
+        Intent intent = new Intent(this, LanguageActivity.class);
+        startActivityForResult(intent,100);
 
     }
 
     @Override
     public void onNavigateToLocationActivity() {
-        if(preferences.getSession(this).equals(Tags.session_login)){
-
-        }else {
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-            finish();
-        }}
+        Intent intent = new Intent(this, GetLocationActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100&&resultCode==RESULT_OK&&data!=null){
+            String lang = data.getStringExtra("lang");
+            refreshActivity(lang);
+        }
+    }
 
-
-
-
+    private void refreshActivity(String lang) {
+        Paper.init(this);
+        Paper.book().write("lang",lang);
+        UserSettingsModel userSettings = preferences.getUserSettings(this);
+        if (userSettings==null){
+            userSettings = new UserSettingsModel();
+        }
+        userSettings.setLanguageSelected(true);
+        preferences.create_update_user_settings(this,userSettings);
+        Language.updateResources(this,lang);
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
 }

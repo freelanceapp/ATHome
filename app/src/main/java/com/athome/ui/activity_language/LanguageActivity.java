@@ -32,15 +32,7 @@ public class LanguageActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
 
-            Transition transition = new Fade();
-            transition.setInterpolator(new LinearInterpolator());
-            transition.setDuration(500);
-            getWindow().setEnterTransition(transition);
-            getWindow().setExitTransition(transition);
-
-        }
         binding = DataBindingUtil.setContentView(this, R.layout.activity_language);
         initView();
     }
@@ -66,7 +58,7 @@ public class LanguageActivity extends AppCompatActivity {
             Intent intent = getIntent();
             intent.putExtra("lang",lang);
             setResult(RESULT_OK,intent);
-            onBackPressed();
+            finish();
         });
     }
 }

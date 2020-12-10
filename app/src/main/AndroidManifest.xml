@@ -16,27 +16,30 @@
 
 
     <application
-        android:name="com.athome.share.App"
+        android:name=".share.App"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.WeZain"
-
-        >
+        android:theme="@style/Theme.WeZain">
+        <activity android:name=".ui.activity_get_location.GetLocationActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity
-            android:name="com.athome.ui.activity_language.LanguageActivity"
+            android:name=".ui.activity_language.LanguageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.athome.ui.activity_product_details.ProductDetailsActivity"
+            android:name=".ui.activity_product_details.ProductDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.athome.ui.activity_confirm_code.ConfirmCodeActivity"
+            android:name=".ui.activity_confirm_code.ConfirmCodeActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -44,30 +47,31 @@
             android:name=".ui.activity_add_address.AddAddressActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan" >
+
+        </activity>
         <activity
             android:name=".ui.activity_cart.CartActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".ui.activity_select_address.SelectAddressActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.athome.ui.activity_sign_up.SignUpActivity"
+            android:name=".ui.activity_sign_up.SignUpActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.athome.ui.activity_order_steps.OrderStepsActivity"
+            android:name=".ui.activity_order_steps.OrderStepsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.athome.ui.activity_login.LoginActivity"
+            android:name=".ui.activity_login.LoginActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -76,7 +80,8 @@
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.athome.ui.activity_home.HomeActivity"/>
+        <activity android:name=".ui.activity_home.HomeActivity" />
+
         <activity android:name=".ui.activity_splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -17,7 +17,7 @@
 
         <variable
             name="model"
-            type="com.athome.models.SingleProductDataModel" />
+            type="com.athome.models.ProductModel" />
 
         <variable
             name="cartcount"
@@ -63,7 +63,7 @@
                     android:padding="8dp"
                     android:rotation='@{lang.equals("ar")?180:0}'
                     android:src="@drawable/ic_left_arrow"
-                    android:tint="@color/colorPrimary"
+                    app:tint="@color/colorPrimary"
 
                     />
 
@@ -96,7 +96,7 @@
                     android:longClickable="false"
                     android:padding="8dp"
                     android:src="@drawable/ic_cart"
-                    android:tint="@color/colorPrimary" />
+                    app:tint="@color/colorPrimary" />
                 <TextView
                     android:layout_width="17dp"
                     android:layout_height="17dp"
@@ -349,7 +349,7 @@
                                 android:layout_height="25dp"
                                 android:padding="2dp"
                                 android:src="@drawable/ic_plus"
-                                android:tint="@color/colorPrimary" />
+                                app:tint="@color/colorPrimary" />
 
                             <TextView
                                 android:id="@+id/tvAmount"
@@ -368,7 +368,7 @@
                                 android:background="@drawable/minus2_bg"
                                 android:padding="6dp"
                                 android:src="@drawable/ic_minus"
-                                android:tint="@color/white"
+                                app:tint="@color/white"
 
                                 />
 
@@ -429,7 +429,7 @@
                                 android:longClickable="false"
                                 android:padding="3dp"
                                 android:src="@drawable/ic_cart"
-                                android:tint="@color/white" />
+                                app:tint="@color/white" />
                         </FrameLayout>
                     </LinearLayout>
 

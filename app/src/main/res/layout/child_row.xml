@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="model"
+            type="com.athome.models.ChildModel" />
+    </data>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:lines="3"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:background="@drawable/small_rounded_gray2"
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp"
+        android:text="@{model.name}"
+        android:layout_margin="5dp"
+        />
+</layout>

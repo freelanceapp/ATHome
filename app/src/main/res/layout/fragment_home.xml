@@ -39,14 +39,15 @@
                 <FrameLayout
                     android:id="@+id/flSlider"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp">
+                    android:layout_height="200dp"
+
+                    >
 
                     <androidx.viewpager.widget.ViewPager
                         android:id="@+id/pager"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="15dp"
-                        />
+                        android:layout_marginBottom="15dp" />
 
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab"
@@ -56,60 +57,63 @@
                         android:layout_margin="8dp"
                         app:tabBackground="@drawable/tab_indicator"
                         app:tabGravity="fill"
-                        app:tabPaddingEnd="2dp"
-                        app:tabPaddingStart="2dp"
                         app:tabIndicatorHeight="0dp"
                         app:tabMaxWidth="15dp"
-                        app:tabMode="scrollable" />
+                        app:tabMode="scrollable"
+                        app:tabPaddingEnd="2dp"
+                        app:tabPaddingStart="2dp" />
 
                     <ProgressBar
                         android:id="@+id/progBarSlider"
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_gravity="center"
-                        android:visibility="gone"
-                        />
+                        android:visibility="gone" />
                 </FrameLayout>
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/gray0"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp"
                     >
+
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recViewcategories"
+                        android:id="@+id/recViewCategories"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
+                        android:layout_height="match_parent" />
+
                     <ProgressBar
-                        android:id="@+id/progBarcategories"
+                        android:id="@+id/progBarCategories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        />
+                        android:layout_gravity="center" />
+
                     <TextView
-                        android:id="@+id/tvNoDatacategories"
+                        android:id="@+id/tvNoDataCategories"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:textSize="18sp"
                         android:text="@string/no_data_to_show"
                         android:textColor="@color/black"
-                        android:visibility="gone"
-                        />
+                        android:textSize="18sp"
+                        android:visibility="gone" />
                 </FrameLayout>
 
                 <FrameLayout
-                    android:id="@+id/flMostSeller"
+                    android:id="@+id/flFeaturedProduct"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:minHeight="200dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
 
                     >
 
                     <LinearLayout
-                        android:id="@+id/llFavoriteOffer"
+                        android:id="@+id/llFeaturedProduct"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -117,45 +121,130 @@
                         <androidx.constraintlayout.widget.ConstraintLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" >
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingRight="5dp"
-        android:paddingLeft="5dp"
-        android:src="@drawable/ic_line2"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/favorite_offers"
-        android:textColor="@color/black"
-        android:textSize="13sp"/>
-</LinearLayout>
-
-
-                            <Button
+                            <LinearLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="35dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/rounded_stroke_primary"
-                                android:text="@string/show_all"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="13sp"
-                                android:visibility="gone"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
                                 app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_line2" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/featured_products"
+                                    android:textColor="@color/black"
+                                    android:textSize="15sp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:textStyle="bold"
+                                    />
+                            </LinearLayout>
+
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
                         <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recViewFavoriteOffers"
+                            android:id="@+id/recViewFeaturedProducts"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp" />
+
+                    </LinearLayout>
+
+                    <ProgressBar
+                        android:id="@+id/progBarFeaturedProducts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tvNoDataFeaturedProducts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_data_to_show"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:src="@drawable/slide_image"
+                        android:scaleType="centerCrop"
+
+                        />
+
+
+                </FrameLayout>
+
+                <FrameLayout
+                    android:id="@+id/flOffer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:minHeight="200dp"
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
+
+                    >
+
+                    <LinearLayout
+                        android:id="@+id/llOffer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_line2" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/offers"
+                                    android:textColor="@color/black"
+                                    android:textSize="15sp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:textStyle="bold"
+                                    />
+                            </LinearLayout>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recViewOffer"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp" />
@@ -164,148 +253,37 @@
 
                     <ProgressBar
                         android:id="@+id/progBarOffer"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:visibility="gone"
-                        android:layout_gravity="center" />
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:src="@drawable/fast_offer"
-                    />
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-
-                        android:orientation="vertical">
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/color1"
-                            android:gravity="center"
-                            android:textSize="25sp"
-                            android:paddingLeft="160dp"
-                            android:layout_marginBottom="5dp"
-                            android:text="@string/offers"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:textColor="@color/color1"
-                            android:textSize="25sp"
-                            android:gravity="center"
-                            android:paddingLeft="130dp"
-
-                            android:layout_height="wrap_content"
-                            android:text="@string/fast"/>
-                    </LinearLayout>
-
-                </FrameLayout>
-
-                <FrameLayout
-                    android:id="@+id/flMostRate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:minHeight="200dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-
-
-                    >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="@color/black"
-                                android:textSize="13sp"
-                                android:visibility="gone"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="35dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/rounded_stroke_primary"
-                                android:text="@string/show_all"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="13sp"
-                                android:visibility="gone"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-
-                                />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                        <androidx.recyclerview.widget.RecyclerView
-                            android:id="@+id/recViewAccessories"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp" />
-
-                    </LinearLayout>
-
-                    <ProgressBar
-                        android:id="@+id/progBarAccessories"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:visibility="gone"
-                        android:layout_gravity="center" />
-                </FrameLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" >
-
-                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
-                        android:paddingLeft="5dp"
-                        android:src="@drawable/ic_line2"/>
+                        android:layout_gravity="center"
+                        android:visibility="visible" />
+
                     <TextView
+                        android:id="@+id/tvNoDataOffer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/favorite_offers"
+                        android:layout_gravity="center"
+                        android:text="@string/no_data_to_show"
                         android:textColor="@color/black"
-                        android:textSize="13sp"/>
-                </LinearLayout>
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
+                </FrameLayout>
+
+
                 <FrameLayout
-                    android:id="@+id/flMostSell"
+                    android:id="@+id/flMostSeller"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:minHeight="200dp"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-
+                    android:paddingLeft="8dp"
+                    android:paddingRight="8dp"
 
                     >
 
                     <LinearLayout
+                        android:id="@+id/llMostSeller"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
@@ -314,35 +292,37 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 
-                            <TextView
+                            <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text=""
-                                android:textColor="@color/black"
-                                android:textSize="13sp"
-                                android:visibility="gone"
+                                android:orientation="horizontal"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                app:layout_constraintTop_toTopOf="parent">
 
-                            <Button
-                                android:layout_width="wrap_content"
-                                android:layout_height="35dp"
-                                android:layout_margin="5dp"
-                                android:background="@drawable/rounded_stroke_primary"
-                                android:text="@string/show_all"
-                                android:textColor="@color/colorPrimary"
-                                android:textSize="13sp"
-                                android:visibility="gone"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/ic_line2" />
 
-                                />
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/most_seller"
+                                    android:textColor="@color/black"
+                                    android:textSize="15sp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginStart="5dp"
+                                    android:layout_marginEnd="5dp"
+                                    android:textStyle="bold"
+                                    />
+                            </LinearLayout>
+
+
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
                         <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/recViewMostSeller"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp" />
@@ -350,10 +330,25 @@
                     </LinearLayout>
 
                     <ProgressBar
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_gravity="center" />
+                        android:id="@+id/progBarMostSeller"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:visibility="visible" />
+
+                    <TextView
+                        android:id="@+id/tvNoDataMostSeller"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/no_data_to_show"
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:visibility="gone" />
+
                 </FrameLayout>
+
+
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:tools="http://schemas.android.com/tools"
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
-<variable
-    name="model"
-    type="com.athome.models.SingleCategoryModel" />
-
         <variable
-            name="lang"
-            type="String" />
+            name="model"
+            type="com.athome.models.SingleCategoryModel" />
+
 
         <import type="android.view.View" />
     </data>
@@ -21,8 +18,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:cardBackgroundColor="@color/gray3"
         android:layout_marginEnd="5dp"
+        app:cardBackgroundColor="@color/gray3"
         app:cardElevation="3dp"
         app:contentPadding="10dp"
         tools:ignore="RtlCompat">
@@ -30,15 +27,13 @@
         <FrameLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            >
+            android:layout_gravity="center">
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
 
                 android:orientation="vertical">
-
 
 
                 <TextView
@@ -53,13 +48,7 @@
                     android:textSize="14sp" />
 
 
-
-
-
-
-
             </LinearLayout>
-
 
 
         </FrameLayout>

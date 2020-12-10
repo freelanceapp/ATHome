@@ -3,14 +3,24 @@ package com.athome.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class Slider_Model implements Serializable {
-    private List<Data> data;
+public class SliderDataModel implements Serializable {
+    private List<SliderModel> data;
+    private int status;
+    private String message;
 
-    public List<Data> getData() {
+    public int getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public List<SliderModel> getData() {
         return data;
     }
 
-    public class Data implements Serializable {
+    public static class SliderModel implements Serializable {
         private int id;
         private String subtitle_text;
         private String subtitle_size;

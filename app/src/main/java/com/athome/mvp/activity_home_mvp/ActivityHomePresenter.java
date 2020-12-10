@@ -91,7 +91,7 @@ public class ActivityHomePresenter {
 
     private void displayFragmentCategories(){
         if (fragment_categories ==null){
-            fragment_categories = Fragment_Categories.newInstance();
+            fragment_categories = Fragment_Categories.newInstance(lat,lng);
         }
 
         if (fragment_home!=null&&fragment_home.isAdded()){

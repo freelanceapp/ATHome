@@ -13,6 +13,7 @@ public class SingleCategoryModel implements Serializable {
    private String photo;
    private String is_featured;
    private String image;
+   private boolean isSelected = false;
 
     public int getId() {
         return id;
@@ -40,5 +41,13 @@ public class SingleCategoryModel implements Serializable {
 
     public String getImage() {
         return image;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }

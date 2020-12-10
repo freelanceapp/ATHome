@@ -3,7 +3,7 @@
     <data>
         <variable
             name="model"
-            type="com.athome.models.Slider_Model.Data" />
+            type="com.athome.models.SliderDataModel.SliderModel" />
     </data>
     <ImageView
         android:id="@+id/image"

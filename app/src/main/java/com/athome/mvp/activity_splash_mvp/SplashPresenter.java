@@ -11,27 +11,24 @@ public class SplashPresenter {
     private Context context;
     private SplashView view;
     private Preferences preferences;
-    private UserModel userModel;
     private UserSettingsModel userSettingsModel;
 
     public SplashPresenter(Context context, SplashView view) {
         this.context = context;
         this.view = view;
         preferences = Preferences.getInstance();
-        userModel = preferences.getUserData(context);
         userSettingsModel = preferences.getUserSettings(context);
-      //  delaySplash();
     }
 
     public void delaySplash(){
         new Handler().postDelayed(()->{
 
-//            if (userSettingsModel!=null&&userSettingsModel.isLanguageSelected()){
+            if (userSettingsModel!=null&&userSettingsModel.isLanguageSelected()){
                 view.onNavigateToLocationActivity();
-//            }else {
-//                view.onNavigateToLanguageActivity();
-//
-//            }
+            }else {
+                view.onNavigateToLanguageActivity();
+
+            }
 
 
 

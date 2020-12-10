@@ -10,19 +10,19 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
-import com.athome.databinding.OfferRowBinding;
-import com.athome.databinding.SearchRowBinding;
+import com.athome.databinding.ProductRowBinding;
 import com.athome.models.BankDataModel;
+import com.athome.models.ProductModel;
 
 import java.util.List;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> {
+public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyHolder> {
 
-    private List<BankDataModel.BankModel> bankDataModelList;
+    private List<ProductModel> list;
     private Context context;
 
-    public SearchAdapter(List<BankDataModel.BankModel> bankDataModelList, Context context) {
-        this.bankDataModelList = bankDataModelList;
+    public ProductAdapter(List<ProductModel> list, Context context) {
+        this.list = list;
         this.context = context;
 
 
@@ -32,26 +32,25 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> 
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        SearchRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.search_row, parent, false);
-        return new MyHolder(binding);
+        ProductRowBinding bankRowBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.product_row, parent, false);
+        return new MyHolder(bankRowBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
-
-     //   BankDataModel.BankModel bankModel = bankDataModelList.get(position);
-
+        ProductModel model = list.get(position);
+        holder.binding.setModel(model);
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
-    public class MyHolder extends RecyclerView.ViewHolder {
-        private SearchRowBinding binding;
+    public static class MyHolder extends RecyclerView.ViewHolder {
+        private ProductRowBinding binding;
 
-        public MyHolder(SearchRowBinding binding) {
+        public MyHolder(ProductRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

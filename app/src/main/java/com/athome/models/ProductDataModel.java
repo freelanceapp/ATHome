@@ -4,9 +4,19 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ProductDataModel implements Serializable {
-    private List<SingleProductDataModel> data;
+    private List<ProductModel> data;
+    private int status;
+    private String message;
 
-    public List<SingleProductDataModel> getData() {
+    public int getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public List<ProductModel> getData() {
         return data;
     }
 

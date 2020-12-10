@@ -3,11 +3,14 @@ package com.athome.models;
 import java.io.Serializable;
 import java.util.List;
 
-public class AllCategoryModel implements Serializable {
-
-    private List<SingleCategoryModel> data;
+public class SubCategoryDataModel implements Serializable {
+    private List<SubCategoryModel> data;
     private int status;
     private String message;
+
+    public List<SubCategoryModel> getData() {
+        return data;
+    }
 
     public int getStatus() {
         return status;
@@ -16,10 +19,4 @@ public class AllCategoryModel implements Serializable {
     public String getMessage() {
         return message;
     }
-
-    public List<SingleCategoryModel> getData() {
-        return data;
-    }
-
-
 }

@@ -46,58 +46,47 @@ import io.paperdb.Paper;
 
 public class SignUpActivity extends AppCompatActivity implements ActivitySignUpView {
     private ActivitySignUpBinding binding;
-
     private ActivitySignUpPresenter presenter;
     private SignUpModel model;
+    private AlertDialog dialog;
+    private Preferences preference;
 
-    private  AlertDialog dialog;
-private Preferences preference;
     @Override
-    protected void attachBaseContext(Context newBase)
-    {
+    protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
         super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
         initView();
 
     }
 
-    private void initView()
-    {
-        preference= Preferences.getInstance();
+    private void initView() {
+        preference = Preferences.getInstance();
         model = new SignUpModel();
         binding.setModel(model);
-        presenter = new ActivitySignUpPresenter(this,this);
-binding.btnLogin.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View view) {
-        presenter.checkData(model);
-    }
-});
+        presenter = new ActivitySignUpPresenter(this, this);
+        binding.btnLogin.setOnClickListener(view -> presenter.checkData(model));
 
 
     }
 
 
-
-
     @Override
-    public void onSignupValid(UserModel userModel) {
+    public void onSignUpValid(UserModel userModel) {
         preference.create_update_userdata(SignUpActivity.this, userModel);
 
 
-            Intent intent = new Intent(this, HomeActivity.class);
+        Intent intent = new Intent(this, HomeActivity.class);
 
-            startActivity(intent);
-            finish();
+        startActivity(intent);
+        finish();
 
     }
-
 
 
     @Override
@@ -123,6 +112,7 @@ binding.btnLogin.setOnClickListener(new View.OnClickListener() {
         Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
 
     }
+
     @Override
     public void onFailed(String msg) {
         Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();

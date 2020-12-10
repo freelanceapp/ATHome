@@ -4,7 +4,7 @@ package com.athome.mvp.activity_sign_up_mvp;
 import com.athome.models.UserModel;
 
 public interface ActivitySignUpView {
-    void onSignupValid(UserModel userModel);
+    void onSignUpValid(UserModel userModel);
     void onFailed(String msg);
     void onServer();
     void onLoad();

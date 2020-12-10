@@ -99,5 +99,12 @@
     <string name="address_name">تسمية العنوان (اختيارى )</string>
     <string name="homee">المنزل</string>
     <string name="work">العمل</string>
+    <string name="getting_location">Getting location...</string>
+    <string name="featured_products">Featured Products</string>
+    <string name="sar">SAR</string>
+    <string name="most_seller">Most Seller</string>
+    <string name="day">Day</string>
+    <string name="hour">Hour</string>
+    <string name="minute">Minute</string>
 
 </resources>

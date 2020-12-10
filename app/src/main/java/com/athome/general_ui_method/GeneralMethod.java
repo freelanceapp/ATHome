@@ -15,6 +15,13 @@ import com.squareup.picasso.Picasso;
 import com.athome.R;
 import com.athome.tags.Tags;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class GeneralMethod {
@@ -41,8 +48,6 @@ public class GeneralMethod {
 
     @BindingAdapter({"image","type"})
     public static void image(View view, String endPoint,int type) {
-
-        Log.e("llll",Tags.IMAGE_Slider_URL +endPoint);
         if (view instanceof CircleImageView) {
             CircleImageView imageView = (CircleImageView) view;
             if (endPoint != null) {
@@ -51,10 +56,10 @@ public class GeneralMethod {
                 } else if (type == 2) {
                     endPoint = Tags.IMAGE_Maincategory_URL + endPoint;
                 }
+                else if (type == 3) {
+                    endPoint = Tags.IMAGE_Product_URL + endPoint;
+                }
                 Picasso.get().load(Uri.parse(endPoint)).into(imageView);
-            } else {
-                Picasso.get().load(R.drawable.ic_avatar).into(imageView);
-
             }
         } else if (view instanceof RoundedImageView) {
             RoundedImageView imageView = (RoundedImageView) view;
@@ -65,11 +70,10 @@ public class GeneralMethod {
                 }
                 else if (type==2){
                     endPoint=Tags.IMAGE_Maincategory_URL+endPoint;
+                }else if (type == 3) {
+                    endPoint = Tags.IMAGE_Product_URL + endPoint;
                 }
                 Picasso.get().load(Uri.parse( endPoint)).fit().into(imageView);
-            } else {
-                Picasso.get().load(R.drawable.ic_avatar).into(imageView);
-
             }
         } else if (view instanceof ImageView) {
             ImageView imageView = (ImageView) view;
@@ -80,15 +84,100 @@ public class GeneralMethod {
                 }
                 else if (type==2){
                     endPoint=Tags.IMAGE_Maincategory_URL+endPoint;
+                }else if (type == 3) {
+                    endPoint = Tags.IMAGE_Product_URL + endPoint;
                 }
                 Picasso.get().load(Uri.parse( endPoint)).fit().into(imageView);
-            } else {
-                Picasso.get().load(R.drawable.ic_avatar).into(imageView);
-
             }
         }
 
     }
+
+
+
+
+    @BindingAdapter("day")
+    public static void day(View view, String date) {
+        if (date!=null&&!date.isEmpty()){
+            SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            try {
+                Date date1 = format1.parse(date);
+                Calendar calendar = Calendar.getInstance();
+                long diff=0;
+                if (date1.getTime()>calendar.getTime().getTime()){
+                    diff = date1.getTime()-calendar.getTime().getTime();
+                }else {
+                    diff = calendar.getTime().getTime()-date1.getTime();
+
+                }
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd",Locale.ENGLISH);
+                String day = simpleDateFormat.format(new Date(diff));
+
+                TextView textView = (TextView) view;
+                textView.setText(day);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @BindingAdapter("hour")
+    public static void hour(View view, String date) {
+        if (date!=null&&!date.isEmpty()){
+            SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            try {
+                Date date1 = format1.parse(date);
+                Calendar calendar = Calendar.getInstance();
+                long diff=0;
+                if (date1.getTime()>calendar.getTime().getTime()){
+                    diff = date1.getTime()-calendar.getTime().getTime();
+                }else {
+                    diff = calendar.getTime().getTime()-date1.getTime();
+
+                }
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("hh",Locale.ENGLISH);
+                String hour = simpleDateFormat.format(new Date(diff));
+
+                TextView textView = (TextView) view;
+                textView.setText(hour);
+
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
+    @BindingAdapter("minutes")
+    public static void minutes(View view, String date) {
+        if (date!=null&&!date.isEmpty()){
+            SimpleDateFormat format1 = new SimpleDateFormat("MM/dd/yyyy", Locale.ENGLISH);
+            try {
+                Date date1 = format1.parse(date);
+                Calendar calendar = Calendar.getInstance();
+                long diff=0;
+                if (date1.getTime()>calendar.getTime().getTime()){
+                    diff = date1.getTime()-calendar.getTime().getTime();
+                }else {
+                    diff = calendar.getTime().getTime()-date1.getTime();
+
+                }
+
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("mm",Locale.ENGLISH);
+                String minutes = simpleDateFormat.format(new Date(diff));
+
+                TextView textView = (TextView) view;
+                textView.setText(minutes);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
 
 

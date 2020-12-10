@@ -7,25 +7,25 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
-import com.athome.databinding.CategotyRowBinding;
 import com.athome.databinding.SubcategoryRowBinding;
 import com.athome.models.BankDataModel;
+import com.athome.models.SubCategoryModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdapter.MyHolder> {
 
-    private List<BankDataModel.BankModel> bankDataModelList;
+    private List<SubCategoryModel> list;
     private Context context;
-    private BrandAdapter auctionAdapter;
 
-    public SubCategoriesAdapter(List<BankDataModel.BankModel> bankDataModelList, Context context) {
-        this.bankDataModelList = bankDataModelList;
+    public SubCategoriesAdapter(List<SubCategoryModel> list, Context context) {
+        this.list = list;
         this.context = context;
 
 
@@ -41,24 +41,34 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
-        holder.bankRowBinding.recView.setLayoutManager(new LinearLayoutManager(context,RecyclerView.HORIZONTAL,false));
-        auctionAdapter = new BrandAdapter( new ArrayList<BankDataModel.BankModel>(),context);
-        holder.bankRowBinding.recView.setAdapter(auctionAdapter);
-      //  BankDataModel.BankModel bankModel = bankDataModelList.get(position);
+        SubCategoryModel model = list.get(position);
+        holder.binding.setModel(model);
+
+        holder.binding.recView.setLayoutManager(new GridLayoutManager(context,3));
+        if (model.getChilds()!=null&&model.getChilds().size()>0){
+            ChildAdapter childAdapter = new ChildAdapter(model.getChilds(),context,position);
+            holder.binding.recView.setAdapter(childAdapter);
+            holder.binding.tvNoData.setVisibility(View.GONE);
+
+        }else {
+            ChildAdapter childAdapter = new ChildAdapter(new ArrayList<>(),context,position);
+            holder.binding.recView.setAdapter(childAdapter);
+            holder.binding.tvNoData.setVisibility(View.VISIBLE);
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
-    public class MyHolder extends RecyclerView.ViewHolder {
-        private SubcategoryRowBinding bankRowBinding;
+    public static class MyHolder extends RecyclerView.ViewHolder {
+        private SubcategoryRowBinding binding;
 
-        public MyHolder(SubcategoryRowBinding bankRowBinding) {
-            super(bankRowBinding.getRoot());
-            this.bankRowBinding = bankRowBinding;
+        public MyHolder(SubcategoryRowBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
 
 
         }

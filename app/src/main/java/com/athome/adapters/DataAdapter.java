@@ -39,8 +39,6 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.MyHolder> {
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
 
-//        BankDataModel.BankModel bankModel = bankDataModelList.get(position);
-        holder.bankRowBinding.tvOldprice.setPaintFlags(holder.bankRowBinding.tvOldprice.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
 
     }
 

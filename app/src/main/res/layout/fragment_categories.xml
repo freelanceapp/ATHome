@@ -14,55 +14,65 @@
 
 
     </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:weightSum="3"
+        android:weightSum="2"
         android:orientation="horizontal">
 
-    <FrameLayout
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:background="@color/gray0"
-android:layout_weight="1"
-        >
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recViewcategories"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-        <ProgressBar
-            android:id="@+id/progBarcategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            />
-        <TextView
-            android:id="@+id/tvNoDatacategories"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:textSize="18sp"
-            android:text="@string/no_data_to_show"
-            android:textColor="@color/black"
-            android:visibility="gone"
-            />
-    </FrameLayout>
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:background="@color/gray0"
-            android:layout_weight="2"
-            >
+            android:layout_weight=".8">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recViewCategories"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray3"
+                />
+
+            <ProgressBar
+                android:id="@+id/progBarCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center" />
+
+            <TextView
+                android:id="@+id/tvNoDataCategories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="18sp"
+                android:text="@string/no_data_to_show"
+                android:textColor="@color/black"
+                android:visibility="gone" />
+        </FrameLayout>
+        <Space
+            android:layout_width="5dp"
+            android:layout_height="0dp"/>
+        <FrameLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:background="@color/gray0"
+            android:layout_weight="1.2">
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray3"
+
+                />
+
             <ProgressBar
                 android:id="@+id/progBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                />
+                android:layout_gravity="center" />
+
             <TextView
                 android:id="@+id/tvNoData"
                 android:layout_width="wrap_content"
@@ -71,8 +81,7 @@ android:layout_weight="1"
                 android:textSize="18sp"
                 android:text="@string/no_data_to_show"
                 android:textColor="@color/black"
-                android:visibility="gone"
-                />
+                android:visibility="gone" />
         </FrameLayout>
 
     </LinearLayout>
