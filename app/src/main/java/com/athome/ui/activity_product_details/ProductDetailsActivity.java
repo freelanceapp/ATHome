@@ -69,6 +69,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         Paper.init(this);
         lang = Paper.book().read("lang","ar");
         binding.setLang(lang);
+
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         presenter = new ActivityProductDetailsPresenter(this,this);
         SliderAdapter sliderAdapter = new SliderAdapter(new ArrayList<>(), this);
@@ -90,6 +91,10 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
                 amount--;
                 binding.tvAmount.setText(String.valueOf(amount));
             }
+        });
+
+        binding.llBack.setOnClickListener(view -> {
+            finish();
         });
 
     }

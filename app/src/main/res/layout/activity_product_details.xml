@@ -6,10 +6,6 @@
     <data>
 
         <variable
-            name="backListener"
-            type="com.athome.interfaces.Listeners.BackListener" />
-
-        <variable
             name="lang"
             type="String" />
 
@@ -221,12 +217,12 @@
                             app:layout_collapseMode="pin">
 
                             <LinearLayout
+                                android:id="@+id/llBack"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="8dp"
                                 android:layout_marginEnd="8dp"
                                 android:gravity="center_vertical"
-                                android:onClick="@{()->backListener.back()}"
                                 android:orientation="horizontal"
 
                                 >
