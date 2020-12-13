@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.athome">
 
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
@@ -14,7 +13,6 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-
     <application
         android:name=".share.App"
         android:allowBackup="true"
@@ -23,11 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/Theme.WeZain">
-        <activity android:name=".ui.activity_get_location.GetLocationActivity"
+        <activity android:name=".ui.activity_products.ProductsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             />
+        <activity
+            android:name=".ui.activity_get_location.GetLocationActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui.activity_language.LanguageActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -47,9 +50,7 @@
             android:name=".ui.activity_add_address.AddAddressActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" >
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".ui.activity_cart.CartActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
@@ -76,12 +77,11 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name="com.athome.ui.activity_order_checkout.OrderCheckoutActivity"
+            android:name=".ui.activity_order_checkout.OrderCheckoutActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.activity_home.HomeActivity" />
-
         <activity android:name=".ui.activity_splash.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

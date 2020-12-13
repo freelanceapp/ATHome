@@ -13,7 +13,7 @@
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="7dp"
         android:layout_marginStart="5dp"
@@ -21,45 +21,43 @@
         app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="8dp"
         app:cardElevation="3dp"
-        app:contentPadding="5dp">
 
-        <FrameLayout
-            android:layout_width="180dp"
-            android:layout_height="wrap_content">
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal"
+                image="@{model.photo}"
+                type="@{3}"
+                />
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginEnd="5dp"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                >
 
-                <FrameLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <CheckBox
+                    android:id="@+id/checkbox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_gravity="end"
+                    android:button="@drawable/checkbox_bg"
+                    android:checked="@{model.is_wishlist==null?false:true}"
 
-                    <CheckBox
-                        android:id="@+id/checkbox"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-                        android:button="@drawable/checkbox_bg"
-                        android:checked="@{model.is_wishlist==null?false:true}"
-
-                        />
-
-
-
-
-                </FrameLayout>
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    android:layout_gravity="center_horizontal"
-                    image="@{model.photo}"
-                    type="@{3}"
                     />
+
+
 
                 <TextView
                     android:layout_width="match_parent"
@@ -76,7 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_gravity="start"
                     android:ellipsize="end"
                     android:gravity="center"
                     android:textStyle="bold"
@@ -93,8 +91,7 @@
 
             </LinearLayout>
 
+        </LinearLayout>
 
-
-        </FrameLayout>
     </androidx.cardview.widget.CardView>
 </layout>

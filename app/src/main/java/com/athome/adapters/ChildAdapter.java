@@ -13,6 +13,7 @@ import com.athome.databinding.ChildRowBinding;
 import com.athome.databinding.ProductRowBinding;
 import com.athome.models.ChildModel;
 import com.athome.models.ProductModel;
+import com.athome.ui.activity_home.fragments.Fragment_Categories;
 
 import java.util.List;
 
@@ -21,11 +22,13 @@ public class ChildAdapter extends RecyclerView.Adapter<ChildAdapter.MyHolder> {
     private List<ChildModel> list;
     private Context context;
     private int parent_pos = 0;
+    private Fragment_Categories fragment_categories;
 
-    public ChildAdapter(List<ChildModel> list, Context context,int parent_pos) {
+    public ChildAdapter(List<ChildModel> list, Context context,int parent_pos,Fragment_Categories fragment_categories) {
         this.list = list;
         this.context = context;
         this.parent_pos = parent_pos;
+        this.fragment_categories = fragment_categories;
 
 
     }
@@ -42,6 +45,10 @@ public class ChildAdapter extends RecyclerView.Adapter<ChildAdapter.MyHolder> {
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         ChildModel model = list.get(position);
         holder.binding.setModel(model);
+        holder.itemView.setOnClickListener(view -> {
+            ChildModel model2 = list.get(holder.getAdapterPosition());
+            fragment_categories.setChildItemData(model2,parent_pos);
+        });
     }
 
     @Override

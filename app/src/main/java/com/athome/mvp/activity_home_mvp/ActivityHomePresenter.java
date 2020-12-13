@@ -28,6 +28,7 @@ public class ActivityHomePresenter {
     private Preferences preference;
     private UserModel userModel;
     private double lat=0.0,lng=0.0;
+    private int selectedPos =0;
 
     public ActivityHomePresenter(Context context, HomeActivityView view, FragmentManager fragmentManager, double lat, double lng) {
         this.context = context;
@@ -45,7 +46,7 @@ public class ActivityHomePresenter {
         int id = item.getItemId();
         switch (id){
             case R.id.categories :
-                displayFragmentCategories();
+                displayFragmentCategories(selectedPos);
                 break;
             case R.id.search :
                 displayFragmentSearch();
@@ -89,9 +90,12 @@ public class ActivityHomePresenter {
         }
     }
 
-    private void displayFragmentCategories(){
+    public void displayFragmentCategories(int selectedPos)
+    {
+        this.selectedPos = selectedPos;
         if (fragment_categories ==null){
-            fragment_categories = Fragment_Categories.newInstance(lat,lng);
+            fragment_categories = Fragment_Categories.newInstance(lat,lng,selectedPos);
+
         }
 
         if (fragment_home!=null&&fragment_home.isAdded()){
@@ -111,9 +115,11 @@ public class ActivityHomePresenter {
 
         if (fragment_categories.isAdded()){
             fragmentManager.beginTransaction().show(fragment_categories).commit();
+            fragment_categories.setSubCategory(selectedPos);
         }else {
             fragmentManager.beginTransaction().add(R.id.fragment_container, fragment_categories,"fragment_appointment").commit();
         }
+        view.onCategoryFragmentSelected();
     }
 
     private void displayFragmentSearch(){
@@ -198,6 +204,12 @@ public class ActivityHomePresenter {
         }
     }
 
+    public void refreshFragmentHomeData(){
+        if (fragment_home!=null&&fragment_home.isAdded()){
+            fragment_home.refreshData();
+        }
+    }
+
     public void backPress(){
         if (fragment_home!=null&&fragment_home.isAdded()&&fragment_home.isVisible()){
             if (userModel==null){
@@ -210,7 +222,10 @@ public class ActivityHomePresenter {
             view.onHomeFragmentSelected();
         }
     }
+
     public void cart(){
         view.onNavigateToCartActivity();
     }
+
+
 }

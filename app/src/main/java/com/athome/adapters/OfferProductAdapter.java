@@ -12,6 +12,7 @@ import com.athome.R;
 import com.athome.databinding.ProductOfferRowBinding;
 import com.athome.databinding.ProductRowBinding;
 import com.athome.models.ProductModel;
+import com.athome.ui.activity_home.fragments.Fragment_Home;
 
 import java.util.List;
 
@@ -19,10 +20,12 @@ public class OfferProductAdapter extends RecyclerView.Adapter<OfferProductAdapte
 
     private List<ProductModel> list;
     private Context context;
+    private Fragment_Home fragment_home;
 
-    public OfferProductAdapter(List<ProductModel> list, Context context) {
+    public OfferProductAdapter(List<ProductModel> list, Context context,Fragment_Home fragment_home) {
         this.list = list;
         this.context = context;
+        this.fragment_home = fragment_home;
 
 
     }
@@ -39,6 +42,11 @@ public class OfferProductAdapter extends RecyclerView.Adapter<OfferProductAdapte
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         ProductModel model = list.get(position);
         holder.binding.setModel(model);
+        holder.itemView.setOnClickListener(view -> {
+            ProductModel model2 = list.get(holder.getAdapterPosition());
+            fragment_home.setProductItemModel(model2);
+
+        });
     }
 
     @Override

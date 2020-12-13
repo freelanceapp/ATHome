@@ -1,10 +1,10 @@
-package com.athome.mvp.activity_product_details_mvp;
+package com.athome.mvp.fragment_search_mvp;
 
 import android.content.Context;
 import android.util.Log;
 
 import com.athome.R;
-import com.athome.models.SingleProductDataModel;
+import com.athome.models.ProductDataModel;
 import com.athome.models.UserModel;
 import com.athome.preferences.Preferences;
 import com.athome.remote.Api;
@@ -17,32 +17,34 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ActivityProductDetailsPresenter {
+public class FragmentSearchPresenter {
     private Context context;
-    private ActivityProductDetailsView view;
+    private FragmentSearchView view;
     private Preferences preference;
     private UserModel userModel;
+    private double lat = 0.0, lng = 0.0;
 
-    public ActivityProductDetailsPresenter(Context context, ActivityProductDetailsView view) {
+    public FragmentSearchPresenter(Context context, FragmentSearchView view, double lat, double lng) {
         this.context = context;
         this.view = view;
         preference = Preferences.getInstance();
         userModel = preference.getUserData(context);
-
+        this.lat = lat;
+        this.lng = lng;
     }
 
 
-    public void getProductById(String product_id) {
+    public void getSearch(String query) {
         String user_id = "all";
         if (userModel != null) {
             user_id = String.valueOf(userModel.getData().getId());
         }
         view.onProgressShow();
         Api.getService(Tags.base_url)
-                .getProductById(user_id, product_id)
-                .enqueue(new Callback<SingleProductDataModel>() {
+                .search(user_id, query)
+                .enqueue(new Callback<ProductDataModel>() {
                     @Override
-                    public void onResponse(Call<SingleProductDataModel> call, Response<SingleProductDataModel> response) {
+                    public void onResponse(Call<ProductDataModel> call, Response<ProductDataModel> response) {
                         view.onProgressHide();
                         if (response.isSuccessful()) {
                             if (response.body() != null && response.body().getStatus() == 200 && response.body().getData() != null) {
@@ -70,7 +72,7 @@ public class ActivityProductDetailsPresenter {
                     }
 
                     @Override
-                    public void onFailure(Call<SingleProductDataModel> call, Throwable t) {
+                    public void onFailure(Call<ProductDataModel> call, Throwable t) {
                         try {
                             view.onProgressHide();
 

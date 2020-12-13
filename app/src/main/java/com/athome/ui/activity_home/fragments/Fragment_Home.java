@@ -1,5 +1,7 @@
 package com.athome.ui.activity_home.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +33,8 @@ import com.athome.models.SliderDataModel;
 import com.athome.mvp.fragment_home_mvp.FragmentHomePresenter;
 import com.athome.mvp.fragment_home_mvp.FragmentHomeView;
 import com.athome.ui.activity_home.HomeActivity;
+import com.athome.ui.activity_product_details.ProductDetailsActivity;
+import com.athome.ui.activity_products.ProductsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,23 +91,23 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.progBarMostSeller.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.progBarOffer.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
-        featuredProductAdapter = new ProductAdapter(featuredProductList, activity);
+        featuredProductAdapter = new ProductAdapter(featuredProductList, activity,this);
         binding.recViewFeaturedProducts.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.recViewFeaturedProducts.setAdapter(featuredProductAdapter);
 
 
-        mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity);
+        mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity,this);
         binding.recViewMostSeller.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.recViewMostSeller.setAdapter(mostSellerAdapter);
 
 
-        offerProductAdapter = new OfferProductAdapter(offerProductList, activity);
+        offerProductAdapter = new OfferProductAdapter(offerProductList, activity,this);
         binding.recViewOffer.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.recViewOffer.setAdapter(offerProductAdapter);
 
 
         binding.recViewCategories.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
-        categoriesAdapter = new HomeCategoriesAdapter(singleCategoryModelList, activity);
+        categoriesAdapter = new HomeCategoriesAdapter(singleCategoryModelList, activity,this);
         binding.recViewCategories.setAdapter(categoriesAdapter);
         binding.tab.setupWithViewPager(binding.pager);
 
@@ -200,6 +204,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     @Override
     public void onProgressSliderShow() {
         binding.progBarSlider.setVisibility(View.VISIBLE);
+
     }
 
     @Override
@@ -221,6 +226,9 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
 
     @Override
     public void onProgressFeaturedProductsShow() {
+        binding.tvNoDataFeaturedProducts.setVisibility(View.GONE);
+        featuredProductList.clear();
+        featuredProductAdapter.notifyDataSetChanged();
         binding.progBarFeaturedProducts.setVisibility(View.VISIBLE);
     }
 
@@ -233,6 +241,9 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     @Override
     public void onProgressMostSellerShow() {
         binding.progBarMostSeller.setVisibility(View.VISIBLE);
+        binding.tvNoDataMostSeller.setVisibility(View.GONE);
+        mostSellerProductList.clear();
+        mostSellerAdapter.notifyDataSetChanged();
 
     }
 
@@ -245,12 +256,40 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     @Override
     public void onProgressOfferShow() {
         binding.progBarOffer.setVisibility(View.VISIBLE);
+        binding.tvNoDataOffer.setVisibility(View.GONE);
+        offerProductList.clear();
+        offerProductAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onProgressOfferHide() {
         binding.progBarOffer.setVisibility(View.GONE);
 
+    }
+
+    public void setItemData(int pos) {
+        activity.displayFragmentCategory(pos);
+    }
+
+    public void setProductItemModel(ProductModel model) {
+        Intent intent = new Intent(activity, ProductDetailsActivity.class);
+        intent.putExtra("data",model);
+        startActivityForResult(intent,100);
+    }
+
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100&&resultCode== Activity.RESULT_OK){
+            refreshData();
+        }
+    }
+
+    public void refreshData() {
+        presenter.getOfferProducts();
+        presenter.getMostSellerProducts();
+        presenter.getFeaturedProducts();
     }
 
     public class MyTask extends TimerTask{

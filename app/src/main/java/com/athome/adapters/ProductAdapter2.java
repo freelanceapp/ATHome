@@ -9,23 +9,20 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
-import com.athome.databinding.SearchRowBinding;
-import com.athome.models.BankDataModel;
+import com.athome.databinding.ProductRow2Binding;
+import com.athome.databinding.ProductRowBinding;
 import com.athome.models.ProductModel;
-import com.athome.ui.activity_home.fragments.Fragment_Search;
 
 import java.util.List;
 
-public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> {
+public class ProductAdapter2 extends RecyclerView.Adapter<ProductAdapter2.MyHolder> {
 
     private List<ProductModel> list;
     private Context context;
-    private Fragment_Search fragment_search;
 
-    public SearchAdapter(List<ProductModel> list, Context context,Fragment_Search fragment_search) {
+    public ProductAdapter2(List<ProductModel> list, Context context) {
         this.list = list;
         this.context = context;
-        this.fragment_search = fragment_search;
 
 
     }
@@ -34,20 +31,14 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> 
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        SearchRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.search_row, parent, false);
-        return new MyHolder(binding);
+        ProductRow2Binding bankRowBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.product_row2, parent, false);
+        return new MyHolder(bankRowBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         ProductModel model = list.get(position);
         holder.binding.setModel(model);
-        holder.itemView.setOnClickListener(view -> {
-            ProductModel model2 = list.get(holder.getAdapterPosition());
-            fragment_search.setProductItemModel(model2,holder.getAdapterPosition());
-
-        });
-
     }
 
     @Override
@@ -56,9 +47,9 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> 
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {
-        private SearchRowBinding binding;
+        private ProductRow2Binding binding;
 
-        public MyHolder(SearchRowBinding binding) {
+        public MyHolder(ProductRow2Binding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

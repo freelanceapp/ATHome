@@ -1,6 +1,7 @@
 package com.athome.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -86,5 +87,19 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
         }
 
 
+    }
+
+    public void setSelectedPos(int pos){
+        Log.e("pos",pos+"___"+old_pos);
+        SingleCategoryModel model1 = list.get(old_pos);
+        model1.setSelected(false);
+        list.set(old_pos,model1);
+        notifyItemChanged(old_pos);
+        i = pos;
+        SingleCategoryModel model2 = list.get(i);
+        model2.setSelected(true);
+        list.set(i,model2);
+        notifyItemChanged(i);
+        old_pos =i;
     }
 }

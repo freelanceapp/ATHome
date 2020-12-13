@@ -106,5 +106,11 @@
     <string name="day">Day</string>
     <string name="hour">Hour</string>
     <string name="minute">Minute</string>
+    <string name="no_search_results">No search results</string>
+    <string name="filter">Filter</string>
+    <string name="search">Search...</string>
+    <string name="comments2">Comments :</string>
+    <string name="add_comment">Add comment....</string>
+    <string name="no_comments">No Comments</string>
 
 </resources>

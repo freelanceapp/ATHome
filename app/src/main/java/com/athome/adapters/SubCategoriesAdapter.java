@@ -15,6 +15,7 @@ import com.athome.R;
 import com.athome.databinding.SubcategoryRowBinding;
 import com.athome.models.BankDataModel;
 import com.athome.models.SubCategoryModel;
+import com.athome.ui.activity_home.fragments.Fragment_Categories;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,10 +24,12 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
 
     private List<SubCategoryModel> list;
     private Context context;
+    private Fragment_Categories fragment_categories;
 
-    public SubCategoriesAdapter(List<SubCategoryModel> list, Context context) {
+    public SubCategoriesAdapter(List<SubCategoryModel> list, Context context,Fragment_Categories fragment_categories) {
         this.list = list;
         this.context = context;
+        this.fragment_categories = fragment_categories;
 
 
     }
@@ -46,12 +49,12 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
 
         holder.binding.recView.setLayoutManager(new GridLayoutManager(context,3));
         if (model.getChilds()!=null&&model.getChilds().size()>0){
-            ChildAdapter childAdapter = new ChildAdapter(model.getChilds(),context,position);
+            ChildAdapter childAdapter = new ChildAdapter(model.getChilds(),context,position,fragment_categories);
             holder.binding.recView.setAdapter(childAdapter);
             holder.binding.tvNoData.setVisibility(View.GONE);
 
         }else {
-            ChildAdapter childAdapter = new ChildAdapter(new ArrayList<>(),context,position);
+            ChildAdapter childAdapter = new ChildAdapter(new ArrayList<>(),context,position,fragment_categories);
             holder.binding.recView.setAdapter(childAdapter);
             holder.binding.tvNoData.setVisibility(View.VISIBLE);
         }

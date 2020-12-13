@@ -31,6 +31,7 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     private FragmentManager fragmentManager;
     private ActivityHomePresenter presenter;
     private double lat = 0.0, lng = 0.0;
+    private boolean onCategorySelected = false;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -52,27 +53,30 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         lng = intent.getDoubleExtra("lng", 0.0);
     }
 
-    private void initView() {
+    private void initView()
+    {
         fragmentManager = getSupportFragmentManager();
         presenter = new ActivityHomePresenter(this, this, fragmentManager, lat, lng);
-        binding.navigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        binding.navigationView.setOnNavigationItemSelectedListener(item -> {
+            if (!onCategorySelected){
                 presenter.manageFragments(item);
-                return true;
+
             }
+            onCategorySelected= false;
+            return true;
         });
-        binding.flAddToCart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                presenter.cart();
-            }
-        });
+        binding.flAddToCart.setOnClickListener(view -> presenter.cart());
 
 
     }
 
+    public void displayFragmentCategory(int pos){
+        presenter.displayFragmentCategories(pos);
+    }
 
+    public void refreshFragmentHomeData(){
+        presenter.refreshFragmentHomeData();
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -99,7 +103,15 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
 
     @Override
     public void onHomeFragmentSelected() {
+        onCategorySelected = false;
         binding.navigationView.setSelectedItemId(R.id.home);
+    }
+
+    @Override
+    public void onCategoryFragmentSelected() {
+        onCategorySelected = true;
+        binding.navigationView.setSelectedItemId(R.id.categories);
+
     }
 
 

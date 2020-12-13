@@ -5,6 +5,7 @@ import com.athome.models.AllCategoryModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
 import com.athome.models.ProductDataModel;
+import com.athome.models.SingleProductDataModel;
 import com.athome.models.SliderDataModel;
 import com.athome.models.SubCategoryDataModel;
 import com.athome.models.UserModel;
@@ -58,5 +59,23 @@ public interface Service {
 
     @GET("api/sub-with-child")
     Call<SubCategoryDataModel> getSubCategoryByCategoryId(@Query("category_id") int category_id);
+
+    @GET("api/get-product-by-name")
+    Call<ProductDataModel> search(@Query("user_id") String user_id,
+                                  @Query("search_name") String search_name
+    );
+
+    @GET("api/get-product-by-name")
+    Call<ProductDataModel> getProducts(@Query("user_id") String user_id,
+                                       @Query("category_id") String category_id,
+                                       @Query("category_id") String subcategory_id,
+                                       @Query("childcategory_id") String childcategory_id
+
+    );
+
+    @GET("api/one-product")
+    Call<SingleProductDataModel> getProductById(@Query("user_id") String user_id,
+                                                @Query("product_id") String search_name
+    );
 
 }

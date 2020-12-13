@@ -29,9 +29,9 @@
     <string name="upload_image">رفع صورة</string>
     <string name="select_image_to_upload">إختر صورة لرفعها</string>
     <string name="choose_language"><![CDATA[إختر <font color="#F61C00">اللغة</font>]]></string>
-    <string name="no_data_to_show">لا توجد اقسام لعرضها</string>
+    <string name="no_data_to_show">لا توجد عناصر لعرضها</string>
     <string name="phone">الهاتف</string>
-    <string name="or">Or</string>
+    <string name="or">أو</string>
     <string name="google">جوجل</string>
     <string name="facebook">فيس بوك</string>
     <string name="categories">الأقسام</string>
@@ -105,6 +105,12 @@
     <string name="most_seller">الاكثر مبيعا</string>
     <string name="day">يوم</string>
     <string name="hour">ساعة</string>
-    <string name="minute">Minute</string>
+    <string name="minute">دقيقة</string>
+    <string name="no_search_results">لا توجد نتائج البحث</string>
+    <string name="filter">تصنيف حسب</string>
+    <string name="search">بحث...</string>
+    <string name="comments2">التعليقات :</string>
+    <string name="add_comment">أضف تعليقك....</string>
+    <string name="no_comments">لا توجد تعليقات</string>
 
 </resources>

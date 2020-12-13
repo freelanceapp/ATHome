@@ -68,7 +68,7 @@
                             android:focusable="true"
                             android:padding="5dp"
                             android:src="@drawable/ic_search"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
 
                             />
                     </FrameLayout>
@@ -103,6 +103,9 @@
             android:id="@+id/recView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
+
+        </LinearLayout>
+
         <ProgressBar
             android:id="@+id/progBar"
             android:layout_width="wrap_content"
@@ -116,12 +119,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="18sp"
-            android:text="@string/no_data_to_show"
-
+            android:text="@string/no_search_results"
             android:textColor="@color/black"
-            android:visibility="gone"
             />
-        </LinearLayout>
-
     </FrameLayout>
 </layout>

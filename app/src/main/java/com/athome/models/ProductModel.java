@@ -280,10 +280,15 @@ public class ProductModel implements Serializable {
         return is_wishlist;
     }
 
+    public void setIs_wishlist(IsWishList is_wishlist) {
+        this.is_wishlist = is_wishlist;
+    }
+
     public static class IsWishList{
         private int id;
         private String user_id;
         private String product_id;
+
 
         public int getId() {
             return id;
