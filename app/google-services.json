@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "373531622667",
+    "project_id": "at-home-69ec5",
+    "storage_bucket": "at-home-69ec5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:373531622667:android:bade6c366743b1b657f60e",
+        "android_client_info": {
+          "package_name": "com.athome"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "373531622667-oq9rfmupdiah12mf96ei04fhrqo4t89i.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAcqsUfoQpYRcuqwxDo067KdHljj68ZHs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "373531622667-oq9rfmupdiah12mf96ei04fhrqo4t89i.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
