@@ -79,13 +79,19 @@
                     android:background="@color/color1"
                     android:layout_gravity="center"
                     />
-                <androidx.constraintlayout.widget.ConstraintLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
                     android:layout_marginTop="10dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="@drawable/small_rounded_red_strock"
                     android:orientation="horizontal"
+                    android:paddingStart="16dp"
                     android:paddingLeft="5dp"
                     android:paddingTop="8dp"
+                    android:paddingEnd="16dp"
                     android:paddingRight="5dp"
                     android:paddingBottom="8dp"
 
@@ -93,57 +99,59 @@
                     >
 
 
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center"
+                        android:background="@color/white"
+                        android:src="@drawable/flag_iq"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/edtPhone"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
 
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/image"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_gravity="center"
-                            android:background="@color/white"
-                            android:src="@drawable/ic_saudi_arabia"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/edtPhone"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:civ_border_color="@color/white"
-                            app:civ_border_width="1dp"
-                            app:civ_circle_background_color="@color/white"
-
-                            />
+                        />
 
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="+964"
+                        android:textColor="@color/black"
+                        android:textSize="15sp" />
 
-                        <EditText
-                            android:id="@+id/edtPhone"
-                            android:layout_width="0dp"
-                            android:layout_height="40dp"
-                            android:layout_marginStart="5dp"
-                            android:layout_marginEnd="5dp"
-                            android:background="@drawable/small_rounded_red_strock"
-                            android:gravity="center_vertical"
-                            android:hint="@string/phone"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toEndOf="@id/image"
-                            android:inputType="number"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:textColor="@color/black"
-                            android:textColorHint="@color/gray6"
-                            android:textSize="14sp"
-
-                            />
-
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
+                    <EditText
+                        android:id="@+id/edtPhone"
+                        error="@{model.error_phone}"
                         android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:background="@color/transparent"
+                        android:gravity="center_vertical"
+                        android:hint="@string/phone"
+                        android:inputType="number"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:text="@={model.phone}"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/gray8"
+                        android:textSize="14sp"
+                        tools:ignore="TextFields" />
+
+
+                </LinearLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
                         app:passwordToggleTint="@color/colorPrimary"
-                        android:layout_marginStart="50dp"
-                        android:layout_marginEnd="12dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginTop="8dp"
                         android:background="@drawable/small_rounded_red_strock"
                         app:hintEnabled="false"
@@ -159,8 +167,8 @@
                             android:singleLine="true"
                             android:hint="@string/password"
                             android:textSize="14sp"
-                            android:textColorHint="@color/gray4"
-                            android:textColor="@color/colorPrimary"
+                            android:textColorHint="@color/gray8"
+                            android:textColor="@color/black"
                             android:text="@={model.password}"
                             error="@{model.error_password}"
                             />
@@ -240,7 +248,7 @@
                             android:longClickable="false"
                             android:padding="8dp"
                             android:src="@drawable/ic_facebook"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             />
@@ -275,7 +283,7 @@
                             android:longClickable="false"
                             android:padding="8dp"
                             android:src="@drawable/ic_google"
-                            android:tint="@color/white"
+                            app:tint="@color/white"
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             />

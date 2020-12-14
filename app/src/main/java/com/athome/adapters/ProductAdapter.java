@@ -22,11 +22,13 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyHolder
     private List<ProductModel> list;
     private Context context;
     private Fragment_Home fragment_home;
+    private String type;
 
-    public ProductAdapter(List<ProductModel> list, Context context,Fragment_Home fragment_home) {
+    public ProductAdapter(List<ProductModel> list, Context context,Fragment_Home fragment_home,String type) {
         this.list = list;
         this.context = context;
         this.fragment_home = fragment_home;
+        this.type = type;
 
 
     }
@@ -47,6 +49,22 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyHolder
             ProductModel model2 = list.get(holder.getAdapterPosition());
             fragment_home.setProductItemModel(model2);
 
+        });
+
+        holder.binding.checkbox.setOnClickListener(view -> {
+            ProductModel model2 = list.get(holder.getAdapterPosition());
+            if (holder.binding.checkbox.isChecked()){
+                model2.setIs_wishlist(new ProductModel.IsWishList());
+
+
+            }else {
+                model2.setIs_wishlist(null);
+
+
+            }
+            list.set(holder.getAdapterPosition(),model2);
+            notifyItemChanged(holder.getAdapterPosition());
+            fragment_home.add_remove_favorite(model2,holder.getAdapterPosition(),type);
         });
     }
 

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,14 +19,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
-import com.athome.adapters.DataAdapter;
 import com.athome.adapters.HomeCategoriesAdapter;
 import com.athome.adapters.OfferProductAdapter;
 import com.athome.adapters.ProductAdapter;
 import com.athome.adapters.SliderAdapter;
 import com.athome.databinding.FragmentHomeBinding;
 
-import com.athome.models.BankDataModel;
 import com.athome.models.ProductModel;
 import com.athome.models.SingleCategoryModel;
 import com.athome.models.SliderDataModel;
@@ -34,7 +32,6 @@ import com.athome.mvp.fragment_home_mvp.FragmentHomePresenter;
 import com.athome.mvp.fragment_home_mvp.FragmentHomeView;
 import com.athome.ui.activity_home.HomeActivity;
 import com.athome.ui.activity_product_details.ProductDetailsActivity;
-import com.athome.ui.activity_products.ProductsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +71,8 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         return binding.getRoot();
     }
 
-    private void initView() {
+    private void initView()
+    {
         mostSellerProductList = new ArrayList<>();
         featuredProductList = new ArrayList<>();
         singleCategoryModelList = new ArrayList<>();
@@ -91,12 +89,12 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.progBarMostSeller.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.progBarOffer.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
-        featuredProductAdapter = new ProductAdapter(featuredProductList, activity,this);
+        featuredProductAdapter = new ProductAdapter(featuredProductList, activity,this,"1");
         binding.recViewFeaturedProducts.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.recViewFeaturedProducts.setAdapter(featuredProductAdapter);
 
 
-        mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity,this);
+        mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity,this,"2");
         binding.recViewMostSeller.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
         binding.recViewMostSeller.setAdapter(mostSellerAdapter);
 
@@ -121,8 +119,6 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         presenter.getOfferProducts();
 
     }
-
-
 
     @Override
     public void onSliderSuccess(List<SliderDataModel.SliderModel> sliderModelList) {
@@ -202,6 +198,38 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     }
 
     @Override
+    public void onUserNotRegister(String msg, ProductModel productModel, int position,String type) {
+        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+
+        if (type.equals("1")){
+            featuredProductList.set(position,productModel);
+            featuredProductAdapter.notifyItemChanged(position);
+        }else if (type.equals("2")){
+            mostSellerProductList.set(position,productModel);
+            mostSellerAdapter.notifyItemChanged(position);
+        }else if (type.equals("3")){
+            offerProductList.set(position,productModel);
+            offerProductAdapter.notifyItemChanged(position);
+        }
+
+    }
+
+    @Override
+    public void onFavoriteActionSuccess(ProductModel productModel, int position,String type) {
+
+        if (type.equals("1")){
+            featuredProductList.set(position,productModel);
+            featuredProductAdapter.notifyItemChanged(position);
+        }else if (type.equals("2")){
+            mostSellerProductList.set(position,productModel);
+            mostSellerAdapter.notifyItemChanged(position);
+        }else if (type.equals("3")){
+            offerProductList.set(position,productModel);
+            offerProductAdapter.notifyItemChanged(position);
+        }
+    }
+
+    @Override
     public void onProgressSliderShow() {
         binding.progBarSlider.setVisibility(View.VISIBLE);
 
@@ -277,6 +305,10 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         startActivityForResult(intent,100);
     }
 
+    public void add_remove_favorite(ProductModel productModel, int adapterPosition, String type){
+
+        presenter.add_remove_favorite(productModel,adapterPosition,type);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -291,6 +323,8 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         presenter.getMostSellerProducts();
         presenter.getFeaturedProducts();
     }
+
+
 
     public class MyTask extends TimerTask{
         @Override

@@ -65,7 +65,6 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             onCategorySelected= false;
             return true;
         });
-        binding.flAddToCart.setOnClickListener(view -> presenter.cart());
 
 
     }

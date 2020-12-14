@@ -15,4 +15,8 @@ public interface ActivityProductDetailsView {
 
     void onProgressHide();
 
+    void onUserNotRegister(String msg,ProductModel productModel);
+
+    void onFavoriteActionSuccess(ProductModel productModel);
+
 }

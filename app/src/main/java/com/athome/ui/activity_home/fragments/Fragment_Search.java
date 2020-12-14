@@ -45,7 +45,6 @@ public class Fragment_Search extends Fragment implements FragmentSearchView {
     private FragmentSearchPresenter presenter;
     private String lang;
     private int selectedPos=-1;
-    private boolean isDataChanged = true;
 
     public static Fragment_Search newInstance(){
         return new Fragment_Search();
@@ -117,6 +116,27 @@ public class Fragment_Search extends Fragment implements FragmentSearchView {
 
         }
     }
+
+    @Override
+    public void onUserNotRegister(String msg, ProductModel productModel, int position) {
+        Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
+        productModelList.set(position,productModel);
+        searchAdapter.notifyItemChanged(position);
+        activity.refreshFragmentHomeData();
+
+
+    }
+
+    @Override
+    public void onFavoriteActionSuccess(ProductModel productModel, int position) {
+        productModelList.set(position,productModel);
+        searchAdapter.notifyItemChanged(position);
+        activity.refreshFragmentHomeData();
+
+
+    }
+
+
     @Override
     public void onFailed(String msg) {
         Toast.makeText(activity, msg, Toast.LENGTH_SHORT).show();
@@ -146,7 +166,6 @@ public class Fragment_Search extends Fragment implements FragmentSearchView {
     {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==100&&resultCode== Activity.RESULT_OK){
-            isDataChanged = true;
             ProductModel model = productModelList.get(selectedPos);
             model.setIs_wishlist(new ProductModel.IsWishList());
             productModelList.set(selectedPos,model);
@@ -156,4 +175,7 @@ public class Fragment_Search extends Fragment implements FragmentSearchView {
         }
     }
 
+    public void add_remove_favorite(ProductModel model, int adapterPosition) {
+        presenter.add_remove_favorite(model,adapterPosition);
+    }
 }

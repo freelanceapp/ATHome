@@ -13,6 +13,8 @@ public interface FragmentHomeView {
     void onMostSellerSuccess(List<ProductModel> data);
     void onOfferSuccess(List<ProductModel> data);
     void onFailed(String msg);
+    void onUserNotRegister(String msg,ProductModel productModel,int position,String type);
+    void onFavoriteActionSuccess(ProductModel productModel,int position,String type);
     void onProgressSliderShow();
     void onProgressSliderHide();
     void onProgressCategoryShow();
@@ -23,4 +25,5 @@ public interface FragmentHomeView {
     void onProgressMostSellerHide();
     void onProgressOfferShow();
     void onProgressOfferHide();
+
 }

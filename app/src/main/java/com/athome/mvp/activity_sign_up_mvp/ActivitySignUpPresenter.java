@@ -1,14 +1,14 @@
 package com.athome.mvp.activity_sign_up_mvp;
 
-import android.app.FragmentManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.util.Log;
 
 import com.athome.R;
 import com.athome.models.UserModel;
 import com.athome.remote.Api;
+import com.athome.share.Common;
 import com.athome.tags.Tags;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.athome.models.SignUpModel;
 
 import java.io.IOException;
@@ -21,12 +21,8 @@ public class ActivitySignUpPresenter {
     private Context context;
     private ActivitySignUpView view;
 
-    private DatePickerDialog datePickerDialog;
 
-
-
-    public ActivitySignUpPresenter(Context context, ActivitySignUpView view)
-    {
+    public ActivitySignUpPresenter(Context context, ActivitySignUpView view) {
         this.context = context;
         this.view = view;
 
@@ -36,52 +32,42 @@ public class ActivitySignUpPresenter {
 
 
 
-    public void checkData(SignUpModel signUpModel)
-    {
-        if (signUpModel.isDataValid(context)){
-//            if (signUpModel.getImageUrl().isEmpty()){
-//                sign_up_without_image(signUpModel);
-//            }else {
-                sign_up(signUpModel);
 
-          //  }
-        }
-    }
-    public void showDateDialog(FragmentManager fragmentManager){
-        try {
-            datePickerDialog.show(fragmentManager,"");
-
-        }catch (Exception e){}
-    }
-
-    private void sign_up(SignUpModel signUpModel) {
-        view.onLoad();
+    public void sign_up(SignUpModel signUpModel) {
+        ProgressDialog dialog = Common.createProgressDialog(context, context.getString(R.string.wait));
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.show();
         Api.getService(Tags.base_url)
-                .signup(signUpModel.getPhone_code()+ signUpModel.getPhone(), signUpModel.getName(), signUpModel.getEmail(), signUpModel.getPassword())
+                .signUp(signUpModel.getPhone_code() + signUpModel.getPhone(), signUpModel.getName(), signUpModel.getEmail(), signUpModel.getPassword())
                 .enqueue(new Callback<UserModel>() {
                     @Override
                     public void onResponse(Call<UserModel> call, Response<UserModel> response) {
-                        view.onFinishload();
+                        dialog.dismiss();
                         if (response.isSuccessful() && response.body() != null) {
-                            //  Log.e("eeeeee", response.body().getUser().getName());
-                            if(response.body().status==200){
-                            view.onSignUpValid(response.body());}
-                            else {
-                                view.onFailed(response.body().message);
+                            if (response.body().status == 200) {
+                                view.onSuccess(response.body());
+                            } else if (response.body().status == 409) {
+                                view.onFailed(context.getString(R.string.phone_found));
+                            } else if (response.body().status == 406) {
+                                view.onFailed(context.getString(R.string.email_found));
+
+                            } else {
+                                view.onFailed(response.message() + "");
                             }
                         } else {
+                            dialog.dismiss();
                             try {
-                                Log.e("mmmmmmmmmmssss", response.errorBody().string());
+                                Log.e("error_code", response.code() + "___" + response.errorBody().string());
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
 
 
                             if (response.code() == 500) {
-                                view.onServer();
+                                view.onFailed("Server Error");
                             } else {
                                 view.onFailed(context.getResources().getString(R.string.failed));
-                                //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -89,16 +75,14 @@ public class ActivitySignUpPresenter {
                     @Override
                     public void onFailure(Call<UserModel> call, Throwable t) {
                         try {
-                            view.onFinishload();
+                            dialog.dismiss();
                             if (t.getMessage() != null) {
-                                Log.e("msg_category_error", t.getMessage() + "__");
+                                Log.e("error", t.getMessage() + "__");
 
                                 if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    view.onnotconnect(t.getMessage().toLowerCase());
-                                    //  Toast.makeText(VerificationCodeActivity.this, getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                    view.onFailed(context.getString(R.string.something));
                                 } else {
                                     view.onFailed(context.getResources().getString(R.string.failed));
-                                    // Toast.makeText(VerificationCodeActivity.this, getString(R.string.failed), Toast.LENGTH_SHORT).show();
                                 }
                             }
                         } catch (Exception e) {
@@ -109,9 +93,6 @@ public class ActivitySignUpPresenter {
 
 
     }
-
-
-
 
 
 }

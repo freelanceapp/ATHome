@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
     private SliderAdapter sliderAdapter;
     private ProductModel productModel;
     private int amount = 1;
+    private boolean isDataChanged = false;
 
 
     @Override
@@ -94,7 +96,19 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         });
 
         binding.llBack.setOnClickListener(view -> {
-            finish();
+           onBackPressed();
+        });
+
+        binding.checkbox.setOnClickListener(view -> {
+            if (binding.checkbox.isChecked()){
+                productModel.setIs_wishlist(new ProductModel.IsWishList());
+
+            }else {
+                productModel.setIs_wishlist(null);
+
+            }
+
+            presenter.add_remove_favorite(productModel);
         });
 
     }
@@ -102,6 +116,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
 
     @Override
     public void onSuccess(ProductModel data) {
+        this.productModel = data;
         binding.setModel(data);
 
         fragmentList.add(Fragment_Details.newInstance(data));
@@ -137,5 +152,36 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
     public void onProgressHide() {
         binding.progBar.setVisibility(View.GONE);
 
+    }
+
+    @Override
+    public void onUserNotRegister(String msg, ProductModel productModel) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+        this.productModel = productModel;
+        binding.setModel(productModel);
+        isDataChanged = true;
+
+        if (productModel.getIs_wishlist()==null){
+            Log.e("111","111");
+        }else {
+            Log.e("222","222");
+
+        }
+
+    }
+
+    @Override
+    public void onFavoriteActionSuccess(ProductModel productModel) {
+        this.productModel = productModel;
+        binding.setModel(productModel);
+        isDataChanged = true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (isDataChanged){
+            setResult(RESULT_OK);
+        }
+        finish();
     }
 }

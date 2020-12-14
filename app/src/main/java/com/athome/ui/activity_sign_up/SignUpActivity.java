@@ -18,6 +18,7 @@ import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -26,7 +27,9 @@ import androidx.databinding.DataBindingUtil;
 
 import com.athome.models.UserModel;
 import com.athome.preferences.Preferences;
+import com.athome.ui.activity_confirm_code.ConfirmCodeActivity;
 import com.athome.ui.activity_home.HomeActivity;
+import com.athome.ui.activity_login.LoginActivity;
 import com.squareup.picasso.Picasso;
 import com.athome.R;
 import com.athome.databinding.ActivitySignUpBinding;
@@ -48,8 +51,9 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
     private ActivitySignUpBinding binding;
     private ActivitySignUpPresenter presenter;
     private SignUpModel model;
-    private AlertDialog dialog;
     private Preferences preference;
+    private double lat = 0.0, lng = 0.0;
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -61,7 +65,15 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_sign_up);
+        getDataFromIntent();
         initView();
+
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        lat = intent.getDoubleExtra("lat", 0.0);
+        lng = intent.getDoubleExtra("lng", 0.0);
 
     }
 
@@ -70,47 +82,38 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
         model = new SignUpModel();
         binding.setModel(model);
         presenter = new ActivitySignUpPresenter(this, this);
-        binding.btnLogin.setOnClickListener(view -> presenter.checkData(model));
+        binding.btnSignUp.setOnClickListener(view -> {
+            if (model.isDataValid(this)) {
+                Common.CloseKeyBoard(this, binding.edtPhone);
+                navigateToConfirmCodeActivity();
+            }
+        });
+        binding.tvLogin.setOnClickListener(view -> {
+            Intent intent = new Intent(this, LoginActivity.class);
+            intent.putExtra("lat", lat);
+            intent.putExtra("lng", lng);
+            startActivity(intent);
+            finish();
+        });
 
+    }
 
+    private void navigateToConfirmCodeActivity() {
+        Intent intent = new Intent(this, ConfirmCodeActivity.class);
+        intent.putExtra("phone_code", model.getPhone_code());
+        intent.putExtra("phone", model.getPhone());
+        startActivityForResult(intent, 100);
     }
 
 
     @Override
-    public void onSignUpValid(UserModel userModel) {
-        preference.create_update_userdata(SignUpActivity.this, userModel);
-
-
+    public void onSuccess(UserModel userModel) {
+        preference.create_update_userdata(this, userModel);
         Intent intent = new Intent(this, HomeActivity.class);
-
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
         startActivity(intent);
         finish();
-
-    }
-
-
-    @Override
-    public void onServer() {
-        Toast.makeText(SignUpActivity.this, "Server Error", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    public void onLoad() {
-        dialog = Common.createProgressDialog(this, getString(R.string.wait));
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
-    @Override
-    public void onFinishload() {
-        dialog.dismiss();
-    }
-
-    @Override
-    public void onnotconnect(String msg) {
-        Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -118,4 +121,21 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
         Toast.makeText(SignUpActivity.this, msg, Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("lat", lat);
+        intent.putExtra("lng", lng);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100 && resultCode == RESULT_OK) {
+            presenter.sign_up(model);
+
+        }
+    }
 }

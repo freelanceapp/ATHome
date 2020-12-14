@@ -1,8 +1,24 @@
 package com.athome.mvp.activity_login_presenter;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.athome.R;
+import com.athome.models.AddFavoriteDataModel;
 import com.athome.models.LoginModel;
+import com.athome.models.ProductModel;
+import com.athome.models.UserModel;
+import com.athome.remote.Api;
+import com.athome.share.Common;
+import com.athome.tags.Tags;
+
+import java.io.IOException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ActivityLoginPresenter {
@@ -18,7 +34,67 @@ public class ActivityLoginPresenter {
     public void checkData(LoginModel loginModel){
         this.model = loginModel;
         if (model.isDataValid(context)){
-            view.onLoginValid();
+            login(loginModel);
         }
+    }
+
+    private void login(LoginModel loginModel) {
+        ProgressDialog dialog = Common.createProgressDialog(context,context.getString(R.string.wait));
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .login(loginModel.getPhone_code()+loginModel.getPhone(),loginModel.getPassword())
+                .enqueue(new Callback<UserModel>() {
+                    @Override
+                    public void onResponse(Call<UserModel> call, Response<UserModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                               if (response.body().status==200){
+                                   view.onLoginSuccess(response.body());
+                               }else if (response.body().status==404){
+                                   view.onFailed(context.getString(R.string.user_not_found));
+                               }
+                            }
+
+
+                        } else {
+
+                            try {
+                                Log.e("errorNotCode", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            if (response.code() == 500) {
+                                Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                view.onFailed(context.getString(R.string.failed));
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<UserModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("error_not_code", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    view.onFailed(context.getString(R.string.something));
+                                } else {
+                                    view.onFailed(context.getString(R.string.failed));
+
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
     }
 }

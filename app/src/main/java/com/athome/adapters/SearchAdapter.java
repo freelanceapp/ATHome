@@ -47,6 +47,19 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> 
             fragment_search.setProductItemModel(model2,holder.getAdapterPosition());
 
         });
+        holder.binding.checkbox.setOnClickListener(view -> {
+            ProductModel model2 = list.get(holder.getAdapterPosition());
+            if (holder.binding.checkbox.isChecked()){
+                model2.setIs_wishlist(new ProductModel.IsWishList());
+
+            }else {
+                model2.setIs_wishlist(null);
+
+            }
+            list.set(holder.getAdapterPosition(),model2);
+            notifyItemChanged(holder.getAdapterPosition());
+            fragment_search.add_remove_favorite(model2,holder.getAdapterPosition());
+        });
 
     }
 

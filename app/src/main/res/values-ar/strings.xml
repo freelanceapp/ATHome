@@ -39,7 +39,7 @@
     <string name="orders">طلباتى</string>
     <string name="profile">الصفحة الشخصية</string>
     <string name="please_enter_code_sent_to">من فضلك ادخل الكود المرسل الى</string>
-    <string name="resend">اعد إرسال فى</string>
+    <string name="resend">اعد إرسال فى :</string>
     <string name="resend2">اعد الارسال</string>
     <string name="inv_code">الكود غير صحيح</string>
     <string name="ok">حسنا</string>
@@ -62,7 +62,7 @@
     <string name="password_short">كلمة المرور قصيرة جدا</string>
     <string name="don_t_have_an_account">ليس لدي حساب</string>
     <string name="user_name">إسم المستخدم</string>
-    <string name="register">دخول</string>
+    <string name="register">إنشاء حساب</string>
     <string name="you_have_an_account">لدي حساب</string>
     <string name="descriptions">الوصف</string>
     <string name="comments">التعليق</string>
@@ -112,5 +112,10 @@
     <string name="comments2">التعليقات :</string>
     <string name="add_comment">أضف تعليقك....</string>
     <string name="no_comments">لا توجد تعليقات</string>
+    <string name="pls_signin_signup">قم بتسجيل الدخول او إنشاء حساب</string>
+    <string name="user_not_found">المستخدم غير موجود</string>
+    <string name="inv_email">البريد الالكتروني غير صحيح</string>
+    <string name="phone_found">رقم الجوال موجود مسبقا</string>
+    <string name="email_found">البريد الالكتروني موجود مسبقا</string>
 
 </resources>

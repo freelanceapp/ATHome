@@ -74,7 +74,6 @@ public class ActivityConfirmCodePresenter {
                 }
             }
         };
-        Log.e("phone",phone_code+phone);
         PhoneAuthProvider.getInstance()
                 .verifyPhoneNumber(
                         phone_code+phone,
@@ -97,7 +96,7 @@ public class ActivityConfirmCodePresenter {
             mAuth.signInWithCredential(credential)
                     .addOnSuccessListener(authResult -> {
                         dialog.dismiss();
-                        login();
+                        view.onSuccessCode();
                     }).addOnFailureListener(e -> {
                         dialog.dismiss();
                 if (e.getMessage() != null) {
@@ -159,7 +158,5 @@ public class ActivityConfirmCodePresenter {
         }
     }
 
-    private void login() {
-        view.onUserNoFound();
-    }
+
 }

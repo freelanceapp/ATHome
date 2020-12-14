@@ -1,6 +1,7 @@
 package com.athome.services;
 
 
+import com.athome.models.AddFavoriteDataModel;
 import com.athome.models.AllCategoryModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
@@ -10,10 +11,12 @@ import com.athome.models.SliderDataModel;
 import com.athome.models.SubCategoryDataModel;
 import com.athome.models.UserModel;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
 
@@ -34,12 +37,18 @@ public interface Service {
 
     @FormUrlEncoded
     @POST("api/register")
-    Call<UserModel> signup(
-            @Field("phone") String phone,
-            @Field("name") String name,
-            @Field("email") String email,
-            @Field("password") String password
+    Call<UserModel> signUp(@Field("phone") String phone,
+                           @Field("name") String name,
+                           @Field("email") String email,
+                           @Field("password") String password
     );
+
+    @FormUrlEncoded
+    @POST("api/login")
+    Call<UserModel> login(@Field("phone") String phone,
+                          @Field("password") String password
+    );
+
 
     @GET("api/slider")
     Call<SliderDataModel> get_slider();
@@ -75,7 +84,19 @@ public interface Service {
 
     @GET("api/one-product")
     Call<SingleProductDataModel> getProductById(@Query("user_id") String user_id,
-                                                @Query("product_id") String search_name
+                                                @Query("product_id") String product_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/action-wishlists")
+    Call<AddFavoriteDataModel> add_remove_favorite(@Header("Authorization") String token,
+                                                   @Field("user_id") String user_id,
+                                                   @Field("product_id") String product_id
+    );
+
+    @GET("api/my-wishlists")
+    Call<ProductDataModel> getMyFavorite(@Header("Authorization") String token,
+                                         @Query("user_id") String user_id
     );
 
 }

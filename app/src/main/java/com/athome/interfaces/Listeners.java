@@ -6,35 +6,8 @@ public interface Listeners {
     interface LoginListener {
         void checkDataLogin(String phone_code, String phone);
     }
-    interface TransFerListener {
-        void checkData(String amount);
-    }
-    interface SkipListener
-    {
-        void skip();
-    }
-    interface CreateAccountListener
-    {
-        void createNewAccount();
-    }
-
-    interface ShowCountryDialogListener
-    {
-        void showDialog();
-    }
-
-    interface SignUpListener
-    {
-        void checkDataValid();
-
-    }
-    interface EditprofileListener
-    {
-        void Editprofile(String name);
-        void Editprofile(String englishname, String arabicname);
 
 
-    }
 
     interface BackListener
     {
@@ -42,32 +15,21 @@ public interface Listeners {
     }
 
 
-    interface SettingActions
+    interface ProfileActions
     {
-        void contactUs();
-        void terms();
-        void aboutApp();
-        void logout();
-        void share();
-        void rateApp();
-        void arLang();
-        void enLang();
-        void whatsapp();
-        void twitter();
-        void instagram();
+        void onMyWallet();
+        void onFavorite();
+        void onAddress();
+        void onChangeLanguage();
+        void onTerms();
+        void onContactUs();
+        void onFacebook();
+        void onTwitter();
+        void onInstagram();
+        void onLogout();
 
     }
 
 
 
-    interface ForgetListner
-    {
-        void forget();
-    }
-    interface PasswordListner {
-        void checkDatapass(String pass);
-    }
-    interface ForgetpasswordListner {
-        void checkDataForget(String phone_code, String phone);
-    }
 }

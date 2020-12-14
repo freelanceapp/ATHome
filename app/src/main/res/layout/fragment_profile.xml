@@ -7,6 +7,10 @@
         <variable
             name="lang"
             type="String" />
+
+        <variable
+            name="actions"
+            type="com.athome.interfaces.Listeners.ProfileActions" />
     </data>
 
     <ScrollView
@@ -89,6 +93,7 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->actions.onMyWallet()}"
                         android:orientation="horizontal">
 
                         <ImageView
@@ -129,7 +134,10 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:onClick="@{()->actions.onFavorite()}"
+                        android:orientation="horizontal"
+
+                        >
 
                         <ImageView
                             android:layout_width="24dp"
@@ -169,7 +177,10 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:onClick="@{()->actions.onAddress()}"
+                        android:orientation="horizontal"
+
+                        >
 
                         <ImageView
                             android:layout_width="20dp"
@@ -280,7 +291,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_left_arrow"
-                            android:tint="@color/gray9"
+                            app:tint="@color/gray9"
 
                             />
                     </LinearLayout>
@@ -299,7 +310,10 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:onClick="@{()->actions.onChangeLanguage()}"
+                        android:orientation="horizontal"
+
+                        >
 
                         <ImageView
                             android:layout_width="24dp"
@@ -327,7 +341,7 @@
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_left_arrow"
-                            android:tint="@color/gray9" />
+                            app:tint="@color/gray9" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -384,7 +398,10 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:onClick="@{()->actions.onTerms()}"
+                        android:orientation="horizontal"
+
+                        >
 
                         <ImageView
                             android:layout_width="24dp"
@@ -406,6 +423,7 @@
                             android:textSize="15sp"
                             android:textStyle="bold"
 
+
                             />
 
                     </LinearLayout>
@@ -424,7 +442,10 @@
                         android:layout_marginStart="15dp"
                         android:layout_marginEnd="15dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:onClick="@{()->actions.onContactUs()}"
+                        android:orientation="horizontal"
+
+                        >
 
                         <ImageView
                             android:layout_width="20dp"
@@ -461,11 +482,10 @@
                 android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="45dp"
-                    android:layout_height="45dp"
-                    android:padding="3dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:src="@drawable/ic_logout"
-                    android:tint="@color/color1" />
+                    app:tint="@color/color1" />
 
                 <TextView
                     android:layout_width="wrap_content"

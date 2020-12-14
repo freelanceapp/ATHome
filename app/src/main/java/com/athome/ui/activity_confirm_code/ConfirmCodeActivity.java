@@ -44,8 +44,7 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
         initView();
     }
 
-    private void getDataFromIntent()
-    {
+    private void getDataFromIntent() {
         Intent intent = getIntent();
         if (intent != null) {
             phone_code = intent.getStringExtra("phone_code");
@@ -53,12 +52,12 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
 
         }
     }
-    private void initView()
-    {
+
+    private void initView() {
 
         String mPhone = phone_code + phone;
         binding.setPhone(mPhone);
-        presenter = new ActivityConfirmCodePresenter(this,this,phone,phone_code);
+        presenter = new ActivityConfirmCodePresenter(this, this, phone, phone_code);
 
 
         binding.btnConfirm.setOnClickListener(v -> {
@@ -70,7 +69,7 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
             }
         });
         binding.btnResendCode.setOnClickListener(view -> {
-            if (canSend){
+            if (canSend) {
                 canSend = false;
                 presenter.resendCode();
             }
@@ -78,7 +77,11 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
     }
 
 
-
+    @Override
+    public void onSuccessCode() {
+        setResult(RESULT_OK);
+        finish();
+    }
 
     @Override
     public void onCounterStarted(String time) {
@@ -97,34 +100,19 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
 
     @Override
     public void onCodeFailed(String msg) {
-        Common.CreateDialogAlert(this,msg);
+        Common.CreateDialogAlert(this, msg);
 
     }
 
-    @Override
-    public void onUserFound(UserModel userModel) {
 
-    }
 
     @Override
-    public void onUserNoFound() {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        intent.putExtra("phone_code",phone_code);
-        intent.putExtra("phone",phone);
-        startActivity(intent);
+    public void onBackPressed() {
         finish();
     }
 
     @Override
-    public void onBackPressed()
-    {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
-        finish();
-    }
-    @Override
-    protected void onDestroy()
-    {
+    protected void onDestroy() {
         super.onDestroy();
         presenter.stopTimer();
     }

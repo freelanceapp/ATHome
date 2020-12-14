@@ -6,8 +6,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.athome.R;
+import com.athome.models.AddFavoriteDataModel;
 import com.athome.models.AllCategoryModel;
 import com.athome.models.ProductDataModel;
+import com.athome.models.ProductModel;
 import com.athome.models.SliderDataModel;
 import com.athome.models.UserModel;
 import com.athome.preferences.Preferences;
@@ -16,6 +18,7 @@ import com.athome.tags.Tags;
 
 import java.io.IOException;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -220,7 +223,8 @@ public class FragmentHomePresenter {
                             }
 
                             if (response.code() == 500) {
-                                Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+                                view.onFailed("Server Error");
+
                             } else {
                                 Toast.makeText(context, context.getString(R.string.failed), Toast.LENGTH_SHORT).show();
                             }
@@ -296,9 +300,84 @@ public class FragmentHomePresenter {
                                 Log.e("error_not_code", t.getMessage() + "__");
 
                                 if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
-                                    Toast.makeText(context, context.getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                    view.onFailed(context.getString(R.string.something));
                                 } else {
-                                    Toast.makeText(context, context.getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                    view.onFailed(context.getString(R.string.something));
+
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+    }
+
+    public void add_remove_favorite(ProductModel productModel, int position, String type)
+    {
+        if (userModel == null) {
+            if (productModel.getIs_wishlist()!=null){
+                productModel.setIs_wishlist(null);
+            }else {
+                productModel.setIs_wishlist(new ProductModel.IsWishList());
+            }
+            view.onUserNotRegister(context.getString(R.string.pls_signin_signup),productModel,position,type);
+            return;
+        }
+        String user_id = String.valueOf(userModel.getData().getId());
+        Api.getService(Tags.base_url)
+                .add_remove_favorite(userModel.getData().getToken(),user_id, String.valueOf(productModel.getId()))
+                .enqueue(new Callback<AddFavoriteDataModel>() {
+                    @Override
+                    public void onResponse(Call<AddFavoriteDataModel> call, Response<AddFavoriteDataModel> response) {
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                productModel.setIs_wishlist(response.body().getData());
+                                view.onFavoriteActionSuccess(productModel,position,type);
+                            }
+
+
+                        } else {
+
+                            try {
+                                Log.e("errorNotCode", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (productModel.getIs_wishlist()!=null){
+                                productModel.setIs_wishlist(null);
+                            }else {
+                                productModel.setIs_wishlist(new ProductModel.IsWishList());
+                            }
+                            view.onFavoriteActionSuccess(productModel,position,type);
+
+                            if (response.code() == 500) {
+                                Toast.makeText(context, "Server Error", Toast.LENGTH_SHORT).show();
+                            } else {
+                                view.onFailed(context.getString(R.string.failed));
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<AddFavoriteDataModel> call, Throwable t) {
+                        try {
+                            if (productModel.getIs_wishlist()!=null){
+                                productModel.setIs_wishlist(null);
+                            }else {
+                                productModel.setIs_wishlist(new ProductModel.IsWishList());
+                            }
+                            view.onFavoriteActionSuccess(productModel,position,type);
+                            if (t.getMessage() != null) {
+                                Log.e("error_not_code", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    view.onFailed(context.getString(R.string.something));
+                                } else {
+                                    view.onFailed(context.getString(R.string.failed));
+
                                 }
                             }
                         } catch (Exception e) {

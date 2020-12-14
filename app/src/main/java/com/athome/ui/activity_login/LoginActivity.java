@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -12,8 +13,10 @@ import com.athome.R;
 import com.athome.databinding.ActivityLoginBinding;
 import com.athome.language.Language;
 import com.athome.models.LoginModel;
+import com.athome.models.UserModel;
 import com.athome.mvp.activity_login_presenter.ActivityLoginPresenter;
 import com.athome.mvp.activity_login_presenter.ActivityLoginView;
+import com.athome.preferences.Preferences;
 import com.athome.ui.activity_home.HomeActivity;
 import com.athome.ui.activity_sign_up.SignUpActivity;
 
@@ -23,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityLoginVie
     private ActivityLoginBinding binding;
     private LoginModel model;
     private ActivityLoginPresenter presenter;
+    private Preferences preferences;
     private double lat=0.0,lng=0.0;
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -44,6 +48,7 @@ public class LoginActivity extends AppCompatActivity implements ActivityLoginVie
     }
 
     private void initView() {
+        preferences = Preferences.getInstance();
         model = new LoginModel();
         binding.tvSkip.setPaintFlags(binding.tvSkip.getPaintFlags()| Paint.UNDERLINE_TEXT_FLAG);
         binding.setModel(model);
@@ -61,21 +66,25 @@ public class LoginActivity extends AppCompatActivity implements ActivityLoginVie
         });
         binding.tvSignUp.setOnClickListener(view -> {
             Intent intent = new Intent(this, SignUpActivity.class);
-
+            intent.putExtra("lat",lat);
+            intent.putExtra("lng",lng);
             startActivity(intent);
             finish();
         });
     }
 
+
+
     @Override
-    public void onLoginValid() {
-        Intent intent = new Intent(this, SignUpActivity.class);
-        intent.putExtra("phone_code",model.getPhone_code());
-        intent.putExtra("phone",model.getPhone());
-        intent.putExtra("lat",lat);
-        intent.putExtra("lng",lng);
+    public void onLoginSuccess(UserModel userModel) {
+        preferences.create_update_userdata(this,userModel);
+        Intent intent = new Intent(this,HomeActivity.class);
         startActivity(intent);
         finish();
+    }
 
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
     }
 }

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
 import com.athome.databinding.ProductOfferRowBinding;
-import com.athome.databinding.ProductRowBinding;
 import com.athome.models.ProductModel;
 import com.athome.ui.activity_home.fragments.Fragment_Home;
 
@@ -46,6 +45,20 @@ public class OfferProductAdapter extends RecyclerView.Adapter<OfferProductAdapte
             ProductModel model2 = list.get(holder.getAdapterPosition());
             fragment_home.setProductItemModel(model2);
 
+        });
+
+        holder.binding.checkbox.setOnClickListener(view -> {
+            ProductModel model2 = list.get(holder.getAdapterPosition());
+            if (holder.binding.checkbox.isChecked()){
+                model2.setIs_wishlist(new ProductModel.IsWishList());
+
+            }else {
+                model2.setIs_wishlist(null);
+
+            }
+            list.set(holder.getAdapterPosition(),model2);
+            notifyItemChanged(holder.getAdapterPosition());
+            fragment_home.add_remove_favorite(model2,holder.getAdapterPosition(),"3");
         });
     }
 

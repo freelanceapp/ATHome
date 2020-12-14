@@ -34,13 +34,13 @@
     <string name="orders">Orders</string>
     <string name="profile">Profile</string>
     <string name="please_enter_code_sent_to">Please enter code sent to</string>
-    <string name="resend">Resend</string>
+    <string name="resend">Resend in :</string>
     <string name="resend2">Resend</string>
     <string name="inv_code">Invalid Code</string>
     <string name="ok">Ok</string>
     <string name="favorite_offers">Favorite Offers</string>
     <string name="show_all">Show All</string>
-    <string name="phone">phone</string>
+    <string name="phone">phone number</string>
     <string name="or">Or</string>
     <string name="google">Google</string>
     <string name="facebook">facebook</string>
@@ -61,7 +61,7 @@
     <string name="password_short">Password Short</string>
     <string name="don_t_have_an_account">Don\'t have an account?</string>
     <string name="user_name">User name</string>
-    <string name="register">Register</string>
+    <string name="register">Sign Up</string>
     <string name="you_have_an_account">You Have an Account</string>
     <string name="descriptions">Descriptions</string>
     <string name="comments">Comments</string>
@@ -112,5 +112,10 @@
     <string name="comments2">Comments :</string>
     <string name="add_comment">Add comment....</string>
     <string name="no_comments">No Comments</string>
+    <string name="pls_signin_signup">Please sign in or sign up</string>
+    <string name="user_not_found">User not found</string>
+    <string name="inv_email">Invalid email</string>
+    <string name="phone_found">Phone number found</string>
+    <string name="email_found">Email is found</string>
 
 </resources>
