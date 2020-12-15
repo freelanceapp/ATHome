@@ -2,6 +2,7 @@ package com.athome.ui.activity_product_details.fragments;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
+import com.athome.adapters.CommentsAdapter;
 import com.athome.adapters.DataAdapter;
 import com.athome.adapters.SliderAdapter;
 import com.athome.databinding.FragmentCommentsBinding;
@@ -35,6 +37,7 @@ public class Fragment_Comments extends Fragment {
     private ProductDetailsActivity activity;
     private ProductModel productModel;
     private String lang;
+    private CommentsAdapter adapter;
 
 
     public static Fragment_Comments newInstance(ProductModel productModel) {
@@ -62,6 +65,17 @@ public class Fragment_Comments extends Fragment {
         if (bundle != null) {
             productModel = (ProductModel) bundle.getSerializable("data");
         }
+
+        if (productModel.getComments().size()>0){
+            adapter = new CommentsAdapter(productModel.getComments(),activity);
+            binding.recView.setLayoutManager(new LinearLayoutManager(activity));
+            binding.recView.setAdapter(adapter);
+            binding.tvNoData.setVisibility(View.GONE);
+
+        }else {
+            binding.tvNoData.setVisibility(View.VISIBLE);
+        }
+
 
     }
 

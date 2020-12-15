@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.databinding.BindingAdapter;
 
 
+import com.iarcuschin.simpleratingbar.SimpleRatingBar;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.squareup.picasso.Picasso;
 import com.athome.R;
@@ -58,6 +59,8 @@ public class GeneralMethod {
                 }
                 else if (type == 3) {
                     endPoint = Tags.IMAGE_Product_URL + endPoint;
+                }else if (type == 4) {
+                    endPoint = Tags.IMAGE_Product_Gallery_URL + endPoint;
                 }
                 Picasso.get().load(Uri.parse(endPoint)).into(imageView);
             }
@@ -72,6 +75,8 @@ public class GeneralMethod {
                     endPoint=Tags.IMAGE_Maincategory_URL+endPoint;
                 }else if (type == 3) {
                     endPoint = Tags.IMAGE_Product_URL + endPoint;
+                }else if (type == 4) {
+                    endPoint = Tags.IMAGE_Product_Gallery_URL + endPoint;
                 }
                 Picasso.get().load(Uri.parse( endPoint)).fit().into(imageView);
             }
@@ -86,15 +91,15 @@ public class GeneralMethod {
                     endPoint=Tags.IMAGE_Maincategory_URL+endPoint;
                 }else if (type == 3) {
                     endPoint = Tags.IMAGE_Product_URL + endPoint;
+
+                }else if (type == 4) {
+                    endPoint = Tags.IMAGE_Product_Gallery_URL + endPoint;
                 }
                 Picasso.get().load(Uri.parse( endPoint)).fit().into(imageView);
             }
         }
 
     }
-
-
-
 
     @BindingAdapter("day")
     public static void day(View view, String date) {
@@ -178,7 +183,10 @@ public class GeneralMethod {
 
     }
 
-
+    @BindingAdapter("rate")
+    public static void rate(SimpleRatingBar simpleRatingBar,double rate){
+        simpleRatingBar.setRating((float) rate);
+    }
 
 
 }

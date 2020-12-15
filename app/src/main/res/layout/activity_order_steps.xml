@@ -54,14 +54,21 @@
                         android:layout_height="25dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:src='@{lang.equals("ar")?@drawable/ic_right_arrow:@drawable/ic_left_arrow}'
-                        android:tint="@color/colorPrimary" />
+                        android:src="@drawable/ic_left_arrow"
+                        app:tint="@color/black"
+                        android:rotation='@{lang.equals("ar")?180:0}'
+
+
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/order_steps"
-                        android:textColor="@color/gray8" />
+                        android:textColor="@color/black"
+                        android:textSize="18sp"
+                        android:layout_gravity="center_vertical"
+                        />
 
                 </LinearLayout>
 
@@ -107,7 +114,7 @@
                             android:background="@drawable/circle_not_bg"
                             android:padding="13dp"
                             android:src="@drawable/ic_add"
-                            android:tint="@color/colorAccent" />
+                            app:tint="@color/colorAccent" />
 
                         <View
                             android:id="@+id/view1"
@@ -131,7 +138,6 @@
                             android:text="@string/order_accepted"
                             android:textColor="@color/gray4"
                             android:textSize="17sp"
-                            android:layout_marginEnd="16dp"
                             />
 
                         <LinearLayout
@@ -153,8 +159,9 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="#521523"
-                                android:textColor="@color/colorPrimary" />
+                                android:textColor="@color/colorPrimary"
+
+                                />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -180,7 +187,7 @@
                             android:background="@drawable/circle_not_bg"
                             android:padding="13dp"
                             android:src="@drawable/ic_order_1"
-                            android:tint="@color/colorPrimary" />
+                            app:tint="@color/colorPrimary" />
 
                         <View
                             android:id="@+id/view2"
@@ -208,11 +215,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@string/order_will_be_ready"
+                                android:text="@string/order_shipping"
                                 android:textColor="@color/gray4"
                                 android:textSize="13sp"
                                 android:textStyle="bold"
-                                android:layout_marginEnd="16dp"/>
+
+                                />
 
                             <TextView
                                 android:id="@+id/tv_order_ready"
@@ -223,16 +231,7 @@
                                 android:textColor="@color/colorPrimary" />
 
                         </LinearLayout>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="5dp"
-                            android:text="@string/order_in_way"
-                            android:textColor="@color/gray4"
-                            android:textSize="13sp"
-                            android:textStyle="bold"
-                            android:visibility="gone"
-                            />
+
 
 
                     </LinearLayout>
@@ -258,7 +257,7 @@
                             android:background="@drawable/circle_not_bg"
                             android:padding="13dp"
                             android:src="@drawable/ic_delivery"
-                            android:tint="@color/colorPrimary" />
+                            app:tint="@color/colorPrimary" />
 
                         <View
                             android:id="@+id/view3"
@@ -309,7 +308,7 @@
                             android:background="@drawable/circle_not_bg"
                             android:padding="13dp"
                             android:src="@drawable/ic_like"
-                            android:tint="@color/colorPrimary"
+                            app:tint="@color/colorPrimary"
 
                             />
 

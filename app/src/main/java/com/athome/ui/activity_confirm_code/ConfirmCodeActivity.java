@@ -60,6 +60,7 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
         presenter = new ActivityConfirmCodePresenter(this, this, phone, phone_code);
 
 
+
         binding.btnConfirm.setOnClickListener(v -> {
             String sms = binding.edtCode.getText().toString().trim();
             if (!sms.isEmpty()) {
@@ -91,7 +92,8 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
     }
 
     @Override
-    public void onCounterFinished() {
+    public void onCounterFinished()
+    {
         canSend = true;
         binding.btnResendCode.setText(R.string.resend);
         binding.btnResendCode.setTextColor(ContextCompat.getColor(ConfirmCodeActivity.this, R.color.gray4));
@@ -99,12 +101,11 @@ public class ConfirmCodeActivity extends AppCompatActivity implements ActivityCo
     }
 
     @Override
-    public void onCodeFailed(String msg) {
+    public void onCodeFailed(String msg)
+    {
         Common.CreateDialogAlert(this, msg);
 
     }
-
-
 
     @Override
     public void onBackPressed() {

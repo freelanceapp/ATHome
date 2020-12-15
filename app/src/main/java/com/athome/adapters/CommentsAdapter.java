@@ -9,19 +9,20 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
-import com.athome.databinding.AddressRowBinding;
-import com.athome.databinding.BrandRowBinding;
-import com.athome.models.AddressModel;
-import com.athome.models.BankDataModel;
+import com.athome.databinding.CommentRowBinding;
+import com.athome.databinding.SearchRowBinding;
+import com.athome.models.CommentModel;
+import com.athome.models.ProductModel;
+import com.athome.ui.activity_home.fragments.Fragment_Search;
 
 import java.util.List;
 
-public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyHolder> {
+public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.MyHolder> {
 
-    private List<AddressModel> list;
+    private List<CommentModel> list;
     private Context context;
 
-    public AddressAdapter(List<AddressModel> list, Context context) {
+    public CommentsAdapter(List<CommentModel> list, Context context) {
         this.list = list;
         this.context = context;
 
@@ -32,25 +33,26 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyHolder
     @NonNull
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        AddressRowBinding bankRowBinding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.address_row, parent, false);
-        return new MyHolder(bankRowBinding);
+        CommentRowBinding binding = DataBindingUtil.inflate(LayoutInflater.from(context), R.layout.comment_row, parent, false);
+        return new MyHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
-        AddressModel model = list.get(position);
+        CommentModel model = list.get(position);
+        holder.binding.setModel(model);
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {
-        private AddressRowBinding binding;
+        private CommentRowBinding binding;
 
-        public MyHolder(AddressRowBinding binding) {
+        public MyHolder(CommentRowBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
 

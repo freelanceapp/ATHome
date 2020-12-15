@@ -41,7 +41,7 @@ public class LanguageActivity extends AppCompatActivity {
         binding.tv1.setText(Html.fromHtml(getString(R.string.choose_language)));
         binding.cardAr.setOnClickListener(view -> {
             lang = "ar";
-            binding.flAr.setBackgroundResource(R.drawable.small_rounded_red_strock);
+            binding.flAr.setBackgroundResource(R.drawable.small_stroke_primary);
             binding.flEn.setBackgroundResource(0);
             binding.btnNext.setVisibility(View.VISIBLE);
 
@@ -50,7 +50,7 @@ public class LanguageActivity extends AppCompatActivity {
         binding.cardEn.setOnClickListener(view -> {
             lang = "en";
             binding.flAr.setBackgroundResource(0);
-            binding.flEn.setBackgroundResource(R.drawable.small_rounded_red_strock);
+            binding.flEn.setBackgroundResource(R.drawable.small_stroke_primary);
             binding.btnNext.setVisibility(View.VISIBLE);
         });
 

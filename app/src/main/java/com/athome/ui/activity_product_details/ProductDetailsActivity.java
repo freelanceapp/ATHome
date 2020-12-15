@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,16 +14,17 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.athome.R;
-import com.athome.adapters.SliderAdapter;
+import com.athome.adapters.ProductSliderAdapter;
 import com.athome.adapters.ViewPagerAdapter;
 import com.athome.databinding.ActivityProductDetailsBinding;
 import com.athome.language.Language;
+import com.athome.models.GalleryModel;
 import com.athome.models.ProductModel;
 import com.athome.mvp.activity_product_details_mvp.ActivityProductDetailsPresenter;
 import com.athome.mvp.activity_product_details_mvp.ActivityProductDetailsView;
 import com.athome.ui.activity_product_details.fragments.Fragment_Comments;
 import com.athome.ui.activity_product_details.fragments.Fragment_Details;
-import com.athome.ui.activity_product_details.fragments.Fragment_Reviews;
+import com.athome.ui.activity_product_details.fragments.Fragment_Policy;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
     private ViewPagerAdapter adapter;
     private List<Fragment> fragmentList;
     private List<String> titles;
-    private SliderAdapter sliderAdapter;
+    private ProductSliderAdapter sliderAdapter;
     private ProductModel productModel;
     private int amount = 1;
     private boolean isDataChanged = false;
@@ -58,6 +58,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         getDataFromIntent();
         initView();
 
+
     }
 
     private void getDataFromIntent() {
@@ -74,9 +75,6 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
 
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         presenter = new ActivityProductDetailsPresenter(this,this);
-        SliderAdapter sliderAdapter = new SliderAdapter(new ArrayList<>(), this);
-        binding.tab.setupWithViewPager(binding.pager);
-        binding.pager.setAdapter(sliderAdapter);
         titles = new ArrayList<>();
         fragmentList = new ArrayList<>();
 
@@ -119,13 +117,31 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         this.productModel = data;
         binding.setModel(data);
 
+        binding.tab.setupWithViewPager(binding.pager);
+        if (productModel.getGalleries().size() > 0) {
+            List<GalleryModel> galleryModelList = new ArrayList<>(productModel.getGalleries());
+            sliderAdapter = new ProductSliderAdapter(galleryModelList,this);
+            binding.pager.setAdapter(sliderAdapter);
+            binding.flSlider.setVisibility(View.VISIBLE);
+            binding.image.setVisibility(View.GONE);
+
+        }else {
+            binding.image.setVisibility(View.VISIBLE);
+            binding.flSlider.setVisibility(View.GONE);
+
+        }
+
+
         fragmentList.add(Fragment_Details.newInstance(data));
         fragmentList.add(Fragment_Comments.newInstance(data));
-        fragmentList.add(Fragment_Reviews.newInstance());
+        fragmentList.add(Fragment_Policy.newInstance(data));
 
         titles.add(getString(R.string.descriptions));
         titles.add(getString(R.string.comments));
-        titles.add(getString(R.string.reviews));
+        titles.add(getString(R.string.policy));
+
+
+
 
         binding.tabLayout.setupWithViewPager(binding.pager2);
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -159,14 +175,8 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
         this.productModel = productModel;
         binding.setModel(productModel);
-        isDataChanged = true;
+        isDataChanged = false;
 
-        if (productModel.getIs_wishlist()==null){
-            Log.e("111","111");
-        }else {
-            Log.e("222","222");
-
-        }
 
     }
 

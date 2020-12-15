@@ -29,11 +29,13 @@ import com.athome.R;
 import com.athome.databinding.ActivityMapBinding;
 import com.athome.interfaces.Listeners;
 import com.athome.language.Language;
+import com.athome.models.AddressModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
 import com.athome.models.SelectedLocation;
 import com.athome.remote.Api;
 import com.athome.share.Common;
+import com.athome.ui.activity_add_address.AddAddressActivity;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -77,6 +79,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     private LocationCallback locationCallback;
     private final String fineLocPerm = Manifest.permission.ACCESS_FINE_LOCATION;
     private final int loc_req = 1225;
+    private AddressModel addressModel;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -89,12 +92,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_map);
+        getDataFromIntent();
         initView();
+    }
+
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        addressModel = (AddressModel) intent.getSerializableExtra("data");
+        if (addressModel != null) {
+            lat = Double.parseDouble(addressModel.getGoogle_lat());
+            lng = Double.parseDouble(addressModel.getGoogle_long());
+        }
     }
 
     private void initView() {
         Paper.init(this);
-        lang = Paper.book().read("lang", Locale.getDefault().getLanguage());
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
         binding.setBackListener(this);
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
@@ -109,20 +122,23 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
             return false;
         });
-        binding.imsearch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String query = binding.edtSearch.getText().toString();
-                if (!TextUtils.isEmpty(query)) {
-                    Common.CloseKeyBoard(MapActivity.this, binding.edtSearch);
-                    Search(query);
-                }
+        binding.imageSearch.setOnClickListener(v -> {
+            String query = binding.edtSearch.getText().toString();
+            if (!TextUtils.isEmpty(query)) {
+                Common.CloseKeyBoard(MapActivity.this, binding.edtSearch);
+                Search(query);
             }
         });
         binding.btnSelect.setOnClickListener(view -> {
             SelectedLocation selectedLocation = new SelectedLocation(lat, lng, address);
+            Intent intent = new Intent(this, AddAddressActivity.class);
+            intent.putExtra("location", selectedLocation);
+            intent.putExtra("data",addressModel);
+            startActivityForResult(intent, 200);
 
         });
+
+
         updateUI();
         CheckPermission();
     }
@@ -193,6 +209,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
                                 address = response.body().getCandidates().get(0).getFormatted_address().replace("Unnamed Road,", "");
                                 binding.edtSearch.setText(address + "");
+                                binding.btnSelect.setVisibility(View.VISIBLE);
                                 AddMarker(response.body().getCandidates().get(0).getGeometry().getLocation().getLat(), response.body().getCandidates().get(0).getGeometry().getLocation().getLng());
                             }
                         } else {
@@ -237,6 +254,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                                 binding.btnSelect.setVisibility(View.VISIBLE);
                                 address = response.body().getResults().get(0).getFormatted_address().replace("Unnamed Road,", "");
                                 binding.edtSearch.setText(address + "");
+                                binding.btnSelect.setVisibility(View.VISIBLE);
                             }
                         } else {
 
@@ -278,7 +296,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         }
     }
-
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
@@ -345,16 +362,22 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        lat = location.getLatitude();
-        lng = location.getLongitude();
-        AddMarker(lat, lng);
-        getGeoData(lat, lng);
+        if (addressModel == null) {
+            lat = location.getLatitude();
+            lng = location.getLongitude();
+            AddMarker(lat, lng);
+            getGeoData(lat, lng);
 
-        if (googleApiClient != null) {
-            LocationServices.getFusedLocationProviderClient(this).removeLocationUpdates(locationCallback);
-            googleApiClient.disconnect();
-            googleApiClient = null;
+            if (googleApiClient != null) {
+                LocationServices.getFusedLocationProviderClient(this).removeLocationUpdates(locationCallback);
+                googleApiClient.disconnect();
+                googleApiClient = null;
+            }
+
+        } else {
+            getGeoData(lat, lng);
         }
+
     }
 
     @Override
@@ -389,6 +412,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         if (requestCode == 100 && resultCode == Activity.RESULT_OK) {
 
             startLocationUpdate();
+        } else if (requestCode == 200 && resultCode == Activity.RESULT_OK){
+            setResult(RESULT_OK);
+            finish();
         }
 
     }

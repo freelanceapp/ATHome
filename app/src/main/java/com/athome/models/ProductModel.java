@@ -1,6 +1,7 @@
 package com.athome.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ProductModel implements Serializable {
     private int id;
@@ -56,7 +57,12 @@ public class ProductModel implements Serializable {
     private String is_catalog;
     private String catalog_id;
     private String details_clear;
+    private String policy_clear;
+
     private IsWishList is_wishlist;
+    private String product_rate;
+    private List<GalleryModel> galleries;
+    private List<CommentModel> comments;
 
     public int getId() {
         return id;
@@ -113,6 +119,7 @@ public class ProductModel implements Serializable {
     public String getFile() {
         return file;
     }
+
 
 
 
@@ -276,8 +283,25 @@ public class ProductModel implements Serializable {
         return details_clear;
     }
 
+    public String getPolicy_clear() {
+        return policy_clear;
+    }
+
     public IsWishList getIs_wishlist() {
         return is_wishlist;
+    }
+
+    public String getProduct_rate() {
+        return product_rate;
+    }
+
+    public List<GalleryModel> getGalleries() {
+        return galleries;
+    }
+
+
+    public List<CommentModel> getComments() {
+        return comments;
     }
 
     public void setIs_wishlist(IsWishList is_wishlist) {

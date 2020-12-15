@@ -105,7 +105,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:background="@color/white"
-                        android:src="@drawable/flag_iq"
+                        android:src="@drawable/flag_eg"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/edtPhone"
                         app:layout_constraintStart_toStartOf="parent"
@@ -120,7 +120,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:text="+964"
+                        android:text="+20"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 

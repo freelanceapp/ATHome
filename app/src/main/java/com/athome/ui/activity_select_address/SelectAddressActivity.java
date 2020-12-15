@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
@@ -16,16 +18,22 @@ import com.athome.R;
 import com.athome.adapters.AddressAdapter;
 import com.athome.databinding.ActivitySelectAddressBinding;
 import com.athome.language.Language;
+import com.athome.models.AddressModel;
+import com.athome.mvp.activity_my_address_mvp.ActivityAddressPresenter;
+import com.athome.mvp.activity_my_address_mvp.ActivityMyAddressView;
+import com.athome.ui.activity_map.MapActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.paperdb.Paper;
 
-public class SelectAddressActivity extends AppCompatActivity {
+public class SelectAddressActivity extends AppCompatActivity implements ActivityMyAddressView {
     private ActivitySelectAddressBinding binding;
     private String lang;
-    private double lat=0.0,lng=0.0;
+    private ActivityAddressPresenter presenter;
     private AddressAdapter adapter;
+    private List<AddressModel> addressModelList;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -35,26 +43,72 @@ public class SelectAddressActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_address);
-        getDataFromIntent();
         initView();
 
     }
 
-    private void getDataFromIntent() {
-        Intent intent = getIntent();
-        lat = intent.getDoubleExtra("lat",0.0);
-        lng = intent.getDoubleExtra("lng",0.0);
 
-    }
 
     private void initView() {
+        addressModelList = new ArrayList<>();
         Paper.init(this);
         lang = Paper.book().read("lang","ar");
         binding.setLang(lang);
+        presenter = new ActivityAddressPresenter(this,this);
         binding.recView.setLayoutManager(new LinearLayoutManager(this));
-        binding.recView.setAdapter(new AddressAdapter(new ArrayList<>(),this));
+        adapter  = new AddressAdapter(addressModelList,this);
+        binding.recView.setAdapter(adapter);
+
+        presenter.getMyAddress();
+
         binding.llBack.setOnClickListener(view -> {
             finish();
         });
+        binding.btnSelect.setOnClickListener(view -> {
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivityForResult(intent,100);
+        });
+
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==100&&resultCode==RESULT_OK){
+            presenter.getMyAddress();
+        }
+    }
+
+    @Override
+    public void onSuccess(List<AddressModel> data) {
+        if (data.size()>0){
+            addressModelList.addAll(data);
+            adapter.notifyDataSetChanged();
+            binding.tvNoData.setVisibility(View.GONE);
+        }else {
+            binding.tvNoData.setVisibility(View.VISIBLE);
+
+        }
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onProgressShow() {
+        addressModelList.clear();
+        adapter.notifyDataSetChanged();
+        binding.tvNoData.setVisibility(View.GONE);
+        binding.progBar.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void onProgressHide() {
+        binding.progBar.setVisibility(View.GONE);
+
     }
 }

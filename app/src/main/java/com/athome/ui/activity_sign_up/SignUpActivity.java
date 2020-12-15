@@ -12,6 +12,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.provider.MediaStore;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.SpinnerAdapter;
@@ -81,6 +83,26 @@ public class SignUpActivity extends AppCompatActivity implements ActivitySignUpV
         preference = Preferences.getInstance();
         model = new SignUpModel();
         binding.setModel(model);
+
+        binding.edtPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().startsWith("0")){
+                    binding.edtPhone.setText(null);
+                }
+            }
+        });
+
         presenter = new ActivitySignUpPresenter(this, this);
         binding.btnSignUp.setOnClickListener(view -> {
             if (model.isDataValid(this)) {

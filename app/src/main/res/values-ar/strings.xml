@@ -80,14 +80,7 @@
     <string name="order_steps">خطوات الطلب</string>
     <string name="order_accepted">تم الموافقة على طلبك</string>
     <string name="order_id">رقم طلبك </string>
-    <string name="order_will_be_ready">جارى شحن الطلب</string>
-    <string name="order_in_way">الطلب فى الطريق</string>
-    <string name="order_successfuly">تم التوصيل بنجاح</string>
     <string name="payment">الدفع</string>
-    <string name="cash_on_delivery">دفع عند الأستلام</string>
-    <string name="electronic">دفع ألكترونى</string>
-    <string name="total_order_price">التكلفة الأجمالية</string>
-    <string name="discountPrice">كوبون</string>
     <string name="address_details">تفاصيل العنوان</string>
     <string name="determine_address">تحديد العنوان</string>
     <string name="location">الموقع</string>
@@ -96,6 +89,7 @@
     <string name="something">تحقق من الاتصال بالانترنت</string>
     <string name="add_address">إضافة عنوان</string>
     <string name="address">العنوان</string>
+    <string name="getting_location">جار تحديد موقعك...</string>
     <string name="email">البريد الالكتروني</string>
     <string name="address_name">تسمية العنوان (اختيارى )</string>
     <string name="homee">المنزل</string>
@@ -117,5 +111,16 @@
     <string name="inv_email">البريد الالكتروني غير صحيح</string>
     <string name="phone_found">رقم الجوال موجود مسبقا</string>
     <string name="email_found">البريد الالكتروني موجود مسبقا</string>
+    <string name="comments3">تعليقات</string>
+    <string name="policy">سياسة الشراء والاسترجاع</string>
+    <string name="pay_on_receive">الدفع عند الاستلام</string>
+    <string name="online_payment">الدفع الالكتروني</string>
+    <string name="cost">السعر:</string>
+    <string name="coupon">الكوبون:</string>
+    <string name="order_shipping">جار شحن الطلب</string>
+    <string name="order_in_way">الطلب في الطريق</string>
+    <string name="order_successfuly">تم التوصيل بنجاح</string>
+    <string name="addition_details">تفاصيل إضافية</string>
+    <string name="update_address">تعديل العنوان</string>
 
 </resources>

@@ -76,7 +76,7 @@ public class ActivityConfirmCodePresenter {
         };
         PhoneAuthProvider.getInstance()
                 .verifyPhoneNumber(
-                        phone_code+phone,
+                        "+20"+phone,
                         120,
                         TimeUnit.SECONDS,
                         activity,

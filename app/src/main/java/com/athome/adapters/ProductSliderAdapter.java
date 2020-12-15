@@ -9,19 +9,20 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.viewpager.widget.PagerAdapter;
 
-
 import com.athome.R;
+import com.athome.databinding.SliderRow2Binding;
 import com.athome.databinding.SliderRowBinding;
+import com.athome.models.GalleryModel;
 import com.athome.models.SliderDataModel;
 
 import java.util.List;
 
-public class SliderAdapter extends PagerAdapter {
-    private List<SliderDataModel.SliderModel> list ;
+public class ProductSliderAdapter extends PagerAdapter {
+    private List<GalleryModel> list ;
     private Context context;
     private LayoutInflater inflater;
 
-    public SliderAdapter(List<SliderDataModel.SliderModel> list, Context context) {
+    public ProductSliderAdapter(List<GalleryModel> list, Context context) {
         this.list = list;
         this.context = context;
         inflater = LayoutInflater.from(context);
@@ -40,7 +41,7 @@ public class SliderAdapter extends PagerAdapter {
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {
-        SliderRowBinding binding = DataBindingUtil.inflate(inflater, R.layout.slider_row,container,false);
+        SliderRow2Binding binding = DataBindingUtil.inflate(inflater, R.layout.slider_row2,container,false);
         binding.setPhoto(list.get(position).getPhoto());
         container.addView(binding.getRoot());
         return binding.getRoot();

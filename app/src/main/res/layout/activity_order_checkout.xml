@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="backListener"
-            type="com.athome.interfaces.Listeners.BackListener"
-            />
+            type="com.athome.interfaces.Listeners.BackListener" />
 
         <variable
             name="lang"
             type="String" />
-           </data>
+    </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/lll"
@@ -57,14 +57,19 @@
                         android:layout_height="25dp"
                         android:layout_marginLeft="10dp"
                         android:layout_marginRight="10dp"
-                        android:src='@{lang.equals("ar")?@drawable/ic_right_arrow:@drawable/ic_left_arrow}'
-                        android:tint="@color/colorPrimary" />
+                        android:src="@drawable/ic_left_arrow"
+                        app:tint="@color/black"
+                        android:rotation='@{lang.equals("ar")?180:0}'
+                        />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/payment"
-                        android:textColor="@color/gray8" />
+                        android:textColor="@color/black"
+                        android:layout_gravity="center_vertical"
+                        android:textSize="18sp"
+                        />
 
                 </LinearLayout>
 
@@ -98,7 +103,6 @@
                     >
 
 
-
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -109,10 +113,9 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:singleLine="true"
-                        android:text="@string/cash_on_delivery"
+                        android:text="@string/pay_on_receive"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp"
-
 
                         />
 
@@ -125,8 +128,9 @@
                         android:clickable="false"
                         android:longClickable="false"
                         android:padding="12dp"
-                        android:src="@drawable/ic_checked3"
+                        android:src="@drawable/ic_checked"
                         android:visibility="gone"
+                        app:tint="@color/colorPrimary"
 
 
                         />
@@ -157,6 +161,7 @@
 
 
                     >
+
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
@@ -184,9 +189,9 @@
                         android:clickable="false"
                         android:longClickable="false"
                         android:padding="12dp"
-                        android:src="@drawable/ic_checked3"
+                        android:src="@drawable/ic_checked"
                         android:visibility="gone"
-
+                        app:tint="@color/colorPrimary"
 
                         />
                 </LinearLayout>
@@ -232,7 +237,7 @@
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
                         android:singleLine="true"
-                        android:text="@string/electronic"
+                        android:text="@string/online_payment"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp"
 
@@ -247,8 +252,9 @@
                         android:clickable="false"
                         android:longClickable="false"
                         android:padding="12dp"
-                        android:src="@drawable/ic_checked3"
+                        android:src="@drawable/ic_checked"
                         android:visibility="gone"
+                        app:tint="@color/colorPrimary"
 
 
                         />
@@ -284,23 +290,20 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@string/total_order_price"
+                        android:text="@string/cost"
                         android:textColor="@color/black"
                         android:textSize="15sp"
 
                         />
 
                     <TextView
-                        android:id="@+id/tv_total"
+                        android:id="@+id/tvTotal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-
                         android:gravity="center_vertical"
-                        android:text="500 ر.س"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp"
 
@@ -313,14 +316,16 @@
                     android:layout_marginStart="15dp"
                     android:layout_marginEnd="15dp"
                     android:background="@drawable/viewline"
-                    android:layerType="software" />
+                    android:layerType="software" android:layout_marginTop="10dp"
+
+                    />
 
 
                 <LinearLayout
                     android:id="@+id/llDiscount"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal"
 
                     >
@@ -329,29 +334,25 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-
                         android:layout_weight="1"
                         android:gravity="center_vertical"
-                        android:text="@string/discountPrice"
+                        android:text="@string/coupon"
                         android:textColor="@color/black"
                         android:textSize="15sp"
 
                         />
 
                     <TextView
-                        android:id="@+id/tv_arriveprice"
+                        android:id="@+id/tvCoupon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-
                         android:gravity="center_vertical"
-                        android:text="10 % خصم"
                         android:textColor="@color/colorPrimary"
                         android:textSize="15sp"
 
                         />
                 </LinearLayout>
-
 
 
             </LinearLayout>
@@ -367,7 +368,6 @@
             android:gravity="center_vertical"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="parent">
-
 
 
             <Button

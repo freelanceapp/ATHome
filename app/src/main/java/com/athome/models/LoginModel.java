@@ -20,7 +20,7 @@ public class LoginModel extends BaseObservable implements Serializable {
     public ObservableField<String> error_password = new ObservableField<>();
 
     public LoginModel() {
-        phone_code ="+964";
+        phone_code ="+20";
         phone ="";
         password = "";
     }

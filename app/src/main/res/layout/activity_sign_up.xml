@@ -101,9 +101,11 @@
                         android:hint="@string/user_name"
                         android:singleLine="true"
                         android:text="@={model.name}"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/gray4"
-                        android:textSize="14sp" />
+                        android:textSize="14sp"
+
+                        />
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -127,7 +129,7 @@
                         android:singleLine="true"
                         android:text="@={model.email}"
                         error="@{model.error_email}"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/gray4"
                         android:textSize="14sp"
                         />
@@ -159,7 +161,7 @@
                         android:layout_height="24dp"
                         android:layout_gravity="center"
                         android:background="@color/white"
-                        android:src="@drawable/flag_iq"
+                        android:src="@drawable/flag_eg"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@+id/edtPhone"
                         app:layout_constraintStart_toStartOf="parent"
@@ -174,7 +176,7 @@
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="5dp"
                         android:layout_marginEnd="5dp"
-                        android:text="+964"
+                        android:text="+20"
                         android:textColor="@color/black"
                         android:textSize="15sp" />
 
@@ -224,7 +226,7 @@
                         android:inputType="textPassword"
                         android:singleLine="true"
                         android:text="@={model.password}"
-                        android:textColor="@color/colorPrimary"
+                        android:textColor="@color/black"
                         android:textColorHint="@color/gray4"
                         android:textSize="14sp" />
                 </com.google.android.material.textfield.TextInputLayout>

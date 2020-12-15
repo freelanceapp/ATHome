@@ -2,6 +2,7 @@ package com.athome.services;
 
 
 import com.athome.models.AddFavoriteDataModel;
+import com.athome.models.AddressDataModel;
 import com.athome.models.AllCategoryModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
@@ -97,6 +98,11 @@ public interface Service {
     @GET("api/my-wishlists")
     Call<ProductDataModel> getMyFavorite(@Header("Authorization") String token,
                                          @Query("user_id") String user_id
+    );
+
+    @GET("api/my-address")
+    Call<AddressDataModel> getMyAddress(@Header("Authorization") String token,
+                                        @Query("user_id") String user_id
     );
 
 }
