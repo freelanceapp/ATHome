@@ -24,10 +24,12 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapter.My
     private int i = 0;
     private int old_pos = 0;
 
-    public CategoriesAdapter(List<SingleCategoryModel> list, Context context,Fragment_Categories fragment_categories) {
+    public CategoriesAdapter(List<SingleCategoryModel> list, Context context, int selectedSubCategoryPos, Fragment_Categories fragment_categories) {
         this.list = list;
         this.context = context;
         this.fragment_categories = fragment_categories;
+        i = selectedSubCategoryPos;
+        old_pos = i;
 
 
     }

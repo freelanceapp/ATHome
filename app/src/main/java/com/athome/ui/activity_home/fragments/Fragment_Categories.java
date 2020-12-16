@@ -70,6 +70,7 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
             lat = bundle.getDouble("lat");
             lng = bundle.getDouble("lng");
             selectedSubCategoryPos = bundle.getInt("pos");
+
         }
         subCategoryModelList = new ArrayList<>();
         singleCategoryModelList = new ArrayList<>();
@@ -83,7 +84,7 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
 
 
         binding.recViewCategories.setLayoutManager(new LinearLayoutManager(activity));
-        categoriesAdapter = new CategoriesAdapter(singleCategoryModelList, activity, this);
+        categoriesAdapter = new CategoriesAdapter(singleCategoryModelList, activity,selectedSubCategoryPos, this);
         binding.recViewCategories.setAdapter(categoriesAdapter);
 
 
@@ -96,7 +97,7 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
         if (singleCategoryModelList.size() > 0) {
             selectedSingleCategoryModel = singleCategoryModelList.get(selectedSubCategoryPos);
             presenter.getSubCategory(selectedSingleCategoryModel.getId());
-            setSelectedSubCategory(pos);
+            setSelectedSubCategory(this.selectedSubCategoryPos);
         }
     }
 
