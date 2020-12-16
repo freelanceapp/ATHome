@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">آت هوم</string>
+    <string name="map_api_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
+    <string name="search_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
     <string name="field_req">الحقل مطلوب</string>
     <string name="terms_and_conditions">الشروط والاحكام</string>
     <string name="enter_verification_code">ادخل كود التحقق</string>
@@ -54,7 +56,7 @@
     <string name="setting">الاعدادات</string>
     <string name="country">الدوله</string>
     <string name="language">اللغه</string>
-    <string name="contact_us">الاتصال بنا</string>
+    <string name="contact_us">إتصل بنا</string>
     <string name="helping">مساعدة</string>
     <string name="contact_us2">تواصل معنا</string>
     <string name="no_orders_to_show">لا يوجد طلبات لعرضها</string>
@@ -122,5 +124,8 @@
     <string name="order_successfuly">تم التوصيل بنجاح</string>
     <string name="addition_details">تفاصيل إضافية</string>
     <string name="update_address">تعديل العنوان</string>
+    <string name="message">الرسالة</string>
+    <string name="send">إرسال</string>
+    <string name="suc">تم بنجاح!</string>
 
 </resources>

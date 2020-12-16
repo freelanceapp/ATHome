@@ -1,10 +1,13 @@
 package com.athome.ui.activity_home;
 
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +16,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import com.athome.tags.Tags;
 import com.athome.ui.activity_cart.CartActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.athome.R;
@@ -76,6 +80,12 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     public void refreshFragmentHomeData(){
         presenter.refreshFragmentHomeData();
     }
+
+    public void logout(){
+
+        presenter.logout();
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -131,7 +141,22 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     }
 
     @Override
+    public void onFailed(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+
+    @Override
     public void onFinished() {
         finish();
+    }
+
+    public void refreshActivity(String lang) {
+        Paper.init(this);
+        Paper.book().write("lang",lang);
+        Language.updateResources(this,lang);
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

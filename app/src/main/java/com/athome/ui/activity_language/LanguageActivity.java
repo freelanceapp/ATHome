@@ -39,6 +39,20 @@ public class LanguageActivity extends AppCompatActivity {
 
     private void initView() {
         binding.tv1.setText(Html.fromHtml(getString(R.string.choose_language)));
+        Paper.init(this);
+        lang = Paper.book().read("lang","ar");
+
+        if (lang.equals("ar")){
+            binding.flAr.setBackgroundResource(R.drawable.small_stroke_primary);
+            binding.flEn.setBackgroundResource(0);
+
+        }else {
+            binding.flAr.setBackgroundResource(0);
+            binding.flEn.setBackgroundResource(R.drawable.small_stroke_primary);
+
+        }
+        binding.btnNext.setVisibility(View.VISIBLE);
+
         binding.cardAr.setOnClickListener(view -> {
             lang = "ar";
             binding.flAr.setBackgroundResource(R.drawable.small_stroke_primary);

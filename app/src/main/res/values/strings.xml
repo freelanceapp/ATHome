@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">At Home</string>
+    <string name="map_api_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
+    <string name="search_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
     <string name="field_req">Field required</string>
     <string name="failed">Failed</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
@@ -121,5 +123,8 @@
     <string name="order_successfuly">Order delivery successfully</string>
     <string name="addition_details">Addition details</string>
     <string name="update_address">Update address</string>
+    <string name="message">Message</string>
+    <string name="send">Send</string>
+    <string name="suc">Success!</string>
 
 </resources>

@@ -1,19 +1,39 @@
 package com.athome.mvp.activity_home_mvp;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import com.athome.R;
+import com.athome.models.LogoutModel;
 import com.athome.models.UserModel;
+import com.athome.notifications.FirebaseNotifications;
 import com.athome.preferences.Preferences;
+import com.athome.remote.Api;
+import com.athome.share.Common;
+import com.athome.tags.Tags;
 import com.athome.ui.activity_home.fragments.Fragment_Categories;
 import com.athome.ui.activity_home.fragments.Fragment_Search;
 import com.athome.ui.activity_home.fragments.Fragment_Home;
 import com.athome.ui.activity_home.fragments.Fragment_Orders;
 import com.athome.ui.activity_home.fragments.Fragment_Profile;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+
+import java.io.IOException;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class ActivityHomePresenter {
@@ -30,7 +50,8 @@ public class ActivityHomePresenter {
     private double lat=0.0,lng=0.0;
     private int selectedPos =0;
 
-    public ActivityHomePresenter(Context context, HomeActivityView view, FragmentManager fragmentManager, double lat, double lng) {
+    public ActivityHomePresenter(Context context, HomeActivityView view, FragmentManager fragmentManager, double lat, double lng)
+    {
         this.context = context;
         this.fragmentManager = fragmentManager;
         this.view = view;
@@ -39,10 +60,11 @@ public class ActivityHomePresenter {
         this.lat = lat;
         this.lng = lng;
         displayFragmentHome();
+        updateTokenFireBase();
     }
-
     @SuppressLint("NonConstantResourceId")
-    public void manageFragments(MenuItem item){
+    public void manageFragments(MenuItem item)
+    {
         int id = item.getItemId();
         switch (id){
             case R.id.categories :
@@ -63,7 +85,8 @@ public class ActivityHomePresenter {
                 break;
         }
     }
-    private void displayFragmentHome(){
+    private void displayFragmentHome()
+    {
         if (fragment_home==null){
             fragment_home = Fragment_Home.newInstance(lat,lng);
         }
@@ -89,7 +112,6 @@ public class ActivityHomePresenter {
             fragmentManager.beginTransaction().add(R.id.fragment_container,fragment_home,"fragment_home").commit();
         }
     }
-
     public void displayFragmentCategories(int selectedPos)
     {
         this.selectedPos = selectedPos;
@@ -121,7 +143,6 @@ public class ActivityHomePresenter {
         }
         view.onCategoryFragmentSelected();
     }
-
     private void displayFragmentSearch(){
         if (fragment_search ==null){
             fragment_search = Fragment_Search.newInstance();
@@ -225,6 +246,131 @@ public class ActivityHomePresenter {
 
     public void cart(){
         view.onNavigateToCartActivity();
+    }
+
+    public void logout()
+    {
+        if (userModel==null){
+            view.onNavigateToLoginActivity();
+            return;
+        }
+        ProgressDialog dialog = Common.createProgressDialog(context,context.getString(R.string.wait));
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setCancelable(false);
+        dialog.show();
+        Api.getService(Tags.base_url)
+                .logout(userModel.getData().getToken(),userModel.getData().getId(),userModel.getData().getFirebase_token(),"android")
+                .enqueue(new Callback<LogoutModel>() {
+                    @Override
+                    public void onResponse(Call<LogoutModel> call, Response<LogoutModel> response) {
+                        dialog.dismiss();
+                        if (response.isSuccessful()) {
+                            if (response.body() != null) {
+                                if (response.body().getStatus()==200){
+                                    preference.clear(context);
+                                    view.onNavigateToLoginActivity();
+                                }else {
+                                    view.onFailed(context.getString(R.string.failed));
+                                }
+                            }
+
+
+                        } else {
+
+                            try {
+                                Log.e("errorNotCode", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+
+                            if (response.code() == 500) {
+                                view.onFailed("Server Error");
+                            } else {
+                                view.onFailed(context.getString(R.string.failed));
+
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<LogoutModel> call, Throwable t) {
+                        try {
+                            dialog.dismiss();
+                            if (t.getMessage() != null) {
+                                Log.e("error_not_code", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    view.onFailed(context.getString(R.string.something));
+                                } else {
+                                    view.onFailed(context.getString(R.string.failed));
+
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+
+
+    }
+
+    private void updateTokenFireBase()
+    {
+        if (userModel!=null){
+            try {
+                FirebaseInstanceId.getInstance().getInstanceId().addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (task.isSuccessful()){
+                            String token = task.getResult().getToken();
+                            Api.getService(Tags.base_url)
+                                    .updateFirebaseToken(userModel.getData().getToken(),userModel.getData().getId(),token,"android")
+                                    .enqueue(new Callback<LogoutModel>() {
+                                        @Override
+                                        public void onResponse(Call<LogoutModel> call, Response<LogoutModel> response) {
+                                            if (response.isSuccessful() && response.body() != null&&response.body().getStatus()==200) {
+                                                userModel.getData().setFireBaseToken(token);
+                                                preference.create_update_userdata(context,userModel);
+
+                                            } else {
+                                                try {
+
+                                                    Log.e("errorToken", response.code() + "_" + response.errorBody().string());
+                                                } catch (IOException e) {
+                                                    e.printStackTrace();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<LogoutModel> call, Throwable t) {
+                                            try {
+
+                                                if (t.getMessage() != null) {
+                                                    Log.e("errorToken2", t.getMessage());
+                                                    if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                                        Toast.makeText(context, R.string.something, Toast.LENGTH_SHORT).show();
+                                                    } else {
+                                                        Toast.makeText(context, t.getMessage(), Toast.LENGTH_SHORT).show();
+                                                    }
+                                                }
+
+                                            } catch (Exception e) {
+                                            }
+                                        }
+                                    });
+                        }
+                    }
+                });
+
+
+            } catch (Exception e) {
+
+
+            }
+        }
     }
 
 

@@ -10,6 +10,7 @@ public interface ActivityMyAddressView {
     void onFailed(String msg);
     void onProgressShow();
     void onProgressHide();
+    void onRemovedSuccess();
 
 
 }

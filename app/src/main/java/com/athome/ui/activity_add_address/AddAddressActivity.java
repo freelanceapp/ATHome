@@ -3,28 +3,33 @@ package com.athome.ui.activity_add_address;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import com.athome.R;
-import com.athome.adapters.CartAdapter;
 import com.athome.databinding.ActivityAddAddressBinding;
-import com.athome.databinding.ActivityOrderCheckoutBinding;
 import com.athome.language.Language;
+import com.athome.models.AddAddressModel;
 import com.athome.models.AddressModel;
 import com.athome.models.SelectedLocation;
-import com.athome.mvp.activity_order_checkout_mvp.ActivityOrderCheckoutPresenter;
-import com.athome.mvp.activity_order_checkout_mvp.OrderCheckoutActivityView;
+import com.athome.models.UserModel;
+import com.athome.mvp.activity_add_address_mvp.ActivityAddAddressPresenter;
+import com.athome.mvp.activity_add_address_mvp.ActivityAddAddressView;
+import com.athome.preferences.Preferences;
 
 import io.paperdb.Paper;
 
-public class AddAddressActivity extends AppCompatActivity {
+public class AddAddressActivity extends AppCompatActivity implements ActivityAddAddressView {
     private ActivityAddAddressBinding binding;
     private String lang;
     private SelectedLocation selectedLocation;
     private AddressModel addressModel;
+    private AddAddressModel addAddressModel;
+    private Preferences preferences;
+    private UserModel userModel;
+    private ActivityAddAddressPresenter presenter;
 
 
     @Override
@@ -49,24 +54,101 @@ public class AddAddressActivity extends AppCompatActivity {
 
 
     private void initView() {
+        preferences = Preferences.getInstance();
+        userModel = preferences.getUserData(this);
 
         Paper.init(this);
         lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
-        binding.setLocation(selectedLocation);
-
-
-        if (addressModel==null){
+        presenter = new ActivityAddAddressPresenter(this,this);
+        addAddressModel = new AddAddressModel();
+        addAddressModel.setPhone(userModel.getData().getPhone());
+        addAddressModel.setUser_id(String.valueOf(userModel.getData().getId()));
+        if (addressModel!=null){
+            addAddressModel.setAddress_id(String.valueOf(addressModel.getId()));
+            addAddressModel.setAddress(addressModel.getAddress().split("-")[0]);
+            if (addressModel.getAddress().split("-").length==2){
+                addAddressModel.setAdditionalNote(addressModel.getAddress().split("-")[1]);
+            }
+            addAddressModel.setLat(Double.parseDouble(addressModel.getGoogle_lat()));
+            addAddressModel.setLng(Double.parseDouble(addressModel.getGoogle_long()));
             binding.btnAdd.setText(R.string.update_address);
+
+            if (addressModel.getType().equals("home")){
+                binding.flHome.setBackgroundResource(R.drawable.small_stroke_primary);
+                binding.flwork.setBackgroundResource(0);
+                addAddressModel.setType("home");
+            }else {
+                binding.flwork.setBackgroundResource(R.drawable.small_stroke_primary);
+                binding.flHome.setBackgroundResource(0);
+                addAddressModel.setType("work");
+            }
+
         }else {
+            addAddressModel.setLat(selectedLocation.getLat());
+            addAddressModel.setLng(selectedLocation.getLng());
+            addAddressModel.setAddress(selectedLocation.getAddress());
             binding.btnAdd.setText(R.string.add_address);
         }
 
+        binding.setModel(addAddressModel);
 
+        binding.flHome.setOnClickListener(view -> {
+            binding.flHome.setBackgroundResource(R.drawable.small_stroke_primary);
+            binding.flwork.setBackgroundResource(0);
+            addAddressModel.setType("home");
+        });
 
+        binding.flwork.setOnClickListener(view -> {
+            binding.flwork.setBackgroundResource(R.drawable.small_stroke_primary);
+            binding.flHome.setBackgroundResource(0);
+            addAddressModel.setType("work");
+        });
+
+        binding.btnAdd.setOnClickListener(view -> {
+
+            if (addressModel==null){
+                addAddress();
+            }else {
+                updateAddress();
+            }
+        });
+
+        binding.llBack.setOnClickListener(view -> finish());
     }
 
 
 
+    private void addAddress() {
+        if (addAddressModel.isDataValid(this)){
+            presenter.add_address(addAddressModel);
 
+        }
+    }
+
+    private void updateAddress() {
+        if (addAddressModel.isDataValid(this)){
+            presenter.update_address(addAddressModel);
+
+        }
+
+    }
+
+
+    @Override
+    public void onAddedSuccess() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void onUpdateSuccess() {
+        setResult(RESULT_OK);
+        finish();
+    }
+
+    @Override
+    public void onFailed(String msg) {
+        Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
 }

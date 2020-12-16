@@ -3,7 +3,7 @@ package com.athome.models;
 import java.io.Serializable;
 
 public class UserModel implements Serializable {
-private Data data;
+    private Data data;
     public String message;
     public int status;
 
@@ -19,7 +19,7 @@ private Data data;
         return status;
     }
 
-    public class Data{
+    public static class Data implements Serializable {
         private int id;
         private String name;
         private String photo;
@@ -61,6 +61,7 @@ private Data data;
         private String date;
         private String ban;
         private String token;
+        private String firebase_token;
 
         public int getId() {
             return id;
@@ -224,6 +225,14 @@ private Data data;
 
         public String getToken() {
             return token;
+        }
+
+        public String getFirebase_token() {
+            return firebase_token;
+        }
+
+        public void setFireBaseToken(String token) {
+            this.firebase_token = token;
         }
     }
 

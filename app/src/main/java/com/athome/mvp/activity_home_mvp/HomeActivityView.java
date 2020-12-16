@@ -6,4 +6,5 @@ public interface HomeActivityView {
     void onNavigateToLoginActivity();
     void onFinished();
     void onNavigateToCartActivity();
+    void onFailed(String msg);
 }

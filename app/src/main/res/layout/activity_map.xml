@@ -96,8 +96,7 @@
                 <ImageView
                     android:id="@+id/imageSearch"
                     android:layout_width="24dp"
-                    android:layout_weight="24dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="24dp"
                     android:src="@drawable/ic_search"
                     app:tint="@color/black"
 
@@ -116,7 +115,10 @@
                     android:textColor="@color/black"
                     android:layout_marginEnd="5dp"
                     android:textSize="13sp"
-                    tools:ignore="RtlCompat" />
+                    tools:ignore="RtlCompat"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
 
                 <ProgressBar
                     android:id="@+id/progBar"

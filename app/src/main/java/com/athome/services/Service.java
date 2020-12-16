@@ -4,6 +4,7 @@ package com.athome.services;
 import com.athome.models.AddFavoriteDataModel;
 import com.athome.models.AddressDataModel;
 import com.athome.models.AllCategoryModel;
+import com.athome.models.LogoutModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
 import com.athome.models.ProductDataModel;
@@ -103,6 +104,64 @@ public interface Service {
     @GET("api/my-address")
     Call<AddressDataModel> getMyAddress(@Header("Authorization") String token,
                                         @Query("user_id") String user_id
+    );
+
+
+    @FormUrlEncoded
+    @POST("api/add-address")
+    Call<ResponseBody> addAddress(@Header("Authorization") String token,
+                                  @Field("user_id") String user_id,
+                                  @Field("phone") String phone,
+                                  @Field("name") String name,
+                                  @Field("address") String address,
+                                  @Field("google_lat") double google_lat,
+                                  @Field("google_long") double google_long,
+                                  @Field("type") String type
+    );
+
+    @FormUrlEncoded
+    @POST("api/edit-address")
+    Call<ResponseBody> updateAddress(@Header("Authorization") String token,
+                                     @Field("id") String address_id,
+                                     @Field("user_id") String user_id,
+                                     @Field("phone") String phone,
+                                     @Field("name") String name,
+                                     @Field("address") String address,
+                                     @Field("google_lat") double google_lat,
+                                     @Field("google_long") double google_long,
+                                     @Field("type") String type
+    );
+
+    @FormUrlEncoded
+    @POST("api/delete-address")
+    Call<ResponseBody> deleteAddress(@Header("Authorization") String token,
+                                     @Field("id") String address_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/logout")
+    Call<LogoutModel> logout(@Header("Authorization") String token,
+                             @Field("user_id") int user_id,
+                             @Field("phone_token") String phone_token,
+                             @Field("software_type") String software_type
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/update-firebase")
+    Call<LogoutModel> updateFirebaseToken(@Header("Authorization") String token,
+                                          @Field("user_id") int user_id,
+                                          @Field("phone_token") String phone_token,
+                                          @Field("software_type") String software_type
+
+    );
+
+    @FormUrlEncoded
+    @POST("api/StoreContact")
+    Call<ResponseBody> contactUs(@Field("name") String name,
+                                 @Field("email") String email,
+                                 @Field("phone") String phone,
+                                 @Field("text") String message
     );
 
 }

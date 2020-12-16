@@ -13,6 +13,7 @@ import com.athome.databinding.AddressRowBinding;
 import com.athome.databinding.BrandRowBinding;
 import com.athome.models.AddressModel;
 import com.athome.models.BankDataModel;
+import com.athome.ui.activity_select_address.SelectAddressActivity;
 
 import java.util.List;
 
@@ -20,10 +21,12 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyHolder
 
     private List<AddressModel> list;
     private Context context;
+    private SelectAddressActivity activity;
 
     public AddressAdapter(List<AddressModel> list, Context context) {
         this.list = list;
         this.context = context;
+        activity = (SelectAddressActivity) context;
 
 
     }
@@ -39,12 +42,22 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyHolder
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         AddressModel model = list.get(position);
+        holder.binding.setModel(model);
+        holder.binding.imageUpdate.setOnClickListener(view -> {
+            AddressModel model2 = list.get(holder.getAdapterPosition());
+            activity.updateAddress(model2,holder.getAdapterPosition());
+        });
+
+        holder.binding.imageDelete.setOnClickListener(view -> {
+            AddressModel model2 = list.get(holder.getAdapterPosition());
+            activity.deleteAddress(model2,holder.getAdapterPosition());
+        });
 
     }
 
     @Override
     public int getItemCount() {
-        return 8;
+        return list.size();
     }
 
     public static class MyHolder extends RecyclerView.ViewHolder {

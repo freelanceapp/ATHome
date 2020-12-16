@@ -34,6 +34,7 @@ public class SelectAddressActivity extends AppCompatActivity implements Activity
     private ActivityAddressPresenter presenter;
     private AddressAdapter adapter;
     private List<AddressModel> addressModelList;
+    private int selectedPos=-1;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -109,6 +110,33 @@ public class SelectAddressActivity extends AppCompatActivity implements Activity
     @Override
     public void onProgressHide() {
         binding.progBar.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onRemovedSuccess() {
+        if (addressModelList.size()>0&&selectedPos!=-1){
+            addressModelList.remove(selectedPos);
+            adapter.notifyItemRemoved(selectedPos);
+
+            if (addressModelList.size()>0){
+                binding.tvNoData.setVisibility(View.GONE);
+            }else {
+                binding.tvNoData.setVisibility(View.VISIBLE);
+
+            }
+        }
+    }
+
+    public void updateAddress(AddressModel model, int adapterPosition) {
+        Intent intent = new Intent(this,MapActivity.class);
+        intent.putExtra("data",model);
+        startActivityForResult(intent,100);
+    }
+
+    public void deleteAddress(AddressModel model, int adapterPosition) {
+        this.selectedPos = adapterPosition;
+        presenter.remove_address(model);
 
     }
 }

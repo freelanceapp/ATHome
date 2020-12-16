@@ -96,15 +96,6 @@ public class Preferences {
         SharedPreferences.Editor edit = preferences.edit();
         edit.clear();
         edit.apply();
-        SharedPreferences preferences2 = context.getSharedPreferences("room", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit2 = preferences2.edit();
-        edit2.clear();
-        edit2.apply();
-
-        SharedPreferences preferences3 = context.getSharedPreferences("settings_pref", Context.MODE_PRIVATE);
-        SharedPreferences.Editor edit3 = preferences3.edit();
-        edit3.clear();
-        edit3.apply();
         create_update_session(context, Tags.session_logout);
     }
 

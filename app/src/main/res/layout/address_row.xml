@@ -117,7 +117,7 @@
                 android:textAlignment="viewStart"
                 android:textColor="@color/black"
                 android:textSize="15sp"
-                android:text="@{model.address}"
+                android:text='@{model.address.replace("-","")}'
                 />
         </LinearLayout>
 

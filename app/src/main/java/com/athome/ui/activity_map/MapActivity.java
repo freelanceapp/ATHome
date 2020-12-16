@@ -11,7 +11,9 @@ import android.graphics.PorterDuff;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.Looper;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -100,6 +102,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         addressModel = (AddressModel) intent.getSerializableExtra("data");
         if (addressModel != null) {
+            address = addressModel.getAddress().split("-")[0];
             lat = Double.parseDouble(addressModel.getGoogle_lat());
             lng = Double.parseDouble(addressModel.getGoogle_long());
         }
@@ -136,6 +139,29 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             intent.putExtra("data",addressModel);
             startActivityForResult(intent, 200);
 
+        });
+
+        binding.edtSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (editable.toString().length()>0){
+                    address = editable.toString();
+                    binding.btnSelect.setVisibility(View.VISIBLE);
+                }else {
+                    binding.btnSelect.setVisibility(View.GONE);
+
+                }
+            }
         });
 
 
@@ -185,6 +211,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                 getGeoData(lat, lng);
 
             });
+
+
 
         }
     }
@@ -288,13 +316,12 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         if (marker == null) {
             marker = mMap.addMarker(new MarkerOptions().position(new LatLng(lat, lng)).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), zoom));
         } else {
             marker.setPosition(new LatLng(lat, lng));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), zoom));
 
 
         }
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(new LatLng(lat, lng), zoom));
     }
 
     @Override
@@ -375,6 +402,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             }
 
         } else {
+            binding.edtSearch.setText(address);
+            AddMarker(lat,lng);
             getGeoData(lat, lng);
         }
 
