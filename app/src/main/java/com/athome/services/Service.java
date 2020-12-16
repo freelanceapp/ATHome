@@ -8,6 +8,7 @@ import com.athome.models.LogoutModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
 import com.athome.models.ProductDataModel;
+import com.athome.models.SingleCommentDataModel;
 import com.athome.models.SingleProductDataModel;
 import com.athome.models.SliderDataModel;
 import com.athome.models.SubCategoryDataModel;
@@ -162,6 +163,14 @@ public interface Service {
                                  @Field("email") String email,
                                  @Field("phone") String phone,
                                  @Field("text") String message
+    );
+
+    @FormUrlEncoded
+    @POST("api/StoreComment")
+    Call<SingleCommentDataModel> addComment(@Header("Authorization") String token,
+                                            @Field("user_id") String user_id,
+                                            @Field("product_id") String product_id,
+                                            @Field("text") String message
     );
 
 }

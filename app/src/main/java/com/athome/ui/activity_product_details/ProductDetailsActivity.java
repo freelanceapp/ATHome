@@ -151,6 +151,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         binding.pager2.setCurrentItem(0,true);
 
         binding.view.setVisibility(View.GONE);
+        binding.setCommentsCount(String.valueOf(data.getComments().size()));
+
+    }
+
+    public void updateCommentsCount(int count){
+        binding.setCommentsCount(String.valueOf(count));
 
     }
 
