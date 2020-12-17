@@ -2,6 +2,7 @@ package com.athome.ui.activity_splash;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -51,7 +52,36 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
     private void initView() {
         presenter = new SplashPresenter(this,this);
         preferences = Preferences.getInstance();
-        presenter.delaySplash();
+        String path = "android.resource://"+getPackageName()+"/"+R.raw.splash;
+        binding.videoView.setVideoPath(path);
+        binding.videoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+            @Override
+            public void onPrepared(MediaPlayer mediaPlayer) {
+                binding.videoView.start();
+            }
+        });
+
+        binding.videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+
+                presenter.delaySplash();
+
+                /*   String session = preferences.getSession(SplashActivity.this);
+
+                if (session.equals(Tags.session_login))
+                {
+                    Intent intent = new Intent(SplashActivity.this, HomeActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else
+                {
+                    Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+                    startActivity(intent);
+                    finish();
+                }*/
+            }
+        });
     }
 
 

@@ -21,7 +21,6 @@ public class SplashPresenter {
     }
 
     public void delaySplash(){
-        new Handler().postDelayed(()->{
 
             if (userSettingsModel!=null&&userSettingsModel.isLanguageSelected()){
                 view.onNavigateToLocationActivity();
@@ -29,9 +28,5 @@ public class SplashPresenter {
                 view.onNavigateToLanguageActivity();
 
             }
-
-
-
-        },2000);
     }
 }
