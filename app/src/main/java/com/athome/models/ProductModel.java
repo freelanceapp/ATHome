@@ -13,7 +13,7 @@ public class ProductModel implements Serializable {
     private String subcategory_id;
     private String childcategory_id;
     private String attributes;
-    private String name;
+    private String name="";
     private String slug;
     private String photo;
     private String thumbnail;
@@ -308,7 +308,7 @@ public class ProductModel implements Serializable {
         this.is_wishlist = is_wishlist;
     }
 
-    public static class IsWishList{
+    public static class IsWishList implements Serializable{
         private int id;
         private String user_id;
         private String product_id;

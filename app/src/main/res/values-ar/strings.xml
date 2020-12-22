@@ -127,5 +127,11 @@
     <string name="message">الرسالة</string>
     <string name="send">إرسال</string>
     <string name="suc">تم بنجاح!</string>
+    <string name="menu">القائمة</string>
+    <string name="add_to_menu">أضف الى القائمة</string>
+    <string name="add">إضافة</string>
+    <string name="done2">تم الشراء</string>
+    <string name="ch_cart_menu">إختر إضافة للسلة,للقائمة أو كلاهما!</string>
+    <string name="amount">الكمية:</string>
 
 </resources>

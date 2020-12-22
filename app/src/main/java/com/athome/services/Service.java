@@ -5,6 +5,7 @@ import com.athome.models.AddFavoriteDataModel;
 import com.athome.models.AddressDataModel;
 import com.athome.models.AllCategoryModel;
 import com.athome.models.LogoutModel;
+import com.athome.models.MenuDataModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
 import com.athome.models.ProductDataModel;
@@ -171,6 +172,27 @@ public interface Service {
                                             @Field("user_id") String user_id,
                                             @Field("product_id") String product_id,
                                             @Field("text") String message
+    );
+
+
+    @GET("api/GetMenu")
+    Call<MenuDataModel> getMenu(@Header("Authorization") String token,
+                                @Query("user_id") String user_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/DeleteMenu")
+    Call<LogoutModel> deleteITemMenu(@Header("Authorization") String token,
+                                     @Field("menu_id") String menu_id
+    );
+
+    @FormUrlEncoded
+    @POST("api/StoreMenu")
+    Call<LogoutModel> addToMenu(@Header("Authorization") String token,
+                                @Field("user_id") String user_id,
+                                @Field("product_id") String product_id,
+                                @Field("status") String status,
+                                @Field("amount") int amount
     );
 
 }

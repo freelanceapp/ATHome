@@ -1,9 +1,11 @@
 package com.athome.ui.activity_product_details;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +19,8 @@ import com.athome.R;
 import com.athome.adapters.ProductSliderAdapter;
 import com.athome.adapters.ViewPagerAdapter;
 import com.athome.databinding.ActivityProductDetailsBinding;
+import com.athome.databinding.DialogAlertBinding;
+import com.athome.databinding.DialogCartBinding;
 import com.athome.language.Language;
 import com.athome.models.GalleryModel;
 import com.athome.models.ProductModel;
@@ -45,14 +49,13 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
 
 
     @Override
-    protected void attachBaseContext(Context newBase)
-    {
+    protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
         super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_product_details);
         getDataFromIntent();
@@ -67,18 +70,17 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
 
     }
 
-    private void initView()
-    {
+    private void initView() {
         Paper.init(this);
-        lang = Paper.book().read("lang","ar");
+        lang = Paper.book().read("lang", "ar");
         binding.setLang(lang);
 
-        binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
-        presenter = new ActivityProductDetailsPresenter(this,this);
+        binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(this, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        presenter = new ActivityProductDetailsPresenter(this, this);
         titles = new ArrayList<>();
         fragmentList = new ArrayList<>();
 
-        presenter = new ActivityProductDetailsPresenter(this,this);
+        presenter = new ActivityProductDetailsPresenter(this, this);
         presenter.getProductById(String.valueOf(productModel.getId()));
 
         binding.imageIncrease.setOnClickListener(view -> {
@@ -87,21 +89,22 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         });
 
         binding.imageDecrease.setOnClickListener(view -> {
-            if (amount>1){
+            if (amount > 1) {
                 amount--;
                 binding.tvAmount.setText(String.valueOf(amount));
             }
         });
 
+        binding.flAddToCart.setOnClickListener(view -> createDialogAlert());
         binding.llBack.setOnClickListener(view -> {
-           onBackPressed();
+            onBackPressed();
         });
 
         binding.checkbox.setOnClickListener(view -> {
-            if (binding.checkbox.isChecked()){
+            if (binding.checkbox.isChecked()) {
                 productModel.setIs_wishlist(new ProductModel.IsWishList());
 
-            }else {
+            } else {
                 productModel.setIs_wishlist(null);
 
             }
@@ -109,6 +112,42 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
             presenter.add_remove_favorite(productModel);
         });
 
+    }
+
+
+    private void createDialogAlert() {
+        final AlertDialog dialog = new AlertDialog.Builder(this)
+                .create();
+
+        DialogCartBinding binding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.dialog_cart, null, false);
+
+        binding.btnCancel.setOnClickListener(v -> dialog.dismiss()
+
+        );
+        binding.btnAdd.setOnClickListener(v -> {
+
+                    if (binding.checkboxMenu.isChecked() && binding.checkboxCart.isChecked()) {
+                        presenter.add_to_menu(productModel, amount);
+
+                        dialog.dismiss();
+                    } else if (binding.checkboxCart.isChecked()) {
+                        dialog.dismiss();
+                    } else if (binding.checkboxMenu.isChecked()) {
+                        presenter.add_to_menu(productModel, amount);
+                        dialog.dismiss();
+
+                    }else {
+                        Toast.makeText(this, R.string.ch_cart_menu, Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+
+
+        );
+        dialog.getWindow().getAttributes().windowAnimations = R.style.dialog_congratulation_animation;
+        dialog.setCanceledOnTouchOutside(false);
+        dialog.setView(binding.getRoot());
+        dialog.show();
     }
 
 
@@ -120,12 +159,12 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         binding.tab.setupWithViewPager(binding.pager);
         if (productModel.getGalleries().size() > 0) {
             List<GalleryModel> galleryModelList = new ArrayList<>(productModel.getGalleries());
-            sliderAdapter = new ProductSliderAdapter(galleryModelList,this);
+            sliderAdapter = new ProductSliderAdapter(galleryModelList, this);
             binding.pager.setAdapter(sliderAdapter);
             binding.flSlider.setVisibility(View.VISIBLE);
             binding.image.setVisibility(View.GONE);
 
-        }else {
+        } else {
             binding.image.setVisibility(View.VISIBLE);
             binding.flSlider.setVisibility(View.GONE);
 
@@ -141,21 +180,19 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         titles.add(getString(R.string.policy));
 
 
-
-
         binding.tabLayout.setupWithViewPager(binding.pager2);
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         adapter.addFragments_Titles(fragmentList, titles);
         binding.pager2.setAdapter(adapter);
         binding.pager2.setOffscreenPageLimit(fragmentList.size());
-        binding.pager2.setCurrentItem(0,true);
+        binding.pager2.setCurrentItem(0, true);
 
         binding.view.setVisibility(View.GONE);
         binding.setCommentsCount(String.valueOf(data.getComments().size()));
 
     }
 
-    public void updateCommentsCount(int count){
+    public void updateCommentsCount(int count) {
         binding.setCommentsCount(String.valueOf(count));
 
     }
@@ -194,8 +231,13 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
     }
 
     @Override
+    public void onAddToMenuSuccess() {
+        Toast.makeText(this, R.string.suc, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onBackPressed() {
-        if (isDataChanged){
+        if (isDataChanged) {
             setResult(RESULT_OK);
         }
         finish();

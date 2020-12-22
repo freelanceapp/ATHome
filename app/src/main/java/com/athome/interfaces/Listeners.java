@@ -23,6 +23,7 @@ public interface Listeners {
         void onChangeLanguage();
         void onTerms();
         void onContactUs();
+        void onMenu();
         void onFacebook();
         void onTwitter();
         void onInstagram();

@@ -22,6 +22,7 @@ import com.athome.ui.activity_contact_us.ContactUsActivity;
 import com.athome.ui.activity_favorite.FavoriteActivity;
 import com.athome.ui.activity_home.HomeActivity;
 import com.athome.ui.activity_language.LanguageActivity;
+import com.athome.ui.activity_menu.MenuActivity;
 import com.athome.ui.activity_select_address.SelectAddressActivity;
 import com.athome.ui.activity_web_view.WebViewActivity;
 
@@ -104,6 +105,17 @@ public class Fragment_Profile extends Fragment implements Listeners.ProfileActio
     public void onContactUs() {
         Intent intent = new Intent(activity, ContactUsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onMenu() {
+        userModel = preferences.getUserData(activity);
+        if (userModel!=null){
+            Intent intent = new Intent(activity, MenuActivity.class);
+            startActivity(intent);
+        }else {
+            Common.CreateDialogAlert(activity,getString(R.string.pls_signin_signup));
+        }
     }
 
     @Override

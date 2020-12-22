@@ -19,4 +19,6 @@ public interface ActivityProductDetailsView {
 
     void onFavoriteActionSuccess(ProductModel productModel);
 
+    void onAddToMenuSuccess();
+
 }

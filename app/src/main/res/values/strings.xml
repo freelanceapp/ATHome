@@ -126,5 +126,11 @@
     <string name="message">Message</string>
     <string name="send">Send</string>
     <string name="suc">Success!</string>
+    <string name="menu">Menu</string>
+    <string name="add_to_menu">Add to menu</string>
+    <string name="add">Add</string>
+    <string name="done2">Done</string>
+    <string name="ch_cart_menu">Choose cart,menu or both</string>
+    <string name="amount">Amount</string>
 
 </resources>

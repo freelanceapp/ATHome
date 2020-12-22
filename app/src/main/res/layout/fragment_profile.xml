@@ -128,6 +128,7 @@
                         android:background="@drawable/viewline"
                         android:layerType="software" />
 
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
@@ -155,6 +156,49 @@
                             android:paddingStart="10dp"
                             android:paddingEnd="10dp"
                             android:text="@string/favourite"
+                            android:textColor="@color/gray9"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+
+                            />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:background="@drawable/viewline"
+                        android:layerType="software" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->actions.onMenu()}"
+                        android:orientation="horizontal"
+
+                        >
+
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ic_list"
+                            app:tint="@color/color1" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center"
+                            android:layout_weight="1"
+                            android:background="@color/transparent"
+                            android:gravity="center_vertical"
+                            android:paddingStart="10dp"
+                            android:paddingEnd="10dp"
+                            android:text="@string/menu"
                             android:textColor="@color/gray9"
                             android:textSize="15sp"
                             android:textStyle="bold"
