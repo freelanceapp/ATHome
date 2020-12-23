@@ -1,7 +1,7 @@
 package com.athome.mvp.activity_product_details_mvp;
 
+import com.athome.models.CartDataModel;
 import com.athome.models.ProductModel;
-import com.athome.models.SingleProductDataModel;
 
 import java.util.List;
 
@@ -21,4 +21,8 @@ public interface ActivityProductDetailsView {
 
     void onAddToMenuSuccess();
 
+    void onCartUpdated(double totalCost, int itemCount, List<CartDataModel.CartModel> cartModelList);
+
+    void onCartCountUpdated(int count);
+    void onAmountSelectedFromCart(int amount);
 }

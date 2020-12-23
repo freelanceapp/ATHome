@@ -35,6 +35,7 @@ public class SelectAddressActivity extends AppCompatActivity implements Activity
     private AddressAdapter adapter;
     private List<AddressModel> addressModelList;
     private int selectedPos=-1;
+    private boolean isFromCart = false;
     @Override
     protected void attachBaseContext(Context newBase) {
         Paper.init(newBase);
@@ -44,10 +45,17 @@ public class SelectAddressActivity extends AppCompatActivity implements Activity
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_address);
+        getDataFromIntent();
         initView();
 
     }
 
+    private void getDataFromIntent() {
+        Intent intent = getIntent();
+        if (intent.hasExtra("cart")){
+            isFromCart = true;
+        }
+    }
 
 
     private void initView() {
@@ -138,5 +146,14 @@ public class SelectAddressActivity extends AppCompatActivity implements Activity
         this.selectedPos = adapterPosition;
         presenter.remove_address(model);
 
+    }
+
+    public void setItemSelect(AddressModel model) {
+        if (isFromCart){
+            Intent intent = getIntent();
+            intent.putExtra("data",model);
+            setResult(RESULT_OK,intent);
+            finish();
+        }
     }
 }

@@ -97,7 +97,7 @@
     <string name="homee">المنزل</string>
     <string name="work">العمل</string>
     <string name="featured_products">منتجات مميزة</string>
-    <string name="sar">ر.س</string>
+    <string name="sar">ج.م</string>
     <string name="most_seller">الاكثر مبيعا</string>
     <string name="day">يوم</string>
     <string name="hour">ساعة</string>
@@ -133,5 +133,21 @@
     <string name="done2">تم الشراء</string>
     <string name="ch_cart_menu">إختر إضافة للسلة,للقائمة أو كلاهما!</string>
     <string name="amount">الكمية:</string>
+    <string name="check">تحقق</string>
+    <string name="coupon_code">أدخل كوبون الخصم....</string>
+    <string name="total_items_cost">إجمالى سعر المنتجات:</string>
+    <string name="discount2">الخصم:</string>
+    <string name="total">الإجمالى:</string>
+    <string name="checkout">الدفع</string>
+    <string name="you_got_discount">تم حصولك على خصم</string>
+    <string name="inv_coupon">كود الكوبون غير صحيح</string>
+    <string name="delivery_method">طريقة الشحن</string>
+    <string name="delivery_for_free_nin_7_days">الشحن مجاني \n خلال 7 أيام</string>
+    <string name="fast_delivery">شحن سريع</string>
+    <string name="packaging">التعبئة والتغليف</string>
+    <string name="packaging_by_athome_nmanufacturer_packaging">تغليف آت هوم \n تغليف الشركة المصنعة</string>
+    <string name="special_packing">تغليف خاص</string>
+    <string name="in_3_days">in 3 days</string>
+    <string name="ready_to_gift_packaging">Ready-to-gift packaging</string>
 
 </resources>

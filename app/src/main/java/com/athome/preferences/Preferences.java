@@ -3,10 +3,14 @@ package com.athome.preferences;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.athome.models.CartDataModel;
 import com.google.gson.Gson;
 import com.athome.models.UserModel;
 import com.athome.models.UserSettingsModel;
 import com.athome.tags.Tags;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 public class Preferences {
 
@@ -34,13 +38,13 @@ public class Preferences {
 
     public UserSettingsModel getUserSettings(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("settings_pref", Context.MODE_PRIVATE);
-        UserSettingsModel model = new Gson().fromJson(preferences.getString("settings",""),UserSettingsModel.class);
+        UserSettingsModel model = new Gson().fromJson(preferences.getString("settings", ""), UserSettingsModel.class);
         return model;
 
     }
 
 
-   public void create_update_userdata(Context context, UserModel userModel) {
+    public void create_update_userdata(Context context, UserModel userModel) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String user_data = gson.toJson(userModel);
@@ -51,13 +55,14 @@ public class Preferences {
 
     }
 
-  public UserModel getUserData(Context context) {
+    public UserModel getUserData(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         Gson gson = new Gson();
         String user_data = preferences.getString("user_data", "");
         UserModel userModel = gson.fromJson(user_data, UserModel.class);
         return userModel;
     }
+
     public void create_update_session(Context context, String session) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("session", Context.MODE_PRIVATE);
 
@@ -68,21 +73,19 @@ public class Preferences {
 
     }
 
-
-    public void create_room_id(Context context, String room_id) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences("room", Context.MODE_PRIVATE);
-
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("room_id", room_id);
+    public void createUpdateCartData(Context context, CartDataModel cartDataModel) {
+        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        String data = gson.toJson(cartDataModel);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("data", data);
         editor.apply();
-
-
     }
 
-    public String getRoomId(Context context) {
-        SharedPreferences preferences = context.getSharedPreferences("room", Context.MODE_PRIVATE);
-        String room_id = preferences.getString("room_id", Tags.session_logout);
-        return room_id;
+    public CartDataModel getCartData(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
+        Gson gson = new Gson();
+        return gson.fromJson(preferences.getString("data", ""),CartDataModel.class);
     }
 
     public String getSession(Context context) {
@@ -98,7 +101,6 @@ public class Preferences {
         edit.apply();
         create_update_session(context, Tags.session_logout);
     }
-
 
 
 }

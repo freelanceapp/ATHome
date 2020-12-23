@@ -4,6 +4,7 @@ package com.athome.services;
 import com.athome.models.AddFavoriteDataModel;
 import com.athome.models.AddressDataModel;
 import com.athome.models.AllCategoryModel;
+import com.athome.models.CouponDataModel;
 import com.athome.models.LogoutModel;
 import com.athome.models.MenuDataModel;
 import com.athome.models.PlaceGeocodeData;
@@ -193,6 +194,10 @@ public interface Service {
                                 @Field("product_id") String product_id,
                                 @Field("status") String status,
                                 @Field("amount") int amount
+    );
+
+    @GET("api/GetCoupon")
+    Call<CouponDataModel> checkCouponData(@Query("code") String code
     );
 
 }

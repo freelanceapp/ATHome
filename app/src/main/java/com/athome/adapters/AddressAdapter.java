@@ -43,6 +43,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyHolder
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         AddressModel model = list.get(position);
         holder.binding.setModel(model);
+        holder.itemView.setOnClickListener(view -> {
+            AddressModel model2 = list.get(holder.getAdapterPosition());
+            activity.setItemSelect(model2);
+        });
         holder.binding.imageUpdate.setOnClickListener(view -> {
             AddressModel model2 = list.get(holder.getAdapterPosition());
             activity.updateAddress(model2,holder.getAdapterPosition());

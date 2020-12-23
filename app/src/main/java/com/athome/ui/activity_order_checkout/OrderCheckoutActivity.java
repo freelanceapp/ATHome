@@ -1,6 +1,7 @@
 package com.athome.ui.activity_order_checkout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -23,8 +24,8 @@ public class OrderCheckoutActivity extends AppCompatActivity implements OrderChe
     private ActivityOrderCheckoutBinding binding;
     private ActivityOrderCheckoutPresenter presenter;
     private String lang;
-    private CartAdapter auctionAdapter;
-    private String payment_type;
+    private int delivery_type =0,packaging_type=0;
+
 
 
     @Override
@@ -49,34 +50,27 @@ public class OrderCheckoutActivity extends AppCompatActivity implements OrderChe
 
         presenter = new ActivityOrderCheckoutPresenter(this, this);
 
-        binding.cardCash.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                payment_type = "cash";
-                binding.img1.setVisibility(View.GONE);
-                binding.img2.setVisibility(View.GONE);
-                binding.img3.setVisibility(View.VISIBLE);
-
-            }
+        binding.rbDeliveryFree.setOnClickListener(view -> {
+            delivery_type = 0;
         });
-        binding.cardCredit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                payment_type = "online";
-                binding.img1.setVisibility(View.VISIBLE);
-                binding.img2.setVisibility(View.GONE);
-                binding.img3.setVisibility(View.GONE);
 
-            }
+        binding.rbDeliveryPaid.setOnClickListener(view -> {
+            delivery_type = 1;
         });
-        binding.cardWallet.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                payment_type = "wallet";
-                binding.img1.setVisibility(View.GONE);
-                binding.img2.setVisibility(View.VISIBLE);
-                binding.img3.setVisibility(View.GONE);
-            }
+
+        binding.rbPackagingFree.setOnClickListener(view -> {
+            packaging_type = 0;
+        });
+
+        binding.rbPackagingPaid.setOnClickListener(view -> {
+            packaging_type = 1;
+        });
+        binding.btnPay.setOnClickListener(view -> {
+            Intent intent = getIntent();
+            intent.putExtra("delivery",delivery_type);
+            intent.putExtra("packaging",packaging_type);
+            setResult(RESULT_OK,intent);
+            finish();
         });
     }
 

@@ -7,4 +7,5 @@ public interface HomeActivityView {
     void onFinished();
     void onNavigateToCartActivity();
     void onFailed(String msg);
+    void onCartCountUpdate(int count);
 }

@@ -189,6 +189,14 @@ public class GeneralMethod {
     }
 
 
+    @BindingAdapter({"amount","price"})
+    public static void calculateCartItemCost(TextView textView,int amount,double price){
+        double cost = amount*price;
+        textView.setText(String.format(Locale.ENGLISH,"%.2f %s",cost,textView.getContext().getString(R.string.sar)));
+    }
+
+
+
 }
 
 

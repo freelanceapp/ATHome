@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentManager;
 
 import com.athome.R;
+import com.athome.models.CartDataModel;
 import com.athome.models.LogoutModel;
 import com.athome.models.UserModel;
 import com.athome.notifications.FirebaseNotifications;
@@ -373,5 +374,19 @@ public class ActivityHomePresenter {
         }
     }
 
+    public void getCartItemCount(){
+        view.onCartCountUpdate(preference.getCartData(context).getCartModelList().size());
+    }
+
+    public void updateCartModel(){
+        CartDataModel cartDataModel = preference.getCartData(context);
+        if (cartDataModel!=null){
+            cartDataModel.setCoupon_discount(0.0);
+            cartDataModel.setCoupon_code("");
+            cartDataModel.setDelivery_cost(0.0);
+            cartDataModel.setPackaging_cost(0.0);
+            preference.createUpdateCartData(context,cartDataModel);
+        }
+    }
 
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Toast;
@@ -19,13 +20,14 @@ import com.athome.R;
 import com.athome.adapters.ProductSliderAdapter;
 import com.athome.adapters.ViewPagerAdapter;
 import com.athome.databinding.ActivityProductDetailsBinding;
-import com.athome.databinding.DialogAlertBinding;
 import com.athome.databinding.DialogCartBinding;
 import com.athome.language.Language;
+import com.athome.models.CartDataModel;
 import com.athome.models.GalleryModel;
 import com.athome.models.ProductModel;
 import com.athome.mvp.activity_product_details_mvp.ActivityProductDetailsPresenter;
 import com.athome.mvp.activity_product_details_mvp.ActivityProductDetailsView;
+import com.athome.ui.activity_cart.CartActivity;
 import com.athome.ui.activity_product_details.fragments.Fragment_Comments;
 import com.athome.ui.activity_product_details.fragments.Fragment_Details;
 import com.athome.ui.activity_product_details.fragments.Fragment_Policy;
@@ -80,9 +82,7 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
         titles = new ArrayList<>();
         fragmentList = new ArrayList<>();
 
-        presenter = new ActivityProductDetailsPresenter(this, this);
         presenter.getProductById(String.valueOf(productModel.getId()));
-
         binding.imageIncrease.setOnClickListener(view -> {
             amount++;
             binding.tvAmount.setText(String.valueOf(amount));
@@ -95,7 +95,9 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
             }
         });
 
+
         binding.flAddToCart.setOnClickListener(view -> createDialogAlert());
+
         binding.llBack.setOnClickListener(view -> {
             onBackPressed();
         });
@@ -110,6 +112,11 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
             }
 
             presenter.add_remove_favorite(productModel);
+        });
+
+        binding.flCart.setOnClickListener(view -> {
+            Intent intent = new Intent(this, CartActivity.class);
+            startActivity(intent);
         });
 
     }
@@ -128,15 +135,16 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
 
                     if (binding.checkboxMenu.isChecked() && binding.checkboxCart.isChecked()) {
                         presenter.add_to_menu(productModel, amount);
-
+                        presenter.add_to_cart(productModel,amount);
                         dialog.dismiss();
                     } else if (binding.checkboxCart.isChecked()) {
+                        presenter.add_to_cart(productModel,amount);
                         dialog.dismiss();
                     } else if (binding.checkboxMenu.isChecked()) {
                         presenter.add_to_menu(productModel, amount);
                         dialog.dismiss();
 
-                    }else {
+                    } else {
                         Toast.makeText(this, R.string.ch_cart_menu, Toast.LENGTH_SHORT).show();
                     }
 
@@ -233,6 +241,32 @@ public class ProductDetailsActivity extends AppCompatActivity implements Activit
     @Override
     public void onAddToMenuSuccess() {
         Toast.makeText(this, R.string.suc, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCartUpdated(double totalCost, int itemCount, List<CartDataModel.CartModel> cartModelList) {
+        binding.setCount(itemCount);
+    }
+
+    @Override
+    public void onCartCountUpdated(int count) {
+        binding.setCount(count);
+    }
+
+    @Override
+    public void onAmountSelectedFromCart(int amount) {
+        this.amount = amount;
+        binding.tvAmount.setText(String.valueOf(amount));
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getCartCount();
+        presenter.getItemAmount(productModel);
+
+
     }
 
     @Override

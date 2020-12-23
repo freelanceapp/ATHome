@@ -96,7 +96,7 @@
     <string name="work">Work</string>
     <string name="getting_location">Getting location...</string>
     <string name="featured_products">Featured Products</string>
-    <string name="sar">SAR</string>
+    <string name="sar">EGP</string>
     <string name="most_seller">Most Seller</string>
     <string name="day">Day</string>
     <string name="hour">Hour</string>
@@ -132,5 +132,21 @@
     <string name="done2">Done</string>
     <string name="ch_cart_menu">Choose cart,menu or both</string>
     <string name="amount">Amount</string>
+    <string name="check">Check</string>
+    <string name="coupon_code">Enter coupon code....</string>
+    <string name="total_items_cost">Total Items cost:</string>
+    <string name="discount2">Discount:</string>
+    <string name="total">Total:</string>
+    <string name="checkout">Checkout</string>
+    <string name="you_got_discount">you got discount</string>
+    <string name="inv_coupon">Invalid coupon code</string>
+    <string name="delivery_method">Delivery method</string>
+    <string name="delivery_for_free_nin_7_days">Delivery for free \n in 7 days</string>
+    <string name="fast_delivery">Fast delivery</string>
+    <string name="packaging">Packaging</string>
+    <string name="packaging_by_athome_nmanufacturer_packaging">Packaging by AtHome\nManufacturer packaging</string>
+    <string name="special_packing">Special packing</string>
+    <string name="in_3_days">in 3 days</string>
+    <string name="ready_to_gift_packaging">Ready-to-gift packaging</string>
 
 </resources>

@@ -7,6 +7,7 @@ import android.widget.Toast;
 
 import com.athome.R;
 import com.athome.models.AddFavoriteDataModel;
+import com.athome.models.CartDataModel;
 import com.athome.models.LogoutModel;
 import com.athome.models.ProductModel;
 import com.athome.models.SingleProductDataModel;
@@ -17,6 +18,8 @@ import com.athome.share.Common;
 import com.athome.tags.Tags;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -29,12 +32,21 @@ public class ActivityProductDetailsPresenter {
     private ActivityProductDetailsView view;
     private Preferences preference;
     private UserModel userModel;
+    private List<CartDataModel.CartModel> cartModelList;
+    private CartDataModel cartDataModel;
 
     public ActivityProductDetailsPresenter(Context context, ActivityProductDetailsView view) {
         this.context = context;
         this.view = view;
         preference = Preferences.getInstance();
         userModel = preference.getUserData(context);
+        cartDataModel = preference.getCartData(context);
+        if (cartDataModel==null){
+            cartModelList = new ArrayList<>();
+            cartDataModel = new CartDataModel();
+            cartDataModel.setCartModelList(cartModelList);
+        }
+        cartModelList = cartDataModel.getCartModelList();
 
     }
 
@@ -237,6 +249,62 @@ public class ActivityProductDetailsPresenter {
                         }
                     }
                 });
+    }
+
+    public void add_to_cart(ProductModel productModel,int amount)
+    {
+        int pos = isProductItemSelected(productModel);
+        if (pos==-1){
+
+            CartDataModel.CartModel cartModel = new CartDataModel.CartModel(String.valueOf(productModel.getId()),productModel.getPhoto(),productModel.getName(),amount,Double.parseDouble(productModel.getPrice()));
+            cartModelList.add(cartModel);
+        }else {
+            CartDataModel.CartModel cartModel = cartModelList.get(pos);
+            cartModel.setAmount(amount);
+            cartModelList.set(pos,cartModel);
+        }
+        cartDataModel.setCartModelList(cartModelList);
+        calculateTotalCost();
+    }
+
+    private void calculateTotalCost() {
+        double total =0.0;
+        for (CartDataModel.CartModel cartModel:cartModelList){
+            total += cartModel.getAmount()*cartModel.getCost();
+        }
+        cartDataModel.setTotal(total);
+        preference.createUpdateCartData(context,cartDataModel);
+        view.onCartUpdated(total,cartModelList.size(),cartModelList);
+    }
+
+
+    public int isProductItemSelected(ProductModel productModel){
+        cartDataModel = preference.getCartData(context);
+        cartModelList = cartDataModel.getCartModelList();
+        int pos = -1;
+        for (int index =0;index<cartModelList.size();index++){
+            CartDataModel.CartModel cartModel = cartModelList.get(index);
+            if (String.valueOf(productModel.getId()).equals(cartModel.getId())){
+                pos = index;
+                return pos;
+            }
+        }
+
+        return pos;
+    }
+
+    public void getCartCount(){
+        view.onCartCountUpdated(cartDataModel.getCartModelList().size());
+    }
+
+    public void getItemAmount(ProductModel productModel){
+        int pos = isProductItemSelected(productModel);
+        if (pos==-1){
+            view.onAmountSelectedFromCart(1);
+        }else {
+            view.onAmountSelectedFromCart(cartDataModel.getCartModelList().get(pos).getAmount());
+        }
+
     }
 
 

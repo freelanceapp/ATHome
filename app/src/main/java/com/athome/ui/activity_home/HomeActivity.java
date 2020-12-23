@@ -43,6 +43,14 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         super.attachBaseContext(Language.updateResources(newBase, Paper.book().read("lang", "ar")));
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        presenter.getCartItemCount();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +76,10 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
             }
             onCategorySelected= false;
             return true;
+        });
+
+        binding.flCart.setOnClickListener(view -> {
+            presenter.cart();
         });
 
 
@@ -136,13 +148,17 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
     public void onNavigateToCartActivity() {
         Intent intent = new Intent(this, CartActivity.class);
         startActivity(intent);
-        finish();
 
     }
 
     @Override
     public void onFailed(String msg) {
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCartCountUpdate(int count) {
+        binding.setCartcount(count);
     }
 
 
@@ -158,5 +174,11 @@ public class HomeActivity extends AppCompatActivity implements HomeActivityView 
         Intent intent = getIntent();
         finish();
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        presenter.updateCartModel();
     }
 }
