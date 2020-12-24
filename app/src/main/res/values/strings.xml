@@ -148,5 +148,9 @@
     <string name="special_packing">Special packing</string>
     <string name="in_3_days">in 3 days</string>
     <string name="ready_to_gift_packaging">Ready-to-gift packaging</string>
+    <string name="status">Status</string>
+    <string name="price">Price:</string>
+    <string name="order_details">Order details</string>
+    <string name="delivery">Delivery:</string>
 
 </resources>

@@ -7,10 +7,13 @@ import com.athome.models.AllCategoryModel;
 import com.athome.models.CouponDataModel;
 import com.athome.models.LogoutModel;
 import com.athome.models.MenuDataModel;
+import com.athome.models.OrderDataModel;
 import com.athome.models.PlaceGeocodeData;
 import com.athome.models.PlaceMapDetailsData;
 import com.athome.models.ProductDataModel;
+import com.athome.models.SendCartModel;
 import com.athome.models.SingleCommentDataModel;
+import com.athome.models.SingleOrderModel;
 import com.athome.models.SingleProductDataModel;
 import com.athome.models.SliderDataModel;
 import com.athome.models.SubCategoryDataModel;
@@ -18,6 +21,7 @@ import com.athome.models.UserModel;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -200,4 +204,18 @@ public interface Service {
     Call<CouponDataModel> checkCouponData(@Query("code") String code
     );
 
+
+    @POST("api/StoreOrder")
+    Call<SingleOrderModel> sendOrder(@Header("Authorization") String token,
+                                     @Body SendCartModel body);
+
+
+    @GET("api/GetOrders")
+    Call<OrderDataModel> getOrders(@Header("Authorization") String token,
+                                   @Query("user_id") String user_id
+    );
+
+    @GET("api/OneOrder")
+    Call<SingleOrderModel> getSingleOrders(@Query("order_id") String order_id
+    );
 }

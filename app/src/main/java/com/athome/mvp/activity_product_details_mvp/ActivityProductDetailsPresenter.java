@@ -294,7 +294,13 @@ public class ActivityProductDetailsPresenter {
     }
 
     public void getCartCount(){
-        view.onCartCountUpdated(cartDataModel.getCartModelList().size());
+        if (cartDataModel!=null&&cartDataModel.getCartModelList()!=null){
+            view.onCartCountUpdated(cartDataModel.getCartModelList().size());
+
+        }else {
+            view.onCartCountUpdated(0);
+
+        }
     }
 
     public void getItemAmount(ProductModel productModel){

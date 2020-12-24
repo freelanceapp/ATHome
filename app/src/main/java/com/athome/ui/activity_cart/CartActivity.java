@@ -22,10 +22,12 @@ import com.athome.models.AddressModel;
 import com.athome.models.BankDataModel;
 import com.athome.models.CartDataModel;
 import com.athome.models.CouponDataModel;
+import com.athome.models.SingleOrderModel;
 import com.athome.mvp.activity_cart_mvp.ActivityCartPresenter;
 import com.athome.mvp.activity_cart_mvp.CartActivityView;
 import com.athome.share.Common;
 import com.athome.ui.activity_order_checkout.OrderCheckoutActivity;
+import com.athome.ui.activity_order_details.OrderDetailsActivity;
 import com.athome.ui.activity_select_address.SelectAddressActivity;
 import com.athome.ui.activity_sign_up.SignUpActivity;
 
@@ -177,7 +179,6 @@ public class CartActivity extends AppCompatActivity implements CartActivityView 
 
     @Override
     public void onPackagingPriceSuccess(double cost) {
-        Log.e("cost",cost+"__");
         if (cost>0){
 
             binding.viewPackaging.setVisibility(View.VISIBLE);
@@ -190,6 +191,15 @@ public class CartActivity extends AppCompatActivity implements CartActivityView 
             binding.llPackaging.setVisibility(View.GONE);
         }
 
+    }
+
+    @Override
+    public void onOrderSendSuccessfully(SingleOrderModel singleOrderModel) {
+        Toast.makeText(this, getString(R.string.suc), Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, OrderDetailsActivity.class);
+        intent.putExtra("data",singleOrderModel.getOrder());
+        startActivity(intent);
+        finish();
     }
 
 
@@ -213,6 +223,7 @@ public class CartActivity extends AppCompatActivity implements CartActivityView 
             int delivery_type = data.getIntExtra("delivery",0);
             int packaging_type = data.getIntExtra("packaging",0);
             presenter.updateDelivery(delivery_type,packaging_type);
+            presenter.sendOrder();
         }
     }
 }

@@ -94,6 +94,14 @@ public class Preferences {
         return session;
     }
 
+    public void clearCart(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences("cart", Context.MODE_PRIVATE);
+        SharedPreferences.Editor edit = preferences.edit();
+        edit.clear();
+        edit.apply();
+    }
+
+
     public void clear(Context context) {
         SharedPreferences preferences = context.getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor edit = preferences.edit();

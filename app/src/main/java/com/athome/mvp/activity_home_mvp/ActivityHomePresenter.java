@@ -76,7 +76,12 @@ public class ActivityHomePresenter {
                 break;
 
             case R.id.orders :
-                displayFragmentOrders();
+                if (userModel==null){
+                    Common.CreateDialogAlert(context,context.getString(R.string.pls_signin_signup));
+                }else {
+                    displayFragmentOrders();
+
+                }
                 break;
             case R.id.profile :
                 displayFragmentProfile();
@@ -375,7 +380,13 @@ public class ActivityHomePresenter {
     }
 
     public void getCartItemCount(){
-        view.onCartCountUpdate(preference.getCartData(context).getCartModelList().size());
+        if (preference.getCartData(context)!=null&&preference.getCartData(context).getCartModelList()!=null){
+            view.onCartCountUpdate(preference.getCartData(context).getCartModelList().size());
+
+        }else {
+            view.onCartCountUpdate(0);
+
+        }
     }
 
     public void updateCartModel(){

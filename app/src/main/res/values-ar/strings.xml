@@ -147,7 +147,11 @@
     <string name="packaging">التعبئة والتغليف</string>
     <string name="packaging_by_athome_nmanufacturer_packaging">تغليف آت هوم \n تغليف الشركة المصنعة</string>
     <string name="special_packing">تغليف خاص</string>
-    <string name="in_3_days">in 3 days</string>
-    <string name="ready_to_gift_packaging">Ready-to-gift packaging</string>
+    <string name="in_3_days">خلال 3 أيام</string>
+    <string name="ready_to_gift_packaging">تغليف جاهز للهدية</string>
+    <string name="status">الحالة</string>
+    <string name="price">السعر:</string>
+    <string name="order_details">تفاصيل الطلب</string>
+    <string name="delivery">التوصيل:</string>
 
 </resources>

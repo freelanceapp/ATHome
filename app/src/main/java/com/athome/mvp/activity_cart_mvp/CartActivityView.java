@@ -3,6 +3,7 @@ package com.athome.mvp.activity_cart_mvp;
 
 import com.athome.models.CartDataModel;
 import com.athome.models.CouponDataModel;
+import com.athome.models.SingleOrderModel;
 
 public interface CartActivityView {
     void onFinished();
@@ -15,6 +16,7 @@ public interface CartActivityView {
     void onCouponFailed();
     void onDeliveryPriceSuccess(double cost);
     void onPackagingPriceSuccess(double cost);
+    void onOrderSendSuccessfully(SingleOrderModel singleOrderModel);
 
 
 }
