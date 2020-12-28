@@ -279,16 +279,22 @@ public class ActivityProductDetailsPresenter {
 
 
     public int isProductItemSelected(ProductModel productModel){
-        cartDataModel = preference.getCartData(context);
-        cartModelList = cartDataModel.getCartModelList();
+
         int pos = -1;
-        for (int index =0;index<cartModelList.size();index++){
-            CartDataModel.CartModel cartModel = cartModelList.get(index);
-            if (String.valueOf(productModel.getId()).equals(cartModel.getId())){
-                pos = index;
-                return pos;
+
+        cartDataModel = preference.getCartData(context);
+        if (cartDataModel!=null&&cartDataModel.getCartModelList()!=null)
+        {
+            cartModelList = cartDataModel.getCartModelList();
+            for (int index =0;index<cartModelList.size();index++){
+                CartDataModel.CartModel cartModel = cartModelList.get(index);
+                if (String.valueOf(productModel.getId()).equals(cartModel.getId())){
+                    pos = index;
+                    return pos;
+                }
             }
         }
+
 
         return pos;
     }

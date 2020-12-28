@@ -97,6 +97,10 @@ public class Fragment_Search extends Fragment implements FragmentSearchView {
                     binding.tvNoData.setVisibility(View.VISIBLE);
                     productModelList.clear();
                     searchAdapter.notifyDataSetChanged();
+                }else {
+
+                    presenter.getSearch(editable.toString());
+
                 }
             }
         });

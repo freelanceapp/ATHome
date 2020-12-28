@@ -43,13 +43,13 @@ public class FragmentSearchPresenter {
         if (userModel != null) {
             user_id = String.valueOf(userModel.getData().getId());
         }
-        view.onProgressShow();
+        //view.onProgressShow();
         Api.getService(Tags.base_url)
                 .search(user_id, query)
                 .enqueue(new Callback<ProductDataModel>() {
                     @Override
                     public void onResponse(Call<ProductDataModel> call, Response<ProductDataModel> response) {
-                        view.onProgressHide();
+                        //view.onProgressHide();
                         if (response.isSuccessful()) {
                             if (response.body() != null && response.body().getStatus() == 200 && response.body().getData() != null) {
                                 view.onSuccess(response.body().getData());
@@ -58,7 +58,7 @@ public class FragmentSearchPresenter {
 
 
                         } else {
-                            view.onProgressHide();
+                            //view.onProgressHide();
                             try {
                                 Log.e("errorNotCode", response.code() + "__" + response.errorBody().string());
                             } catch (IOException e) {

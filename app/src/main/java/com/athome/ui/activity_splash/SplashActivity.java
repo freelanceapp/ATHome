@@ -18,6 +18,7 @@ import androidx.databinding.DataBindingUtil;
 import com.athome.R;
 import com.athome.databinding.ActivitySplashBinding;
 import com.athome.language.Language;
+import com.athome.models.UserModel;
 import com.athome.models.UserSettingsModel;
 import com.athome.mvp.activity_splash_mvp.SplashPresenter;
 import com.athome.mvp.activity_splash_mvp.SplashView;
@@ -94,7 +95,20 @@ public class SplashActivity extends AppCompatActivity implements SplashView {
 
     @Override
     public void onNavigateToLocationActivity() {
-        Intent intent = new Intent(this, GetLocationActivity.class);
+        /*Intent intent = new Intent(this, GetLocationActivity.class);
+        startActivity(intent);
+        finish();*/
+
+        UserModel userModel = preferences.getUserData(this);
+
+        Intent intent;
+        if (userModel!=null){
+            intent = new Intent(this, HomeActivity.class);
+        }else {
+            intent = new Intent(this, LoginActivity.class);
+        }
+        intent.putExtra("lat",0.0);
+        intent.putExtra("lng",0.0);
         startActivity(intent);
         finish();
     }
