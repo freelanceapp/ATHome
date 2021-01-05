@@ -42,11 +42,20 @@ public class ActivityProductDetailsPresenter {
         userModel = preference.getUserData(context);
         cartDataModel = preference.getCartData(context);
         if (cartDataModel==null){
+
             cartModelList = new ArrayList<>();
             cartDataModel = new CartDataModel();
             cartDataModel.setCartModelList(cartModelList);
+        }else {
+            if (cartDataModel.getCartModelList()==null){
+                cartModelList = new ArrayList<>();
+
+            }else {
+                cartModelList = cartDataModel.getCartModelList();
+
+            }
+
         }
-        cartModelList = cartDataModel.getCartModelList();
 
     }
 
@@ -254,6 +263,7 @@ public class ActivityProductDetailsPresenter {
     public void add_to_cart(ProductModel productModel,int amount)
     {
         int pos = isProductItemSelected(productModel);
+
         if (pos==-1){
 
             CartDataModel.CartModel cartModel = new CartDataModel.CartModel(String.valueOf(productModel.getId()),productModel.getPhoto(),productModel.getName(),amount,Double.parseDouble(productModel.getPrice()));
@@ -263,7 +273,12 @@ public class ActivityProductDetailsPresenter {
             cartModel.setAmount(amount);
             cartModelList.set(pos,cartModel);
         }
+        if (cartDataModel==null){
+            cartDataModel = new CartDataModel();
+        }
+
         cartDataModel.setCartModelList(cartModelList);
+
         calculateTotalCost();
     }
 

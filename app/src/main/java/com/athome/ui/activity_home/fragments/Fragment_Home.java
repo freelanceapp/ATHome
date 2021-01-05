@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +39,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import io.paperdb.Paper;
+
 
 public class Fragment_Home extends Fragment implements FragmentHomeView {
     private FragmentHomeBinding binding;
@@ -52,6 +55,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     private List<SingleCategoryModel> singleCategoryModelList;
     private Timer timer;
     private TimerTask timerTask;
+    private String lang="ar";
 
 
     public static Fragment_Home newInstance(double lat, double lng) {
@@ -78,6 +82,10 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         singleCategoryModelList = new ArrayList<>();
         offerProductList = new ArrayList<>();
         activity = (HomeActivity) getActivity();
+
+        Paper.init(activity);
+        lang = Paper.book().read("lang","ar");
+        binding.setLang(lang);
         Bundle bundle = getArguments();
         if (bundle != null) {
             lat = bundle.getDouble("lat");
@@ -90,17 +98,17 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.progBarOffer.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
         featuredProductAdapter = new ProductAdapter(featuredProductList, activity,this,"1");
-        binding.recViewFeaturedProducts.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        binding.recViewFeaturedProducts.setLayoutManager(new GridLayoutManager(activity,2,RecyclerView.HORIZONTAL, false));
         binding.recViewFeaturedProducts.setAdapter(featuredProductAdapter);
 
 
         mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity,this,"2");
-        binding.recViewMostSeller.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        binding.recViewMostSeller.setLayoutManager(new GridLayoutManager(activity,2,RecyclerView.HORIZONTAL, false));
         binding.recViewMostSeller.setAdapter(mostSellerAdapter);
 
 
         offerProductAdapter = new OfferProductAdapter(offerProductList, activity,this);
-        binding.recViewOffer.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
+        binding.recViewOffer.setLayoutManager(new GridLayoutManager(activity,2,RecyclerView.HORIZONTAL, false));
         binding.recViewOffer.setAdapter(offerProductAdapter);
 
 
@@ -109,6 +117,130 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.recViewCategories.setAdapter(categoriesAdapter);
         binding.tab.setupWithViewPager(binding.pager);
 
+
+
+
+        binding.recViewCategories.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager manager = (LinearLayoutManager) binding.recViewCategories.getLayoutManager();
+                int firstPos = manager.findFirstCompletelyVisibleItemPosition();
+                int lastPos = manager.findLastCompletelyVisibleItemPosition();
+
+                try {
+                    if (lastPos == singleCategoryModelList.size()-1){
+                        binding.card2.setVisibility(View.GONE);
+                    }else {
+                        binding.card2.setVisibility(View.VISIBLE);
+
+                    }
+
+                    if (firstPos==0){
+                        binding.card1.setVisibility(View.GONE);
+                        binding.card2.setVisibility(View.VISIBLE);
+                    }else {
+                        binding.card1.setVisibility(View.VISIBLE);
+                    }
+                }catch (Exception e){}
+
+
+
+
+
+
+            }
+        });
+
+        binding.recViewOffer.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                GridLayoutManager manager = (GridLayoutManager) binding.recViewOffer.getLayoutManager();
+                int firstPos = manager.findFirstCompletelyVisibleItemPosition();
+                int lastPos = manager.findLastCompletelyVisibleItemPosition();
+
+                if (firstPos==0){
+                    binding.card5.setVisibility(View.GONE);
+                }else {
+                    binding.card5.setVisibility(View.VISIBLE);
+                }
+
+
+                try {
+                    if (lastPos == offerProductList.size()||lastPos == offerProductList.size()-1){
+                        binding.card6.setVisibility(View.GONE);
+                    }else {
+                        binding.card6.setVisibility(View.VISIBLE);
+
+                    }
+                }catch (Exception e){}
+
+
+
+
+            }
+        });
+
+        binding.recViewFeaturedProducts.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                GridLayoutManager manager = (GridLayoutManager) binding.recViewFeaturedProducts.getLayoutManager();
+                int firstPos = manager.findFirstCompletelyVisibleItemPosition();
+                int lastPos = manager.findLastCompletelyVisibleItemPosition();
+
+                if (firstPos==0){
+                    binding.card3.setVisibility(View.GONE);
+                }else {
+                    binding.card3.setVisibility(View.VISIBLE);
+                }
+
+                try {
+
+                    if (lastPos == featuredProductList.size()||lastPos == featuredProductList.size()-1){
+                        binding.card4.setVisibility(View.GONE);
+                    }else {
+                        binding.card4.setVisibility(View.VISIBLE);
+
+                    }
+                }catch (Exception e){}
+
+
+
+
+            }
+        });
+
+
+        binding.recViewMostSeller.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                GridLayoutManager manager = (GridLayoutManager) binding.recViewMostSeller.getLayoutManager();
+                int firstPos = manager.findFirstCompletelyVisibleItemPosition();
+                int lastPos = manager.findLastCompletelyVisibleItemPosition();
+
+                if (firstPos==0){
+                    binding.card7.setVisibility(View.GONE);
+                }else {
+                    binding.card7.setVisibility(View.VISIBLE);
+                }
+
+                try {
+                    if (lastPos == mostSellerProductList.size()||lastPos == mostSellerProductList.size()-1){
+                        binding.card8.setVisibility(View.GONE);
+                    }else {
+                        binding.card8.setVisibility(View.VISIBLE);
+
+                    }
+                }catch (Exception e){}
+
+
+
+
+            }
+        });
 
 
         presenter = new FragmentHomePresenter(activity,this,lat,lng);
@@ -147,9 +279,13 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
             singleCategoryModelList.addAll(data);
             categoriesAdapter.notifyDataSetChanged();
             binding.tvNoDataCategories.setVisibility(View.GONE);
+            binding.card1.setVisibility(View.VISIBLE);
+            binding.card2.setVisibility(View.VISIBLE);
 
         }else {
             binding.tvNoDataCategories.setVisibility(View.VISIBLE);
+            binding.card1.setVisibility(View.GONE);
+            binding.card2.setVisibility(View.GONE);
         }
     }
 
@@ -160,9 +296,12 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
             featuredProductList.addAll(data);
             featuredProductAdapter.notifyDataSetChanged();
             binding.tvNoDataFeaturedProducts.setVisibility(View.GONE);
+            binding.card3.setVisibility(View.VISIBLE);
+            binding.card4.setVisibility(View.VISIBLE);
         }else {
             binding.tvNoDataFeaturedProducts.setVisibility(View.VISIBLE);
-
+            binding.card3.setVisibility(View.GONE);
+            binding.card4.setVisibility(View.GONE);
         }
     }
 
@@ -173,8 +312,12 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
             mostSellerProductList.addAll(data);
             mostSellerAdapter.notifyDataSetChanged();
             binding.tvNoDataMostSeller.setVisibility(View.GONE);
+            binding.card7.setVisibility(View.VISIBLE);
+            binding.card8.setVisibility(View.VISIBLE);
         }else {
             binding.tvNoDataMostSeller.setVisibility(View.VISIBLE);
+            binding.card7.setVisibility(View.GONE);
+            binding.card8.setVisibility(View.GONE);
 
         }
     }
@@ -186,9 +329,13 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
             offerProductList.addAll(data);
             offerProductAdapter.notifyDataSetChanged();
             binding.tvNoDataOffer.setVisibility(View.GONE);
+            binding.card5.setVisibility(View.VISIBLE);
+            binding.card6.setVisibility(View.VISIBLE);
 
         }else {
             binding.tvNoDataOffer.setVisibility(View.VISIBLE);
+            binding.card5.setVisibility(View.GONE);
+            binding.card6.setVisibility(View.GONE);
         }
     }
 

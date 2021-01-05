@@ -99,6 +99,50 @@
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:visibility="gone" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card1"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_left_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card2"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_right_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
+
                 </FrameLayout>
 
                 <FrameLayout
@@ -175,6 +219,50 @@
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:visibility="gone" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card3"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_left_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card4"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_right_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
+
 
                 </FrameLayout>
 
@@ -268,6 +356,49 @@
                         android:textSize="18sp"
                         android:visibility="gone" />
 
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card5"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_left_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card6"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_right_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
+
                 </FrameLayout>
 
 
@@ -345,6 +476,49 @@
                         android:textColor="@color/black"
                         android:textSize="18sp"
                         android:visibility="gone" />
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card7"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|start"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_left_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card8"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="4dp"
+                        app:cardBackgroundColor="@color/white"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_margin="2dp"
+                        android:visibility="gone"
+
+                        >
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:layout_gravity="center"
+                            android:src="@drawable/ic_right_arrow"
+                            android:padding="5dp"
+                            android:rotation='@{lang.equals("ar")?180:0}'
+                            />
+                    </androidx.cardview.widget.CardView>
 
                 </FrameLayout>
 

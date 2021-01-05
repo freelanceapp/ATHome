@@ -52,7 +52,7 @@
     <string name="my_profile">حسابى</string>
     <string name="my_orders">طلباتى</string>
     <string name="favourite">المفضله</string>
-    <string name="addresses">العنواين</string>
+    <string name="addresses">العناوين</string>
     <string name="setting">الاعدادات</string>
     <string name="country">الدوله</string>
     <string name="language">اللغه</string>
@@ -127,7 +127,7 @@
     <string name="message">الرسالة</string>
     <string name="send">إرسال</string>
     <string name="suc">تم بنجاح!</string>
-    <string name="menu">القائمة</string>
+    <string name="menu">قائمة العروسة</string>
     <string name="add_to_menu">أضف الى القائمة</string>
     <string name="add">إضافة</string>
     <string name="done2">تم الشراء</string>

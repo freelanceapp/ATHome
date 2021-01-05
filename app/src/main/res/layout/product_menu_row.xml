@@ -83,7 +83,8 @@
                             android:layout_margin="5dp"
                             android:layout_gravity="end"
                             android:button="@drawable/checkbox_bg"
-                            android:src="@drawable/ic_fill_heart"
+                            android:src="@drawable/ic_close"
+                            app:tint="@color/colorPrimary"
                             />
                     </LinearLayout>
 
