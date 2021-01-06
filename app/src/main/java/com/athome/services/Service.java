@@ -218,4 +218,10 @@ public interface Service {
     @GET("api/OneOrder")
     Call<SingleOrderModel> getSingleOrders(@Query("order_id") String order_id
     );
+
+    @GET("api/get-product-by-dep")
+    Call<ProductDataModel> getProducts(@Query("user_id") int user_id,
+                                       @Query("category_id") int category_id,
+                                       @Query("subcategory_id") int subcategory_id
+    );
 }
