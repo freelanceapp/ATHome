@@ -18,6 +18,7 @@ import com.athome.tags.Tags;
 
 import java.io.IOException;
 
+import io.paperdb.Paper;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -30,6 +31,7 @@ public class FragmentHomePresenter {
     private Preferences preference;
     private UserModel userModel;
     private double lat = 0.0, lng = 0.0;
+    private String lang="ar";
 
     public FragmentHomePresenter(Context context, FragmentHomeView view, double lat, double lng) {
         this.context = context;
@@ -38,13 +40,20 @@ public class FragmentHomePresenter {
         userModel = preference.getUserData(context);
         this.lat = lat;
         this.lng = lng;
+        Paper.init(context);
+        lang = Paper.book().read("lang","ar");
     }
 
 
     public void getSlider() {
         view.onProgressSliderShow();
-
-        Api.getService(Tags.base_url).get_slider().enqueue(new Callback<SliderDataModel>() {
+        String type;
+        if (lang.equals("ar")){
+            type="1";
+        }else {
+            type="2";
+        }
+        Api.getService(Tags.base_url).get_slider(type).enqueue(new Callback<SliderDataModel>() {
             @Override
             public void onResponse(Call<SliderDataModel> call, Response<SliderDataModel> response) {
                 view.onProgressSliderHide();

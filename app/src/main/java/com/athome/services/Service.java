@@ -61,7 +61,7 @@ public interface Service {
 
 
     @GET("api/slider")
-    Call<SliderDataModel> get_slider();
+    Call<SliderDataModel> get_slider(@Query("location") String lang);
 
     @GET("api/main-categories")
     Call<AllCategoryModel> getCategory();
