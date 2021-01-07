@@ -48,9 +48,9 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     private HomeActivity activity;
     private FragmentHomePresenter presenter;
     private SliderAdapter sliderAdapter;
-    private ProductAdapter featuredProductAdapter,mostSellerAdapter;
+    private ProductAdapter featuredProductAdapter,mostSellerAdapter,otherProductAdapter;
     private OfferProductAdapter offerProductAdapter;
-    private List<ProductModel> featuredProductList,mostSellerProductList,offerProductList;
+    private List<ProductModel> featuredProductList,mostSellerProductList,offerProductList,otherProductList;
     private HomeCategoriesAdapter categoriesAdapter;
     private List<SingleCategoryModel> singleCategoryModelList;
     private Timer timer;
@@ -81,6 +81,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         featuredProductList = new ArrayList<>();
         singleCategoryModelList = new ArrayList<>();
         offerProductList = new ArrayList<>();
+        otherProductList = new ArrayList<>();
         activity = (HomeActivity) getActivity();
 
         Paper.init(activity);
@@ -96,6 +97,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.progBarFeaturedProducts.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.progBarMostSeller.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.progBarOffer.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
+        binding.progBarOtherProducts.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
         featuredProductAdapter = new ProductAdapter(featuredProductList, activity,this,"1");
         binding.recViewFeaturedProducts.setLayoutManager(new GridLayoutManager(activity,2,RecyclerView.HORIZONTAL, false));
@@ -110,6 +112,11 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         offerProductAdapter = new OfferProductAdapter(offerProductList, activity,this);
         binding.recViewOffer.setLayoutManager(new GridLayoutManager(activity,2,RecyclerView.HORIZONTAL, false));
         binding.recViewOffer.setAdapter(offerProductAdapter);
+
+
+        otherProductAdapter = new ProductAdapter(otherProductList, activity,this,"3");
+        binding.recViewOtherProducts.setLayoutManager(new LinearLayoutManager(activity));
+        binding.recViewOtherProducts.setAdapter(otherProductAdapter);
 
 
         binding.recViewCategories.setLayoutManager(new LinearLayoutManager(activity, RecyclerView.HORIZONTAL, false));
@@ -249,6 +256,8 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         presenter.getFeaturedProducts();
         presenter.getMostSellerProducts();
         presenter.getOfferProducts();
+        presenter.getOtherProducts();
+
 
     }
 
@@ -318,6 +327,21 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
             binding.tvNoDataMostSeller.setVisibility(View.VISIBLE);
             binding.card7.setVisibility(View.GONE);
             binding.card8.setVisibility(View.GONE);
+
+        }
+    }
+
+    @Override
+    public void onOtherProductSuccess(List<ProductModel> data) {
+        if (data.size()>0){
+            otherProductList.clear();
+            otherProductList.addAll(data);
+            otherProductAdapter.notifyDataSetChanged();
+            binding.tvNoDataOtherProducts.setVisibility(View.GONE);
+
+        }else {
+            binding.tvNoDataOtherProducts.setVisibility(View.VISIBLE);
+
 
         }
     }
@@ -439,6 +463,18 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
     @Override
     public void onProgressOfferHide() {
         binding.progBarOffer.setVisibility(View.GONE);
+
+    }
+
+    @Override
+    public void onProgressOtherProductsShow() {
+        binding.progBarOtherProducts.setVisibility(View.VISIBLE);
+
+    }
+
+    @Override
+    public void onProgressOtherProductsHide() {
+        binding.progBarOtherProducts.setVisibility(View.GONE);
 
     }
 

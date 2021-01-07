@@ -6,19 +6,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.athome.R;
-import com.athome.adapters.FavoriteProductAdapter;
 import com.athome.adapters.MenuProductAdapter;
-import com.athome.databinding.ActivityFavoriteBinding;
 import com.athome.databinding.ActivityMenuBinding;
 import com.athome.language.Language;
+import com.athome.models.MenuDataModel;
 import com.athome.models.MenuModel;
-import com.athome.models.ProductModel;
-import com.athome.mvp.activity_favorite_mvp.ActivityFavoritePresenter;
 import com.athome.mvp.activity_menu_mvp.ActivityMenuPresenter;
 import com.athome.mvp.activity_menu_mvp.ActivityMenuView;
 
@@ -35,6 +31,7 @@ public class MenuActivity extends AppCompatActivity implements ActivityMenuView 
     private MenuProductAdapter adapter;
     private ActivityMenuPresenter presenter;
     private int selectedPos = -1;
+
 
 
     @Override
@@ -70,14 +67,19 @@ public class MenuActivity extends AppCompatActivity implements ActivityMenuView 
 
 
     @Override
-    public void onSuccess(List<MenuModel> data)
+    public void onSuccess(MenuDataModel menuDataModel)
     {
-        if (data.size()>0){
-            productModelList.addAll(data);
+        binding.setTotal(menuDataModel.getTotal());
+
+        if (menuDataModel.getData().size()>0){
+            productModelList.addAll(menuDataModel.getData());
             binding.tvNoData.setVisibility(View.GONE);
             adapter.notifyDataSetChanged();
+            binding.llTotal.setVisibility(View.VISIBLE);
         }else {
             binding.tvNoData.setVisibility(View.VISIBLE);
+            binding.llTotal.setVisibility(View.GONE);
+
         }
     }
     @Override

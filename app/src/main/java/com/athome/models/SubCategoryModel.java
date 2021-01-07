@@ -37,4 +37,8 @@ public class SubCategoryModel implements Serializable {
     public List<ChildModel> getChilds() {
         return childs;
     }
+
+
+
+
 }

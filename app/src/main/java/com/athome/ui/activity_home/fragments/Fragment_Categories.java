@@ -21,12 +21,15 @@ import com.athome.adapters.CategoriesAdapter;
 import com.athome.adapters.SubCategoriesAdapter;
 import com.athome.databinding.FragmentCategoriesBinding;
 import com.athome.models.BankDataModel;
+import com.athome.models.CategoryModel;
 import com.athome.models.ChildModel;
+import com.athome.models.ProductModel;
 import com.athome.models.SingleCategoryModel;
 import com.athome.models.SubCategoryModel;
 import com.athome.mvp.fragment_category_mvp.FragmentCategoryPresenter;
 import com.athome.mvp.fragment_category_mvp.FragmentCategoryView;
 import com.athome.ui.activity_home.HomeActivity;
+import com.athome.ui.activity_product_details.ProductDetailsActivity;
 import com.athome.ui.activity_products.ProductsActivity;
 
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
     private SubCategoriesAdapter subCategoriesAdapter;
     private CategoriesAdapter categoriesAdapter;
     private List<SingleCategoryModel> singleCategoryModelList;
-    private List<SubCategoryModel> subCategoryModelList;
+    private List<CategoryModel> subCategoryModelList;
     private FragmentCategoryPresenter presenter;
     private double lat = 0.0, lng = 0.0;
     private int selectedSubCategoryPos = 0;
@@ -119,7 +122,7 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
     }
 
     @Override
-    public void onSubCategorySuccess(List<SubCategoryModel> data) {
+    public void onSubCategorySuccess(List<CategoryModel> data) {
         if (data.size() > 0) {
             subCategoryModelList.clear();
             subCategoryModelList.addAll(data);
@@ -172,13 +175,9 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
         }
     }
 
-    public void setChildItemData(ChildModel model, int parent_pos) {
-        SubCategoryModel subCategoryModel = subCategoryModelList.get(parent_pos);
-        Intent intent = new Intent(activity, ProductsActivity.class);
-        intent.putExtra("data1", selectedSingleCategoryModel);
-        intent.putExtra("data2", model);
-        intent.putExtra("data3", subCategoryModel);
-
+    public void setChildItemData(ProductModel model, int parent_pos) {
+        Intent intent = new Intent(activity, ProductDetailsActivity.class);
+        intent.putExtra("data", model);
         startActivity(intent);
     }
 }

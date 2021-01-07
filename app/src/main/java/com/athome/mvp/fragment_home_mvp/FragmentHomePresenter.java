@@ -253,6 +253,67 @@ public class FragmentHomePresenter {
                 });
     }
 
+    public void getOtherProducts() {
+        String user_id = "all";
+        if (userModel != null) {
+            user_id = String.valueOf(userModel.getData().getId());
+        }
+        view.onProgressOtherProductsShow();
+        Api.getService(Tags.base_url)
+                .getOtherProducts(user_id)
+                .enqueue(new Callback<ProductDataModel>() {
+                    @Override
+                    public void onResponse(Call<ProductDataModel> call, Response<ProductDataModel> response) {
+                        view.onProgressOtherProductsHide();
+                        if (response.isSuccessful()) {
+                            if (response.body() != null && response.body().getStatus() == 200 && response.body().getData() != null) {
+                                view.onOtherProductSuccess(response.body().getData());
+
+                            }
+
+
+                        } else {
+                            view.onProgressOtherProductsHide();
+
+                            try {
+                                Log.e("errorNotCode", response.code() + "__" + response.errorBody().string());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            if (response.code() == 500) {
+                                view.onFailed("Server Error");
+
+                            } else {
+                                Toast.makeText(context, context.getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ProductDataModel> call, Throwable t) {
+                        try {
+                            view.onProgressOtherProductsHide();
+
+
+                            if (t.getMessage() != null) {
+                                Log.e("error_not_code", t.getMessage() + "__");
+
+                                if (t.getMessage().toLowerCase().contains("failed to connect") || t.getMessage().toLowerCase().contains("unable to resolve host")) {
+                                    Toast.makeText(context, context.getString(R.string.something), Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(context, context.getString(R.string.failed), Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e("Error", e.getMessage() + "__");
+                        }
+                    }
+                });
+    }
+
+
+
     public void getOfferProducts()
     {
         String user_id = "all";

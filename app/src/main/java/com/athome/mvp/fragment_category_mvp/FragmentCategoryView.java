@@ -1,5 +1,6 @@
 package com.athome.mvp.fragment_category_mvp;
 
+import com.athome.models.CategoryModel;
 import com.athome.models.ProductModel;
 import com.athome.models.SingleCategoryModel;
 import com.athome.models.SliderDataModel;
@@ -9,7 +10,7 @@ import java.util.List;
 
 public interface FragmentCategoryView {
     void onSuccess(List<SingleCategoryModel> data);
-    void onSubCategorySuccess(List<SubCategoryModel> data);
+    void onSubCategorySuccess(List<CategoryModel> data);
     void onFailed(String msg);
     void onProgressCategoryShow();
     void onProgressCategoryHide();

@@ -4,6 +4,7 @@ package com.athome.services;
 import com.athome.models.AddFavoriteDataModel;
 import com.athome.models.AddressDataModel;
 import com.athome.models.AllCategoryModel;
+import com.athome.models.CategoryDataModel;
 import com.athome.models.CouponDataModel;
 import com.athome.models.LogoutModel;
 import com.athome.models.MenuDataModel;
@@ -71,6 +72,9 @@ public interface Service {
 
     @GET("api/best")
     Call<ProductDataModel> getMostSellerProducts(@Query("user_id") String user_id);
+
+    @GET("api/best")
+    Call<ProductDataModel> getOtherProducts(@Query("user_id") String user_id);
 
     @GET("api/offers")
     Call<ProductDataModel> getOfferProducts(@Query("user_id") String user_id);
@@ -219,9 +223,7 @@ public interface Service {
     Call<SingleOrderModel> getSingleOrders(@Query("order_id") String order_id
     );
 
-    @GET("api/get-product-by-dep")
-    Call<ProductDataModel> getProducts(@Query("user_id") int user_id,
-                                       @Query("category_id") int category_id,
-                                       @Query("subcategory_id") int subcategory_id
+    @GET("api/GetProducts")
+    Call<CategoryDataModel> getProductsByAnyCategoryId(@Query("category_id") int category_id
     );
 }

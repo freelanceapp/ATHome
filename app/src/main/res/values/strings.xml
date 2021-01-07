@@ -152,5 +152,6 @@
     <string name="price">Price:</string>
     <string name="order_details">Order details</string>
     <string name="delivery">Delivery:</string>
+    <string name="other_products">Other products</string>
 
 </resources>

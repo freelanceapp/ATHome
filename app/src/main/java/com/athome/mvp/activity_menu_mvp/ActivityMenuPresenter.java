@@ -56,7 +56,7 @@ public class ActivityMenuPresenter {
                         view.onProgressHide();
                         if (response.isSuccessful()) {
                             if (response.body() != null && response.body().getStatus() == 200 && response.body().getData() != null) {
-                                view.onSuccess(response.body().getData());
+                                view.onSuccess(response.body());
 
                             }
 

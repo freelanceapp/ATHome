@@ -11,6 +11,8 @@ public interface FragmentHomeView {
     void onSuccess(List<SingleCategoryModel> data);
     void onFeaturedProductSuccess(List<ProductModel> data);
     void onMostSellerSuccess(List<ProductModel> data);
+    void onOtherProductSuccess(List<ProductModel> data);
+
     void onOfferSuccess(List<ProductModel> data);
     void onFailed(String msg);
     void onUserNotRegister(String msg,ProductModel productModel,int position,String type);
@@ -25,5 +27,8 @@ public interface FragmentHomeView {
     void onProgressMostSellerHide();
     void onProgressOfferShow();
     void onProgressOfferHide();
+
+    void onProgressOtherProductsShow();
+    void onProgressOtherProductsHide();
 
 }

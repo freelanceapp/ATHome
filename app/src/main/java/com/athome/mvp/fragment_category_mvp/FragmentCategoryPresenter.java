@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import com.athome.R;
 import com.athome.models.AllCategoryModel;
+import com.athome.models.CategoryDataModel;
 import com.athome.models.ProductDataModel;
 import com.athome.models.SliderDataModel;
 import com.athome.models.SubCategoryDataModel;
@@ -100,10 +101,10 @@ public class FragmentCategoryPresenter {
     {
         view.onProgressSubCategoryShow();
         Api.getService(Tags.base_url)
-                .getSubCategoryByCategoryId(category_id)
-                .enqueue(new Callback<SubCategoryDataModel>() {
+                .getProductsByAnyCategoryId(category_id)
+                .enqueue(new Callback<CategoryDataModel>() {
                     @Override
-                    public void onResponse(Call<SubCategoryDataModel> call, Response<SubCategoryDataModel> response) {
+                    public void onResponse(Call<CategoryDataModel> call, Response<CategoryDataModel> response) {
                         view.onProgressSubCategoryHide();
                         if (response.isSuccessful()) {
                             if (response.body() != null && response.body().getStatus() == 200 && response.body().getData() != null) {
@@ -131,7 +132,7 @@ public class FragmentCategoryPresenter {
                     }
 
                     @Override
-                    public void onFailure(Call<SubCategoryDataModel> call, Throwable t) {
+                    public void onFailure(Call<CategoryDataModel> call, Throwable t) {
                         try {
                             view.onProgressSubCategoryHide();
 

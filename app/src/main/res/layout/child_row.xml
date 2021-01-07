@@ -4,19 +4,37 @@
     <data>
         <variable
             name="model"
-            type="com.athome.models.ChildModel" />
+            type="com.athome.models.ProductModel" />
     </data>
-    <TextView
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:lines="3"
-        android:textColor="@color/black"
-        android:textSize="13sp"
-        android:background="@drawable/small_rounded_gray2"
-        android:paddingStart="5dp"
-        android:paddingEnd="5dp"
-        android:text="@{model.name}"
-        android:layout_margin="5dp"
-        />
+        android:orientation="vertical"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        >
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            app:riv_mutate_background="true"
+            app:riv_border_width="1px"
+            app:riv_corner_radius="5dp"
+            app:riv_border_color="@color/gray4"
+            type="@{3}"
+            image="@{model.photo}"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="5dp"
+            android:textSize="12sp"
+            android:textColor="@color/black"
+            android:text="@{model.name}"
+            android:lines="2"
+            android:gravity="center"
+            android:ellipsize="end"
+            />
+    </LinearLayout>
 </layout>

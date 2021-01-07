@@ -5,7 +5,7 @@
     <data>
         <variable
             name="model"
-            type="com.athome.models.SubCategoryModel" />
+            type="com.athome.models.CategoryModel" />
         <import type="android.view.View" />
     </data>
 

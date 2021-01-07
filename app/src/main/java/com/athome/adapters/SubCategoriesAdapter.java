@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.athome.R;
 import com.athome.databinding.SubcategoryRowBinding;
 import com.athome.models.BankDataModel;
+import com.athome.models.CategoryModel;
 import com.athome.models.SubCategoryModel;
 import com.athome.ui.activity_home.fragments.Fragment_Categories;
 
@@ -22,11 +23,11 @@ import java.util.List;
 
 public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdapter.MyHolder> {
 
-    private List<SubCategoryModel> list;
+    private List<CategoryModel> list;
     private Context context;
     private Fragment_Categories fragment_categories;
 
-    public SubCategoriesAdapter(List<SubCategoryModel> list, Context context,Fragment_Categories fragment_categories) {
+    public SubCategoriesAdapter(List<CategoryModel> list, Context context,Fragment_Categories fragment_categories) {
         this.list = list;
         this.context = context;
         this.fragment_categories = fragment_categories;
@@ -44,12 +45,12 @@ public class SubCategoriesAdapter extends RecyclerView.Adapter<SubCategoriesAdap
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
-        SubCategoryModel model = list.get(position);
+        CategoryModel model = list.get(position);
         holder.binding.setModel(model);
 
         holder.binding.recView.setLayoutManager(new GridLayoutManager(context,3));
-        if (model.getChilds()!=null&&model.getChilds().size()>0){
-            ChildAdapter childAdapter = new ChildAdapter(model.getChilds(),context,position,fragment_categories);
+        if (model.getProducts()!=null&&model.getProducts().size()>0){
+            ChildAdapter childAdapter = new ChildAdapter(model.getProducts(),context,position,fragment_categories);
             holder.binding.recView.setAdapter(childAdapter);
             holder.binding.tvNoData.setVisibility(View.GONE);
 

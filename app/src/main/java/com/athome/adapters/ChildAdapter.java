@@ -19,12 +19,12 @@ import java.util.List;
 
 public class ChildAdapter extends RecyclerView.Adapter<ChildAdapter.MyHolder> {
 
-    private List<ChildModel> list;
+    private List<ProductModel> list;
     private Context context;
     private int parent_pos = 0;
     private Fragment_Categories fragment_categories;
 
-    public ChildAdapter(List<ChildModel> list, Context context,int parent_pos,Fragment_Categories fragment_categories) {
+    public ChildAdapter(List<ProductModel> list, Context context,int parent_pos,Fragment_Categories fragment_categories) {
         this.list = list;
         this.context = context;
         this.parent_pos = parent_pos;
@@ -43,10 +43,10 @@ public class ChildAdapter extends RecyclerView.Adapter<ChildAdapter.MyHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
-        ChildModel model = list.get(position);
+        ProductModel model = list.get(position);
         holder.binding.setModel(model);
         holder.itemView.setOnClickListener(view -> {
-            ChildModel model2 = list.get(holder.getAdapterPosition());
+            ProductModel model2 = list.get(holder.getAdapterPosition());
             fragment_categories.setChildItemData(model2,parent_pos);
         });
     }
