@@ -107,6 +107,8 @@ public class MenuActivity extends AppCompatActivity implements ActivityMenuView 
     public void onProgressShow()
     {
         productModelList.clear();
+        adapter.notifyDataSetChanged();
+        binding.tvNoData.setVisibility(View.GONE);
         binding.progBar.setVisibility(View.VISIBLE);
     }
     @Override

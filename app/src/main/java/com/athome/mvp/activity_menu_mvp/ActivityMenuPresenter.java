@@ -122,6 +122,7 @@ public class ActivityMenuPresenter {
                         dialog.dismiss();
                         if (response.isSuccessful()) {
                             if (response.body() != null&&response.body().getStatus()==200) {
+                                getMenus();
                                 view.onRemoveFavoriteSuccess();
                             }
 

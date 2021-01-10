@@ -114,8 +114,8 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.recViewOffer.setAdapter(offerProductAdapter);
 
 
-        otherProductAdapter = new ProductAdapter(otherProductList, activity,this,"3");
-        binding.recViewOtherProducts.setLayoutManager(new LinearLayoutManager(activity));
+        otherProductAdapter = new ProductAdapter(otherProductList, activity,this,"4");
+        binding.recViewOtherProducts.setLayoutManager(new GridLayoutManager(activity,2));
         binding.recViewOtherProducts.setAdapter(otherProductAdapter);
 
 
@@ -381,6 +381,9 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         }else if (type.equals("3")){
             offerProductList.set(position,productModel);
             offerProductAdapter.notifyItemChanged(position);
+        }else if (type.equals("4")){
+            otherProductList.set(position,productModel);
+            otherProductAdapter.notifyItemChanged(position);
         }
 
     }
@@ -397,6 +400,9 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         }else if (type.equals("3")){
             offerProductList.set(position,productModel);
             offerProductAdapter.notifyItemChanged(position);
+        }else if (type.equals("4")){
+            otherProductList.set(position,productModel);
+            otherProductAdapter.notifyItemChanged(position);
         }
     }
 
