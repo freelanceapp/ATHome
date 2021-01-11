@@ -11,8 +11,6 @@
         <variable
             name="lang"
             type="String" />
-
-
     </data>
 
     <LinearLayout
