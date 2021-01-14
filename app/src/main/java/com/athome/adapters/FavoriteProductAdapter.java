@@ -42,6 +42,11 @@ public class FavoriteProductAdapter extends RecyclerView.Adapter<FavoriteProduct
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         ProductModel model = list.get(position);
         holder.binding.setModel(model);
+        holder.itemView.setOnClickListener(view -> {
+            ProductModel model2 = list.get(holder.getAdapterPosition());
+            activity.setProductItemModel(model2);
+
+        });
         holder.binding.imageFavorite.setOnClickListener(view -> {
             ProductModel model2 = list.get(holder.getAdapterPosition());
             activity.removeFavorite(model2,holder.getAdapterPosition());

@@ -18,6 +18,7 @@ import com.athome.tags.Tags;
 
 import java.io.IOException;
 
+import io.paperdb.Paper;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -29,6 +30,7 @@ public class FragmentCategoryPresenter {
     private Preferences preference;
     private UserModel userModel;
     private double lat = 0.0, lng = 0.0;
+    private String lang="ar";
 
     public FragmentCategoryPresenter(Context context, FragmentCategoryView view, double lat, double lng) {
         this.context = context;
@@ -37,6 +39,8 @@ public class FragmentCategoryPresenter {
         userModel = preference.getUserData(context);
         this.lat = lat;
         this.lng = lng;
+        lang = Paper.book().read("lang","ar");
+
     }
 
 
@@ -44,8 +48,14 @@ public class FragmentCategoryPresenter {
     public void getCategory()
     {
         view.onProgressCategoryShow();
+        String type;
+        if (lang.equals("ar")){
+            type="1";
+        }else {
+            type="2";
+        }
         Api.getService(Tags.base_url)
-                .getCategory()
+                .getCategory(type)
                 .enqueue(new Callback<AllCategoryModel>() {
                     @Override
                     public void onResponse(Call<AllCategoryModel> call, Response<AllCategoryModel> response) {

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.athome.mvp.activity_favorite_mvp.ActivityFavoritePresenter;
 import com.athome.mvp.activity_favorite_mvp.ActivityFavoriteView;
 import com.athome.mvp.activity_product_mvp.ActivityProductPresenter;
 import com.athome.share.Common;
+import com.athome.ui.activity_product_details.ProductDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +72,11 @@ public class FavoriteActivity extends AppCompatActivity implements ActivityFavor
 
     }
 
+    public void setProductItemModel(ProductModel model) {
+        Intent intent = new Intent(FavoriteActivity.this, ProductDetailsActivity.class);
+        intent.putExtra("data",model);
+        startActivityForResult(intent,100);
+    }
 
 
     @Override

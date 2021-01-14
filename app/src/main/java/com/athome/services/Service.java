@@ -65,7 +65,7 @@ public interface Service {
     Call<SliderDataModel> get_slider(@Query("location") String lang);
 
     @GET("api/main-categories")
-    Call<AllCategoryModel> getCategory();
+    Call<AllCategoryModel> getCategory(@Query("lang") String lang);
 
     @GET("api/feature")
     Call<ProductDataModel> getFeatureProducts(@Query("user_id") String user_id);
@@ -74,7 +74,7 @@ public interface Service {
     @GET("api/best")
     Call<ProductDataModel> getMostSellerProducts(@Query("user_id") String user_id);
 
-    @GET("api/best")
+    @GET("api/GetOtherProducts")
     Call<ProductDataModel> getOtherProducts(@Query("user_id") String user_id);
 
     @GET("api/offers")

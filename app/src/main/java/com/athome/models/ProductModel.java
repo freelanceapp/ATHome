@@ -24,7 +24,6 @@ public class ProductModel implements Serializable {
     private String policy;
     private String status;
     private String views;
-    private String tags;
     private String features;
     private String product_condition;
     private String ship;
@@ -147,10 +146,6 @@ public class ProductModel implements Serializable {
 
     public String getViews() {
         return views;
-    }
-
-    public String getTags() {
-        return tags;
     }
 
     public String getFeatures() {

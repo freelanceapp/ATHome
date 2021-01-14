@@ -93,8 +93,14 @@ public class FragmentHomePresenter {
 
     public void getCategory() {
         view.onProgressCategoryShow();
+        String type;
+        if (lang.equals("ar")){
+            type="1";
+        }else {
+            type="2";
+        }
         Api.getService(Tags.base_url)
-                .getCategory()
+                .getCategory(type)
                 .enqueue(new Callback<AllCategoryModel>() {
                     @Override
                     public void onResponse(Call<AllCategoryModel> call, Response<AllCategoryModel> response) {
