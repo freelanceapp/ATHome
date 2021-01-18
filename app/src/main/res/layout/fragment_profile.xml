@@ -7,6 +7,9 @@
         <variable
             name="lang"
             type="String" />
+        <variable
+            name="model"
+            type="com.athome.models.UserModel" />
 
         <variable
             name="actions"
@@ -109,11 +112,22 @@
                         android:gravity="center_vertical"
                         android:paddingStart="10dp"
                         android:paddingEnd="10dp"
-                        android:text="@string/my_wallet"
+                        android:text="@string/my_points"
                         android:textColor="@color/gray9"
                         android:textSize="15sp"
                         android:textStyle="bold"
 
+                        />
+
+                    <TextView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        app:tint="@color/gray9"
+                        android:padding="2dp"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:textSize="15sp"
+                        android:text="@{model.Data.current_balance}"
                         />
 
                 </LinearLayout>

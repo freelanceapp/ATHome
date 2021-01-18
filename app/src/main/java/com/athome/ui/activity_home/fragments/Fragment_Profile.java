@@ -3,6 +3,7 @@ package com.athome.ui.activity_home.fragments;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,10 +55,10 @@ public class Fragment_Profile extends Fragment implements Listeners.ProfileActio
         preferences = Preferences.getInstance();
         userModel = preferences.getUserData(activity);
         if (userModel!=null){
+            binding.setModel(userModel);
 
         }
         binding.setActions(this);
-
     }
 
     @Override

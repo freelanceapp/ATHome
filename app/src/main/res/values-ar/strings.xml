@@ -154,5 +154,6 @@
     <string name="order_details">تفاصيل الطلب</string>
     <string name="delivery">التوصيل:</string>
     <string name="other_products">منتجات اخرى</string>
+    <string name="my_points">نقاطى</string>
 
 </resources>
