@@ -16,6 +16,8 @@ public interface CartActivityView {
     void onCouponFailed();
     void onDeliveryPriceSuccess(double cost);
     void onPackagingPriceSuccess(double cost);
+    void onPaymentSuccess(int method);
+
     void onOrderSendSuccessfully(SingleOrderModel singleOrderModel);
 
 

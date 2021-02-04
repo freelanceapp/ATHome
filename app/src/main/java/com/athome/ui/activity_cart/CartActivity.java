@@ -30,6 +30,7 @@ import com.athome.ui.activity_order_checkout.OrderCheckoutActivity;
 import com.athome.ui.activity_order_details.OrderDetailsActivity;
 import com.athome.ui.activity_select_address.SelectAddressActivity;
 import com.athome.ui.activity_sign_up.SignUpActivity;
+import com.athome.ui.activity_web_view.WebViewActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +45,7 @@ public class CartActivity extends AppCompatActivity implements CartActivityView 
     private CartAdapter adapter;
     private List<CartDataModel.CartModel> cartModelList;
 
-
+    int payment_type=0;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -194,12 +195,34 @@ public class CartActivity extends AppCompatActivity implements CartActivityView 
     }
 
     @Override
+    public void onPaymentSuccess(int method) {
+        if (method==1){
+
+            payment_type=1;
+        }else {
+            payment_type=0;
+        }
+
+    }
+
+    @Override
     public void onOrderSendSuccessfully(SingleOrderModel singleOrderModel) {
-        Toast.makeText(this, getString(R.string.suc), Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, OrderDetailsActivity.class);
-        intent.putExtra("data",singleOrderModel.getOrder());
-        startActivity(intent);
-        finish();
+
+        Log.e("ccccccc",payment_type+"___");
+        if (payment_type==1){
+            Intent intent = new Intent(this, WebViewActivity.class);
+            intent.putExtra("url","http://athomegy.com/api/paymob-check/"+singleOrderModel.getOrder().getId());
+            startActivity(intent);
+            finish();
+            Log.e("url","http://athomegy.com/api/paymob-check/"+singleOrderModel.getOrder().getId());
+        }else {
+            Toast.makeText(this, getString(R.string.suc), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, OrderDetailsActivity.class);
+            intent.putExtra("data",singleOrderModel.getOrder());
+            startActivity(intent);
+            finish();
+        }
+
     }
 
 
@@ -222,7 +245,8 @@ public class CartActivity extends AppCompatActivity implements CartActivityView 
         }else if (requestCode==200&&resultCode==RESULT_OK&&data!=null){
             int delivery_type = data.getIntExtra("delivery",0);
             int packaging_type = data.getIntExtra("packaging",0);
-            presenter.updateDelivery(delivery_type,packaging_type);
+            int payment_type = data.getIntExtra("payment",0);
+            presenter.updateDelivery(delivery_type,packaging_type,payment_type);
             presenter.sendOrder();
         }
     }

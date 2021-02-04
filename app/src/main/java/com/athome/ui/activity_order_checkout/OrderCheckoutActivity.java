@@ -24,7 +24,7 @@ public class OrderCheckoutActivity extends AppCompatActivity implements OrderChe
     private ActivityOrderCheckoutBinding binding;
     private ActivityOrderCheckoutPresenter presenter;
     private String lang;
-    private int delivery_type =0,packaging_type=0;
+    private int delivery_type =0,packaging_type=0,payment_type=0;
 
 
 
@@ -65,10 +65,18 @@ public class OrderCheckoutActivity extends AppCompatActivity implements OrderChe
         binding.rbPackagingPaid.setOnClickListener(view -> {
             packaging_type = 1;
         });
+        binding.rbPaymentOnReceive.setOnClickListener(view -> {
+            payment_type = 0;
+        });
+
+        binding.rbOnlinePayment.setOnClickListener(view -> {
+            payment_type = 1;
+        });
         binding.btnPay.setOnClickListener(view -> {
             Intent intent = getIntent();
             intent.putExtra("delivery",delivery_type);
             intent.putExtra("packaging",packaging_type);
+            intent.putExtra("payment",payment_type);
             setResult(RESULT_OK,intent);
             finish();
         });

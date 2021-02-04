@@ -59,6 +59,7 @@ public class GeneralMethod {
                 }
                 else if (type == 3) {
                     endPoint = Tags.IMAGE_Product_URL + endPoint;
+
                 }else if (type == 4) {
                     endPoint = Tags.IMAGE_Product_Gallery_URL + endPoint;
                 }

@@ -199,7 +199,7 @@ public class ActivityCartPresenter {
         }
     }
 
-    public void updateDelivery(int delivery_type, int packaging_type) {
+    public void updateDelivery(int delivery_type, int packaging_type,int payment_type) {
         if (cartDataModel != null) {
             if (delivery_type == 1) {
                 cartDataModel.setDelivery_cost(50);
@@ -213,6 +213,13 @@ public class ActivityCartPresenter {
                 view.onPackagingPriceSuccess(15);
             } else {
                 view.onPackagingPriceSuccess(0);
+
+            }
+            if (payment_type == 1) {
+
+                view.onPaymentSuccess(1);
+            } else {
+                view.onPaymentSuccess(0);
 
             }
         }
