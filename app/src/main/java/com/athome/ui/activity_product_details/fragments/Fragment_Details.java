@@ -1,6 +1,8 @@
 package com.athome.ui.activity_product_details.fragments;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,5 +47,10 @@ public class Fragment_Details extends Fragment {
         }
 
         binding.setModel(productModel);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            binding.tvDetails.setText(Html.fromHtml(productModel.getDetails(), Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            binding.tvDetails.setText(Html.fromHtml(productModel.getDetails()));
+        }
     }
 }

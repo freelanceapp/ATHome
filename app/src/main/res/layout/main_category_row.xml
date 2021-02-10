@@ -30,8 +30,8 @@
             android:id="@+id/image"
             image="@{model.photo}"
             type="@{2}"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
            android:layout_gravity="center"
 
             >
@@ -48,7 +48,7 @@
             android:gravity="center"
             android:text="@{model.name}"
             android:textColor="@color/gray5"
-            android:textSize="11sp"
+            android:textSize="13sp"
             android:textStyle="bold"
             app:layout_constraintStart_toEndOf="@id/image"
             app:layout_constraintTop_toTopOf="parent"

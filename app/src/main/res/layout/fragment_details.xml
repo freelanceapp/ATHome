@@ -17,6 +17,7 @@
             android:layout_height="wrap_content"
             >
             <TextView
+                android:id="@+id/tvDetails"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/black"
@@ -24,7 +25,6 @@
                 android:background="@color/transparent"
                 android:gravity="center_vertical"
                 android:layout_margin="16dp"
-                android:text="@{model.details_clear}"
                 />
         </FrameLayout>
     </ScrollView>

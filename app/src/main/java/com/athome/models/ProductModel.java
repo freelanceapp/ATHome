@@ -56,6 +56,7 @@ public class ProductModel implements Serializable {
     private String is_catalog;
     private String catalog_id;
     private String details_clear;
+    private String details;
     private String policy_clear;
 
     private IsWishList is_wishlist;
@@ -276,6 +277,10 @@ public class ProductModel implements Serializable {
 
     public String getDetails_clear() {
         return details_clear;
+    }
+
+    public String getDetails() {
+        return details;
     }
 
     public String getPolicy_clear() {

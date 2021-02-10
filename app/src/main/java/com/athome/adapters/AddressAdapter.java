@@ -47,6 +47,10 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyHolder
             AddressModel model2 = list.get(holder.getAdapterPosition());
             activity.setItemSelect(model2);
         });
+        holder.binding.btnChoose.setOnClickListener(view -> {
+            AddressModel model2 = list.get(holder.getAdapterPosition());
+            activity.setItemSelect(model2);
+        });
         holder.binding.imageUpdate.setOnClickListener(view -> {
             AddressModel model2 = list.get(holder.getAdapterPosition());
             activity.updateAddress(model2,holder.getAdapterPosition());
