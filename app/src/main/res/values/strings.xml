@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">At Home</string>
-    <string name="map_api_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
-    <string name="search_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
+    <string name="map_api_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
+    <string name="search_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
     <string name="field_req">Field required</string>
     <string name="failed">Failed</string>
     <string name="terms_and_conditions">Terms And Conditions</string>
@@ -155,5 +155,6 @@
     <string name="other_products">Other products</string>
     <string name="my_points">My Points</string>
     <string name="choose">أختيار</string>
+    <string name="branches">Branches</string>
 
 </resources>

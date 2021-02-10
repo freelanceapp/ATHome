@@ -1,7 +1,6 @@
 package com.athome.adapters;
 
 import android.content.Context;
-import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.athome.R;
 import com.athome.databinding.ProductRowBinding;
-import com.athome.models.BankDataModel;
 import com.athome.models.ProductModel;
 import com.athome.ui.activity_home.fragments.Fragment_Home;
 
@@ -23,12 +21,14 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyHolder
     private Context context;
     private Fragment_Home fragment_home;
     private String type;
+    private String lang;
 
-    public ProductAdapter(List<ProductModel> list, Context context,Fragment_Home fragment_home,String type) {
+    public ProductAdapter(List<ProductModel> list, Context context, Fragment_Home fragment_home, String type, String lang) {
         this.list = list;
         this.context = context;
         this.fragment_home = fragment_home;
         this.type = type;
+        this.lang = lang;
 
 
     }
@@ -45,6 +45,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.MyHolder
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         ProductModel model = list.get(position);
         holder.binding.setModel(model);
+        holder.binding.setLang(lang);
         holder.itemView.setOnClickListener(view -> {
             ProductModel model2 = list.get(holder.getAdapterPosition());
             fragment_home.setProductItemModel(model2);

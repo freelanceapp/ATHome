@@ -270,7 +270,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         binding.progBar.setVisibility(View.VISIBLE);
         String location = lat + "," + lng;
         Api.getService("https://maps.googleapis.com/maps/api/")
-                .getGeoData(location, lang, getString(R.string.about_app))
+                .getGeoData(location, lang, getString(R.string.search_key))
                 .enqueue(new Callback<PlaceGeocodeData>() {
                     @Override
                     public void onResponse(Call<PlaceGeocodeData> call, Response<PlaceGeocodeData> response) {
@@ -281,6 +281,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
                             if (response.body().getResults().size() > 0) {
                                 binding.btnSelect.setVisibility(View.VISIBLE);
                                 address = response.body().getResults().get(0).getFormatted_address().replace("Unnamed Road,", "");
+                                Log.e("Da",address);
+
                                 binding.edtSearch.setText(address + "");
                                 binding.btnSelect.setVisibility(View.VISIBLE);
                             }

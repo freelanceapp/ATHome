@@ -14,11 +14,13 @@ public class ProductModel implements Serializable {
     private String childcategory_id;
     private String attributes;
     private String name="";
+    private String name_EN="";
     private String slug;
     private String photo;
     private String thumbnail;
     private String file;
     private String price;
+    private String details;
     private String previous_price;
     private String stock;
     private String policy;
@@ -56,7 +58,6 @@ public class ProductModel implements Serializable {
     private String is_catalog;
     private String catalog_id;
     private String details_clear;
-    private String details;
     private String policy_clear;
 
     private IsWishList is_wishlist;
@@ -293,6 +294,10 @@ public class ProductModel implements Serializable {
 
     public String getProduct_rate() {
         return product_rate;
+    }
+
+    public String getName_EN() {
+        return name_EN;
     }
 
     public List<GalleryModel> getGalleries() {

@@ -225,6 +225,7 @@ public interface Service {
     );
 
     @GET("api/GetProducts")
-    Call<CategoryDataModel> getProductsByAnyCategoryId(@Query("category_id") int category_id
+    Call<CategoryDataModel> getProductsByAnyCategoryId(@Query("category_id") int category_id,
+                                                       @Query("lang") String lang
     );
 }

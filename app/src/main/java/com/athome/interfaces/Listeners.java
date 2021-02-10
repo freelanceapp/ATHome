@@ -24,6 +24,7 @@ public interface Listeners {
         void onTerms();
         void onContactUs();
         void onMenu();
+        void onAddresses();
         void onFacebook();
         void onTwitter();
         void onInstagram();

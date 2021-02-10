@@ -35,6 +35,8 @@ import com.athome.ui.activity_products.ProductsActivity;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.paperdb.Paper;
+
 public class Fragment_Categories extends Fragment implements FragmentCategoryView {
     private FragmentCategoriesBinding binding;
     private HomeActivity activity;
@@ -46,7 +48,7 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
     private double lat = 0.0, lng = 0.0;
     private int selectedSubCategoryPos = 0;
     private SingleCategoryModel selectedSingleCategoryModel;
-
+    private String lang;
     public static Fragment_Categories newInstance(double lat, double lng, int selectedSubCategoryPos) {
         Bundle bundle = new Bundle();
         bundle.putDouble("lat", lat);
@@ -67,6 +69,8 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
 
     private void initView() {
         activity = (HomeActivity) getActivity();
+        Paper.init(activity);
+        lang = Paper.book().read("lang");
 
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -91,7 +95,7 @@ public class Fragment_Categories extends Fragment implements FragmentCategoryVie
         binding.recViewCategories.setAdapter(categoriesAdapter);
 
 
-        presenter = new FragmentCategoryPresenter(activity, this, lat, lng);
+        presenter = new FragmentCategoryPresenter(activity, this, lat, lng,lang);
         presenter.getCategory();
     }
 

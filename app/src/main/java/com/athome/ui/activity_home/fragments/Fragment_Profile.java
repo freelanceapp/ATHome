@@ -2,6 +2,7 @@ package com.athome.ui.activity_home.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -19,6 +20,9 @@ import com.athome.interfaces.Listeners;
 import com.athome.models.UserModel;
 import com.athome.preferences.Preferences;
 import com.athome.share.Common;
+import com.athome.tags.Tags;
+import com.athome.ui.activity_add_address.AddAddressActivity;
+import com.athome.ui.activity_address.AddressActivity;
 import com.athome.ui.activity_contact_us.ContactUsActivity;
 import com.athome.ui.activity_favorite.FavoriteActivity;
 import com.athome.ui.activity_home.HomeActivity;
@@ -117,6 +121,22 @@ public class Fragment_Profile extends Fragment implements Listeners.ProfileActio
         }else {
             Common.CreateDialogAlert(activity,getString(R.string.pls_signin_signup));
         }
+    }
+
+    @Override
+    public void onAddresses() {
+        String url = Tags.base_url+"branches";
+        String lang_url = "";
+        if (lang.equals("ar")){
+            lang_url = Tags.base_url+"language/2";
+        }else {
+            lang_url = Tags.base_url+"language/1";
+
+        }
+
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        startActivity(intent);
+
     }
 
     @Override

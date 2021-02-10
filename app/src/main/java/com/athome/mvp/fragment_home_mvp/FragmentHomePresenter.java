@@ -95,9 +95,9 @@ public class FragmentHomePresenter {
         view.onProgressCategoryShow();
         String type;
         if (lang.equals("ar")){
-            type="1";
-        }else {
             type="2";
+        }else {
+            type="1";
         }
         Api.getService(Tags.base_url)
                 .getCategory(type)

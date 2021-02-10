@@ -20,18 +20,24 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/Theme.WeZain">
-        <activity android:name=".ui.activity_order_details.OrderDetailsActivity"
+        android:theme="@style/Theme.WeZain"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".ui.activity_address.AddressActivity"
+
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize"
-            />
-        <activity android:name=".ui.activity_menu.MenuActivity"
+            ></activity>
+        <activity
+            android:name=".ui.activity_order_details.OrderDetailsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize"
-            />
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.activity_menu.MenuActivity"
+            android:configChanges="orientation|screenSize|keyboardHidden"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".ui.activity_contact_us.ContactUsActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"

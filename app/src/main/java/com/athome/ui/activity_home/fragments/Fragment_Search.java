@@ -65,7 +65,7 @@ public class Fragment_Search extends Fragment implements FragmentSearchView {
         productModelList = new ArrayList<>();
         binding.progBar.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity,R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.recView.setLayoutManager(new LinearLayoutManager(activity));
-        searchAdapter = new SearchAdapter(productModelList,activity,this);
+        searchAdapter = new SearchAdapter(productModelList,activity,this,lang);
         binding.recView.setLayoutManager(new GridLayoutManager(activity,2));
         binding.recView.setAdapter(searchAdapter);
         presenter = new FragmentSearchPresenter(activity,this,0.0,0.0);

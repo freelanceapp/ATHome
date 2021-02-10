@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">آت هوم</string>
-    <string name="map_api_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
-    <string name="search_key">AIzaSyAeyMUJgKAhnNXbILHONb1um72CNzELFRY</string>
+    <string name="map_api_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
+    <string name="search_key">AIzaSyAnjvMAJEmiAv3yeCDUXWv-PboXiT_uaoQ</string>
     <string name="field_req">الحقل مطلوب</string>
     <string name="terms_and_conditions">الشروط والاحكام</string>
     <string name="enter_verification_code">ادخل كود التحقق</string>
@@ -156,5 +156,6 @@
     <string name="other_products">منتجات اخرى</string>
     <string name="my_points">نقاطى</string>
     <string name="choose">أختيار</string>
+    <string name="branches">الفروع</string>
 
 </resources>

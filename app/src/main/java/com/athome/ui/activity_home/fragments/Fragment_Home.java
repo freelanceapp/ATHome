@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -99,12 +98,12 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.progBarOffer.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
         binding.progBarOtherProducts.getIndeterminateDrawable().setColorFilter(ContextCompat.getColor(activity, R.color.colorPrimary), PorterDuff.Mode.SRC_IN);
 
-        featuredProductAdapter = new ProductAdapter(featuredProductList, activity,this,"1");
+        featuredProductAdapter = new ProductAdapter(featuredProductList, activity,this,"1",lang);
         binding.recViewFeaturedProducts.setLayoutManager(new GridLayoutManager(activity,2,RecyclerView.HORIZONTAL, false));
         binding.recViewFeaturedProducts.setAdapter(featuredProductAdapter);
 
 
-        mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity,this,"2");
+        mostSellerAdapter = new ProductAdapter(mostSellerProductList, activity,this,"2", lang);
         binding.recViewMostSeller.setLayoutManager(new GridLayoutManager(activity,2,RecyclerView.HORIZONTAL, false));
         binding.recViewMostSeller.setAdapter(mostSellerAdapter);
 
@@ -114,7 +113,7 @@ public class Fragment_Home extends Fragment implements FragmentHomeView {
         binding.recViewOffer.setAdapter(offerProductAdapter);
 
 
-        otherProductAdapter = new ProductAdapter(otherProductList, activity,this,"4");
+        otherProductAdapter = new ProductAdapter(otherProductList, activity,this,"4", lang);
         binding.recViewOtherProducts.setLayoutManager(new GridLayoutManager(activity,2));
         binding.recViewOtherProducts.setAdapter(otherProductAdapter);
 

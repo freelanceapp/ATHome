@@ -21,11 +21,13 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> 
     private List<ProductModel> list;
     private Context context;
     private Fragment_Search fragment_search;
+    private String lang;
 
-    public SearchAdapter(List<ProductModel> list, Context context,Fragment_Search fragment_search) {
+    public SearchAdapter(List<ProductModel> list, Context context, Fragment_Search fragment_search, String lang) {
         this.list = list;
         this.context = context;
         this.fragment_search = fragment_search;
+        this.lang = lang;
 
 
     }
@@ -42,23 +44,24 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.MyHolder> 
     public void onBindViewHolder(@NonNull final MyHolder holder, int position) {
         ProductModel model = list.get(position);
         holder.binding.setModel(model);
+        holder.binding.setLang(lang);
         holder.itemView.setOnClickListener(view -> {
             ProductModel model2 = list.get(holder.getAdapterPosition());
-            fragment_search.setProductItemModel(model2,holder.getAdapterPosition());
+            fragment_search.setProductItemModel(model2, holder.getAdapterPosition());
 
         });
         holder.binding.checkbox.setOnClickListener(view -> {
             ProductModel model2 = list.get(holder.getAdapterPosition());
-            if (holder.binding.checkbox.isChecked()){
+            if (holder.binding.checkbox.isChecked()) {
                 model2.setIs_wishlist(new ProductModel.IsWishList());
 
-            }else {
+            } else {
                 model2.setIs_wishlist(null);
 
             }
-            list.set(holder.getAdapterPosition(),model2);
+            list.set(holder.getAdapterPosition(), model2);
             notifyItemChanged(holder.getAdapterPosition());
-            fragment_search.add_remove_favorite(model2,holder.getAdapterPosition());
+            fragment_search.add_remove_favorite(model2, holder.getAdapterPosition());
         });
 
     }

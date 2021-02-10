@@ -32,14 +32,14 @@ public class FragmentCategoryPresenter {
     private double lat = 0.0, lng = 0.0;
     private String lang="ar";
 
-    public FragmentCategoryPresenter(Context context, FragmentCategoryView view, double lat, double lng) {
+    public FragmentCategoryPresenter(Context context, FragmentCategoryView view, double lat, double lng, String lang) {
         this.context = context;
         this.view = view;
         preference = Preferences.getInstance();
         userModel = preference.getUserData(context);
         this.lat = lat;
         this.lng = lng;
-        lang = Paper.book().read("lang","ar");
+        this.lang = Paper.book().read("lang","ar");
 
     }
 
@@ -50,9 +50,9 @@ public class FragmentCategoryPresenter {
         view.onProgressCategoryShow();
         String type;
         if (lang.equals("ar")){
-            type="1";
-        }else {
             type="2";
+        }else {
+            type="1";
         }
         Api.getService(Tags.base_url)
                 .getCategory(type)
@@ -110,8 +110,14 @@ public class FragmentCategoryPresenter {
     public void getSubCategory(int category_id)
     {
         view.onProgressSubCategoryShow();
+        String type;
+        if (lang.equals("ar")){
+            type="2";
+        }else {
+            type="1";
+        }
         Api.getService(Tags.base_url)
-                .getProductsByAnyCategoryId(category_id)
+                .getProductsByAnyCategoryId(category_id,type)
                 .enqueue(new Callback<CategoryDataModel>() {
                     @Override
                     public void onResponse(Call<CategoryDataModel> call, Response<CategoryDataModel> response) {
